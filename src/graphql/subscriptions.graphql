@@ -1,0 +1,460 @@
+# this is an auto generated file. This will be overwritten
+subscription SubscribeToNewMessage($conversationId: ID!) {
+  subscribeToNewMessage(conversationId: $conversationId) {
+    author {
+      cognitoId
+      id
+      username
+      registered
+    }
+    content
+    conversationId
+    createdAt
+    id
+    isSent
+    recipient {
+      cognitoId
+      id
+      username
+      registered
+    }
+    sender
+  }
+}
+subscription SubscribeToNewUCs($userId: ID!) {
+  subscribeToNewUCs(userId: $userId) {
+    associated {
+      conversationId
+      userId
+    }
+    conversation {
+      createdAt
+      id
+      name
+    }
+    conversationId
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+  }
+}
+subscription SubscribeToNewUsers {
+  subscribeToNewUsers {
+    cognitoId
+    conversations {
+      nextToken
+    }
+    id
+    messages {
+      nextToken
+    }
+    username
+    registered
+  }
+}
+subscription OnCreateOrganisation(
+  $id: ID
+  $name: String
+  $description: String
+) {
+  onCreateOrganisation(id: $id, name: $name, description: $description) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+subscription OnUpdateOrganisation(
+  $id: ID
+  $name: String
+  $description: String
+) {
+  onUpdateOrganisation(id: $id, name: $name, description: $description) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+subscription OnDeleteOrganisation(
+  $id: ID
+  $name: String
+  $description: String
+) {
+  onDeleteOrganisation(id: $id, name: $name, description: $description) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+subscription OnCreateLocation(
+  $id: ID
+  $name: String
+  $description: String
+  $lat: Float
+  $lng: Float
+) {
+  onCreateLocation(
+    id: $id
+    name: $name
+    description: $description
+    lat: $lat
+    lng: $lng
+  ) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+subscription OnUpdateLocation(
+  $id: ID
+  $name: String
+  $description: String
+  $lat: Float
+  $lng: Float
+) {
+  onUpdateLocation(
+    id: $id
+    name: $name
+    description: $description
+    lat: $lat
+    lng: $lng
+  ) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+subscription OnDeleteLocation(
+  $id: ID
+  $name: String
+  $description: String
+  $lat: Float
+  $lng: Float
+) {
+  onDeleteLocation(
+    id: $id
+    name: $name
+    description: $description
+    lat: $lat
+    lng: $lng
+  ) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+subscription OnCreateTopography($id: ID, $title: String) {
+  onCreateTopography(id: $id, title: $title) {
+    id
+    title
+  }
+}
+subscription OnUpdateTopography($id: ID, $title: String) {
+  onUpdateTopography(id: $id, title: $title) {
+    id
+    title
+  }
+}
+subscription OnDeleteTopography($id: ID, $title: String) {
+  onDeleteTopography(id: $id, title: $title) {
+    id
+    title
+  }
+}
+subscription OnCreateRun(
+  $id: ID
+  $title: String
+  $description: String
+  $confirmation: String
+  $paceFrom: AWSTime
+) {
+  onCreateRun(
+    id: $id
+    title: $title
+    description: $description
+    confirmation: $confirmation
+    paceFrom: $paceFrom
+  ) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+subscription OnUpdateRun(
+  $id: ID
+  $title: String
+  $description: String
+  $confirmation: String
+  $paceFrom: AWSTime
+) {
+  onUpdateRun(
+    id: $id
+    title: $title
+    description: $description
+    confirmation: $confirmation
+    paceFrom: $paceFrom
+  ) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+subscription OnDeleteRun(
+  $id: ID
+  $title: String
+  $description: String
+  $confirmation: String
+  $paceFrom: AWSTime
+) {
+  onDeleteRun(
+    id: $id
+    title: $title
+    description: $description
+    confirmation: $confirmation
+    paceFrom: $paceFrom
+  ) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+subscription OnCreateSession(
+  $id: ID
+  $runId: ID
+  $date: AWSDate
+  $time: AWSTime
+  $description: String
+) {
+  onCreateSession(
+    id: $id
+    runId: $runId
+    date: $date
+    time: $time
+    description: $description
+  ) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}
+subscription OnUpdateSession(
+  $id: ID
+  $runId: ID
+  $date: AWSDate
+  $time: AWSTime
+  $description: String
+) {
+  onUpdateSession(
+    id: $id
+    runId: $runId
+    date: $date
+    time: $time
+    description: $description
+  ) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}
+subscription OnDeleteSession(
+  $id: ID
+  $runId: ID
+  $date: AWSDate
+  $time: AWSTime
+  $description: String
+) {
+  onDeleteSession(
+    id: $id
+    runId: $runId
+    date: $date
+    time: $time
+    description: $description
+  ) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}

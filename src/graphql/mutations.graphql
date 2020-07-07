@@ -1,0 +1,360 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateConversation($createdAt: String, $id: ID!, $name: String!) {
+  createConversation(createdAt: $createdAt, id: $id, name: $name) {
+    createdAt
+    id
+    messages {
+      nextToken
+    }
+    name
+  }
+}
+mutation CreateMessage(
+  $content: String
+  $conversationId: ID!
+  $createdAt: String!
+  $id: ID!
+) {
+  createMessage(
+    content: $content
+    conversationId: $conversationId
+    createdAt: $createdAt
+    id: $id
+  ) {
+    author {
+      cognitoId
+      id
+      username
+      registered
+    }
+    content
+    conversationId
+    createdAt
+    id
+    isSent
+    recipient {
+      cognitoId
+      id
+      username
+      registered
+    }
+    sender
+  }
+}
+mutation CreateUser($username: String!) {
+  createUser(username: $username) {
+    cognitoId
+    conversations {
+      nextToken
+    }
+    id
+    messages {
+      nextToken
+    }
+    username
+    registered
+  }
+}
+mutation CreateUserConversations($conversationId: ID!, $userId: ID!) {
+  createUserConversations(conversationId: $conversationId, userId: $userId) {
+    associated {
+      conversationId
+      userId
+    }
+    conversation {
+      createdAt
+      id
+      name
+    }
+    conversationId
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+  }
+}
+mutation CreateOrganisation($input: CreateOrganisationInput!) {
+  createOrganisation(input: $input) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+mutation UpdateOrganisation($input: UpdateOrganisationInput!) {
+  updateOrganisation(input: $input) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+mutation DeleteOrganisation($input: DeleteOrganisationInput!) {
+  deleteOrganisation(input: $input) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+mutation CreateLocation($input: CreateLocationInput!) {
+  createLocation(input: $input) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+mutation UpdateLocation($input: UpdateLocationInput!) {
+  updateLocation(input: $input) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+mutation DeleteLocation($input: DeleteLocationInput!) {
+  deleteLocation(input: $input) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+mutation CreateTopography($input: CreateTopographyInput!) {
+  createTopography(input: $input) {
+    id
+    title
+  }
+}
+mutation UpdateTopography($input: UpdateTopographyInput!) {
+  updateTopography(input: $input) {
+    id
+    title
+  }
+}
+mutation DeleteTopography($input: DeleteTopographyInput!) {
+  deleteTopography(input: $input) {
+    id
+    title
+  }
+}
+mutation CreateRun($input: CreateRunInput!) {
+  createRun(input: $input) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+mutation UpdateRun($input: UpdateRunInput!) {
+  updateRun(input: $input) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+mutation DeleteRun($input: DeleteRunInput!) {
+  deleteRun(input: $input) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+mutation CreateSession($input: CreateSessionInput!) {
+  createSession(input: $input) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}
+mutation UpdateSession($input: UpdateSessionInput!) {
+  updateSession(input: $input) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}
+mutation DeleteSession($input: DeleteSessionInput!) {
+  deleteSession(input: $input) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}

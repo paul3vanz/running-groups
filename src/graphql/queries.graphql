@@ -1,0 +1,312 @@
+# this is an auto generated file. This will be overwritten
+query AllMessage($after: String, $conversationId: ID!, $first: Int) {
+  allMessage(after: $after, conversationId: $conversationId, first: $first) {
+    author {
+      cognitoId
+      id
+      username
+      registered
+    }
+    content
+    conversationId
+    createdAt
+    id
+    isSent
+    recipient {
+      cognitoId
+      id
+      username
+      registered
+    }
+    sender
+  }
+}
+query AllMessageConnection($after: String, $conversationId: ID!, $first: Int) {
+  allMessageConnection(
+    after: $after
+    conversationId: $conversationId
+    first: $first
+  ) {
+    messages {
+      content
+      conversationId
+      createdAt
+      id
+      isSent
+      sender
+    }
+    nextToken
+  }
+}
+query AllMessageFrom(
+  $after: String
+  $conversationId: ID!
+  $first: Int
+  $sender: String!
+) {
+  allMessageFrom(
+    after: $after
+    conversationId: $conversationId
+    first: $first
+    sender: $sender
+  ) {
+    author {
+      cognitoId
+      id
+      username
+      registered
+    }
+    content
+    conversationId
+    createdAt
+    id
+    isSent
+    recipient {
+      cognitoId
+      id
+      username
+      registered
+    }
+    sender
+  }
+}
+query AllUser($after: String, $first: Int) {
+  allUser(after: $after, first: $first) {
+    cognitoId
+    conversations {
+      nextToken
+    }
+    id
+    messages {
+      nextToken
+    }
+    username
+    registered
+  }
+}
+query Me {
+  me {
+    cognitoId
+    conversations {
+      nextToken
+    }
+    id
+    messages {
+      nextToken
+    }
+    username
+    registered
+  }
+}
+query GetOrganisation($id: ID!, $name: String!) {
+  getOrganisation(id: $id, name: $name) {
+    id
+    name
+    description
+    users {
+      cognitoId
+      id
+      username
+      registered
+    }
+  }
+}
+query ListOrganisations(
+  $filter: TableOrganisationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listOrganisations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+    }
+    nextToken
+  }
+}
+query GetLocation($id: ID!) {
+  getLocation(id: $id) {
+    id
+    name
+    description
+    lat
+    lng
+    user {
+      cognitoId
+      id
+      username
+      registered
+    }
+    userId
+    organisationId
+  }
+}
+query ListLocations(
+  $filter: TableLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    nextToken
+  }
+}
+query GetTopography($id: ID!, $title: String!) {
+  getTopography(id: $id, title: $title) {
+    id
+    title
+  }
+}
+query ListTopographies(
+  $filter: TableTopographyFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTopographies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+    }
+    nextToken
+  }
+}
+query GetRun($id: ID!, $title: String!) {
+  getRun(id: $id, title: $title) {
+    id
+    title
+    description
+    confirmation
+    paceFrom
+    paceTo
+    distance
+    topography {
+      id
+      title
+    }
+    cost
+    capacity
+    location {
+      id
+      name
+      description
+      lat
+      lng
+      userId
+      organisationId
+    }
+    locationId
+    leader {
+      cognitoId
+      id
+      username
+      registered
+    }
+    leaderId
+    organisationId
+  }
+}
+query ListRuns($filter: TableRunFilterInput, $limit: Int, $nextToken: String) {
+  listRuns(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    nextToken
+  }
+}
+query QueryRunsByIdPaceIndex($id: ID!, $first: Int, $after: String) {
+  queryRunsByIdPaceIndex(id: $id, first: $first, after: $after) {
+    items {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    nextToken
+  }
+}
+query QueryRunsByIdDistanceIndex($id: ID!, $first: Int, $after: String) {
+  queryRunsByIdDistanceIndex(id: $id, first: $first, after: $after) {
+    items {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    nextToken
+  }
+}
+query GetSession($id: ID!, $date: AWSDate!) {
+  getSession(id: $id, date: $date) {
+    id
+    run {
+      id
+      title
+      description
+      confirmation
+      paceFrom
+      paceTo
+      distance
+      cost
+      capacity
+      locationId
+      leaderId
+      organisationId
+    }
+    runId
+    date
+    time
+    description
+  }
+}
+query ListSessions(
+  $filter: TableSessionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      runId
+      date
+      time
+      description
+    }
+    nextToken
+  }
+}

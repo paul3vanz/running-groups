@@ -14,8 +14,12 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {}
+    "baseUrl": "./",
+    "paths": {
+      "@running-groups/shared-ui": ["libs/shared-ui/src/index.ts"],
+      "@running-groups/api": ["libs/api/src/index.ts"],
+      "@running-groups/auth": ["libs/auth/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

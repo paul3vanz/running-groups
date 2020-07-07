@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  background-color: #222;
+  border-radius: 50%;
+}
+
+.subtitle {
+  margin-bottom: 0;
+}
+
+button {
+  margin-bottom: 1rem;
+}

@@ -28,6 +28,15 @@
     "running-groups-e2e": {
       "tags": [],
       "implicitDependencies": ["running-groups"]
+    },
+    "shared-ui": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    },
+    "auth": {
+      "tags": []
     }
   }
 }

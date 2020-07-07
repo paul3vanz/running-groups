@@ -1,0 +1,18 @@
+projects:
+  Running Groups:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.graphql
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: angular
+        generatedFileName: libs/api/src/lib/api.service.ts
+        docsFilePath: src/graphql
+        region: us-east-1
+        apiId: hilxhgzrpba4fchwlibvc6aqb4
+        maxDepth: 2
+extensions:
+  amplify:
+    version: 3
