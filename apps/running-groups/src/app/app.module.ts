@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import Amplify from '@aws-amplify/core';
 
 import awsconfig from '../../../../aws-exports';
+import { RouteService } from './services/route.service';
 
 Amplify.configure(awsconfig);
 @NgModule({
@@ -34,7 +35,7 @@ Amplify.configure(awsconfig);
     MatProgressBarModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [ RouteService ],
   bootstrap: [ AppComponent ],
 })
 export class AppModule {}

@@ -14,13 +14,16 @@ export class AuthPageComponent implements OnInit {
       .getUser()
       .pipe(
         take(1),
-        map((error) => {
-          this.router.navigate([ '/profile' ]);
+        map((user) => {
+          console.log('logged in', user);
+          if (user) {
+            this.router.navigate([ '/profile' ]);
+          }
 
           return EMPTY;
         })
       )
-      .subscribe(console.log);
+      .subscribe();
   }
 
   ngOnInit(): void {}

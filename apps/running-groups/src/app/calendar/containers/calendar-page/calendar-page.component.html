@@ -17,8 +17,9 @@
 </mat-card>
 
 <mat-card class="card" *ngIf="runs && runs.length">
+    <pre>{{ runs | json }}</pre>
     <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let run of runs">{{ run | json }}</mat-list-item>
+        <mat-list-item role="listitem" *ngFor="let run of runs"></mat-list-item>
     </mat-list>
 </mat-card>
 
