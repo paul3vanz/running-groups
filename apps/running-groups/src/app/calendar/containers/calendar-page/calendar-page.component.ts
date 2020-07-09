@@ -15,12 +15,6 @@ export class CalendarPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onLoadOrganisations(): void {
-    this.apiService.ListOrganisations().then(({ items }) => {
-      this.organisations = items;
-    });
-  }
-
   onLoadTopographies() {
     this.apiService.ListTopographies().then(({ items }) => {
       this.topographies = items;

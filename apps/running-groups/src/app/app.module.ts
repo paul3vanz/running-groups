@@ -12,6 +12,7 @@ import { AuthModule } from '@running-groups/auth';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './routing.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import Amplify from '@aws-amplify/core';
 
@@ -30,6 +31,7 @@ Amplify.configure(awsconfig);
     MatIconModule,
     MatToolbarModule,
     MatTabsModule,
+    MatProgressBarModule,
     AppRoutingModule,
   ],
   providers: [],

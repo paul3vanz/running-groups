@@ -1,17 +1,25 @@
-<mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-    </button>
-    <span>Black Pear Joggers</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>account_circle</mat-icon>
-    </button>
-</mat-toolbar>
+<header>
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
 
-<nav mat-tab-nav-bar>
-    <a mat-tab-link>Clubs</a>
-    <a mat-tab-link>Calendar</a>
-  </nav>
+        <span>Black Pear Joggers</span>
+
+        <span class="example-spacer"></span>
+
+        <button routerLink="/auth" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <nav mat-tab-nav-bar>
+        <a mat-tab-link routerLink="/clubs">Clubs</a>
+
+        <a mat-tab-link routerLink="/calendar">Calendar</a>
+    </nav>
+
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</header>
 
 <router-outlet></router-outlet>

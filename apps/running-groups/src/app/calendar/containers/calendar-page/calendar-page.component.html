@@ -1,18 +1,8 @@
-<button mat-stroked-button color="primary" (click)="onLoadOrganisations()">Load organisations</button>
-
 <button mat-stroked-button color="primary" (click)="onLoadTopographies()">Load topographies</button>
 
 <button mat-stroked-button color="primary" (click)="onLoadLocations()">Load locations</button>
 
 <button mat-stroked-button color="primary" (click)="onLoadRuns()">Load runs</button>
-
-<mat-card class="card" *ngFor="let organisation of organisations">
-    <mat-card-header>
-        <div mat-card-avatar class="avatar"></div>
-        <mat-card-title>{{ organisation.name }}</mat-card-title>
-        <mat-card-subtitle class="subtitle">{{ organisation.description }}</mat-card-subtitle>
-    </mat-card-header>
-</mat-card>
 
 <mat-card class="card" *ngIf="topographies && topographies.length">
     <mat-list role="list">

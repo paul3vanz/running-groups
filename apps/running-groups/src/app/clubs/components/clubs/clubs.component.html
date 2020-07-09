@@ -1,0 +1,25 @@
+<div class="wrapper">
+    <mat-card>
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Find a club...</mat-label>
+
+            <input matInput placeholder="e.g. Black Pear Joggers">
+        </mat-form-field>
+
+        <div class="card" *ngFor="let organisation of organisations">
+            <mat-card-header>
+                <div mat-card-avatar class="avatar"></div>
+
+                <mat-card-title>{{ organisation.name }}</mat-card-title>
+
+                <mat-card-subtitle class="subtitle">{{ organisation.description }}</mat-card-subtitle>
+            </mat-card-header>
+        </div>
+    </mat-card>
+</div>
+
+<div class="wrapper">
+    <p class="new-club-link">
+        <a routerLink="/calendar" class="link">Create a new club</a>
+    </p>
+</div>

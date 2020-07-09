@@ -10,10 +10,23 @@ const routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    data: {
+      title: 'Your account',
+    },
   },
   {
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then((m) => m.CalendarModule),
+    data: {
+      title: 'Calendar',
+    },
+  },
+  {
+    path: 'clubs',
+    loadChildren: () => import('./clubs/clubs.module').then((m) => m.ClubsModule),
+    data: {
+      title: 'Clubs',
+    },
   },
 ];
 
