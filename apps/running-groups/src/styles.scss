@@ -11,3 +11,13 @@ body {
 .wrapper {
   padding: 0 1rem;
 }
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+}

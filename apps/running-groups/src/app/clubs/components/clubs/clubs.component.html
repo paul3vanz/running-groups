@@ -3,7 +3,7 @@
         <mat-form-field appearance="outline" class="search-field">
             <mat-label>Find a club...</mat-label>
 
-            <input matInput placeholder="e.g. Black Pear Joggers">
+            <input matInput [(ngModel)]="keywords" (change)="onSearch(keywords)" placeholder="e.g. Black Pear Joggers">
         </mat-form-field>
 
         <div class="card" *ngFor="let organisation of organisations">
@@ -20,6 +20,10 @@
 
 <div class="wrapper">
     <p class="new-club-link">
-        <a routerLink="/calendar" class="link">Create a new club</a>
+        <a routerLink="/calendar" class="icon-link">
+            <mat-icon class="icon">add_circle</mat-icon>
+
+            <span class="link">Create a new club</span>
+        </a>
     </p>
 </div>

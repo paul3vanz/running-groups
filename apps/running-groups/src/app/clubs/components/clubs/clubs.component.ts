@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'running-groups-clubs',
@@ -7,9 +7,17 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClubsComponent implements OnInit {
+  keywords: string;
+
   @Input() organisations: any[];
+
+  @Output() search = new EventEmitter<string>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onSearch(keywords: string): void {
+    this.search.emit(keywords);
+  }
 }

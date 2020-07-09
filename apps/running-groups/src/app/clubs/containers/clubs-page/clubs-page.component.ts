@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { APIService } from '@running-groups/api';
 
 @Component({
@@ -20,5 +20,9 @@ export class ClubsPageComponent implements OnInit {
     this.apiService.ListOrganisations().then(({ items }) => {
       this.organisations = items;
     });
+  }
+
+  onSearch(keywords: string): void {
+    console.log(keywords);
   }
 }
