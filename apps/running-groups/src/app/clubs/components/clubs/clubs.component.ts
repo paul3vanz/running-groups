@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
+import { Organisation } from '../../../core/models/organisation.model';
+
 @Component({
   selector: 'running-groups-clubs',
   templateUrl: './clubs.component.html',
@@ -9,7 +11,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 export class ClubsComponent implements OnInit {
   keywords: string;
 
-  @Input() organisations: any[];
+  @Input() organisations: Organisation[];
 
   @Output() search = new EventEmitter<string>();
 

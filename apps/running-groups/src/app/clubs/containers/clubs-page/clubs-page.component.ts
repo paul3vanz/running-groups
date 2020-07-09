@@ -11,18 +11,24 @@ export class ClubsPageComponent implements OnInit {
   constructor(private apiService: APIService) {}
 
   ngOnInit(): void {
-    this.apiService.ListOrganisations().then(({ items }) => {
-      this.organisations = items;
-    });
+    // this.apiService.ListOrganisations().then(({ items }) => {
+    //   this.organisations = items;
+    // });
   }
 
-  onLoadOrganisations(): void {
-    this.apiService.ListOrganisations().then(({ items }) => {
-      this.organisations = items;
-    });
+  onLoadOrganisations(keywords: string): void {
+    this.apiService
+      .ListOrganisations({
+        name: {
+          contains: keywords,
+        },
+      })
+      .then(({ items }) => {
+        this.organisations = items;
+      });
   }
 
   onSearch(keywords: string): void {
-    console.log(keywords);
+    this.onLoadOrganisations(keywords);
   }
 }

@@ -3,7 +3,7 @@
         <mat-form-field appearance="outline" class="search-field">
             <mat-label>Find a club...</mat-label>
 
-            <input matInput [(ngModel)]="keywords" (change)="onSearch(keywords)" placeholder="e.g. Black Pear Joggers">
+            <input matInput [(ngModel)]="keywords" (keyup)="onSearch(keywords)" placeholder="e.g. Black Pear Joggers">
         </mat-form-field>
 
         <div class="card" *ngFor="let organisation of organisations">
