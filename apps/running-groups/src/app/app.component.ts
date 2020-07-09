@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'running-groups-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: [ './app.component.scss' ],
 })
 export class AppComponent {
-  title = 'running-groups';
+  isLoading: boolean;
+  pageTitle: string;
+
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((routeData: any) => (this.pageTitle = routeData.url));
+  }
 }

@@ -28,6 +28,13 @@ const routes = [
       title: 'Clubs',
     },
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
+    data: {
+      title: 'Profile',
+    },
+  },
 ];
 
 @NgModule({

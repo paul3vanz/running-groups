@@ -4,22 +4,22 @@
             <mat-icon>menu</mat-icon>
         </button>
 
-        <span>Black Pear Joggers</span>
+        <span>{{ pageTitle }}</span>
 
         <span class="example-spacer"></span>
 
-        <button routerLink="/auth" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button routerLink="/profile" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
             <mat-icon>account_circle</mat-icon>
         </button>
     </mat-toolbar>
 
-    <nav mat-tab-nav-bar>
+    <!-- <nav mat-tab-nav-bar>
         <a mat-tab-link routerLink="/clubs">Clubs</a>
 
         <a mat-tab-link routerLink="/calendar">Calendar</a>
-    </nav>
+    </nav> -->
 
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </header>
 
 <router-outlet></router-outlet>

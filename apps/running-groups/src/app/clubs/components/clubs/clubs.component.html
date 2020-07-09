@@ -6,8 +6,11 @@
             <input matInput [(ngModel)]="keywords" (keyup)="onSearch(keywords)" placeholder="e.g. Black Pear Joggers">
         </mat-form-field>
 
-        <div class="card" *ngFor="let organisation of organisations">
-            <mat-card-header>
+        <div
+            class="card"
+            *ngFor="let organisation of organisations"
+        >
+            <mat-card-header (click)="onSelectOrganisation(organisation.id)">
                 <div mat-card-avatar class="avatar">{{ organisation.name | initials : 3 }}</div>
 
                 <mat-card-title>{{ organisation.name }}</mat-card-title>
@@ -20,7 +23,7 @@
 
 <div class="wrapper">
     <p class="new-club-link">
-        <a routerLink="/calendar" class="icon-link">
+        <a routerLink="/clubs/add" class="icon-link">
             <mat-icon class="icon">add_circle</mat-icon>
 
             <span class="link">Create a new club</span>

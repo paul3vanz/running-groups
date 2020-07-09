@@ -14,6 +14,7 @@ export class ClubsComponent implements OnInit {
   @Input() organisations: Organisation[];
 
   @Output() search = new EventEmitter<string>();
+  @Output() selectOrganisation = new EventEmitter<string>();
 
   constructor() {}
 
@@ -21,5 +22,9 @@ export class ClubsComponent implements OnInit {
 
   onSearch(keywords: string): void {
     this.search.emit(keywords);
+  }
+
+  onSelectOrganisation(organisationId: string): void {
+    this.selectOrganisation.emit(organisationId);
   }
 }

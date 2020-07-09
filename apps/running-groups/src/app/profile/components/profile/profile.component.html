@@ -1,0 +1,22 @@
+<div class="wrapper" *ngIf="user">
+    <mat-card>
+        <mat-card-title>
+            Your name
+        </mat-card-title>
+        <mat-card-subtitle>
+            <span>{{ user?.email }}</span>
+        </mat-card-subtitle>
+    </mat-card>
+</div>
+
+<div class="wrapper">
+    <mat-card>
+            <mat-card-title>
+                Groups booked
+            </mat-card-title>
+        <mat-card-content>
+            <p>No groups booked</p>
+            <p><a href="#" routerLink="/calendar">Find a group</a></p>
+        </mat-card-content>
+    </mat-card>
+</div>

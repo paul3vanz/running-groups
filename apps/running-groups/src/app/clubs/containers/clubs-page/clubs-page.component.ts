@@ -1,5 +1,5 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { APIService } from '@running-groups/api';
+import { Component, OnInit } from '@angular/core';
+import { OrganisationService } from '@running-groups/api';
 
 @Component({
   templateUrl: './clubs-page.component.html',
@@ -8,17 +8,13 @@ import { APIService } from '@running-groups/api';
 export class ClubsPageComponent implements OnInit {
   organisations: any[];
 
-  constructor(private apiService: APIService) {}
+  constructor(private organisationService: OrganisationService) {}
 
-  ngOnInit(): void {
-    // this.apiService.ListOrganisations().then(({ items }) => {
-    //   this.organisations = items;
-    // });
-  }
+  ngOnInit(): void {}
 
   onLoadOrganisations(keywords: string): void {
-    this.apiService
-      .ListOrganisations({
+    this.organisationService
+      .listOrganisations({
         name: {
           contains: keywords,
         },
@@ -30,5 +26,9 @@ export class ClubsPageComponent implements OnInit {
 
   onSearch(keywords: string): void {
     this.onLoadOrganisations(keywords);
+  }
+
+  onSelectOrganisation(organisationId: string): void {
+    this.organisationService.setActiveOrganisation(organisationId);
   }
 }
