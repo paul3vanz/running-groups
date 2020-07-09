@@ -8,7 +8,7 @@
 
         <div class="card" *ngFor="let organisation of organisations">
             <mat-card-header>
-                <div mat-card-avatar class="avatar"></div>
+                <div mat-card-avatar class="avatar">{{ organisation.name | initials : 3 }}</div>
 
                 <mat-card-title>{{ organisation.name }}</mat-card-title>
 

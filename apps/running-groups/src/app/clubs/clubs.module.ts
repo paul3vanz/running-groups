@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { PipesModule } from '../core/pipes/pipes.module';
 
 @NgModule({
   declarations: [ ClubsPageComponent, ClubsComponent ],
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
       },
     ]),
     AmplifyUIAngularModule,
+    PipesModule,
   ],
 })
 export class ClubsModule {}

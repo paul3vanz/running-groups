@@ -6,6 +6,11 @@
 .avatar {
   background-color: #ccc;
   border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  line-height: 40px;
+  color: #fff;
 }
 
 .search-field {
