@@ -1,8 +1,6 @@
-<button mat-stroked-button color="primary" (click)="onLoadTopographies()">Load topographies</button>
+<!-- <button mat-stroked-button color="primary" (click)="onLoadTopographies()">Load topographies</button> -->
 
-<button mat-stroked-button color="primary" (click)="onLoadLocations()">Load locations</button>
-
-<button mat-stroked-button color="primary" (click)="onLoadRuns()">Load runs</button>
+<!-- <button mat-stroked-button color="primary" (click)="onLoadLocations()">Load locations</button> -->
 
 <mat-card class="card" *ngIf="topographies && topographies.length">
     <mat-list role="list">
@@ -16,11 +14,27 @@
     </mat-list>
 </mat-card>
 
-<mat-card class="card" *ngIf="runs && runs.length">
-    <pre>{{ runs | json }}</pre>
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let run of runs"></mat-list-item>
-    </mat-list>
-</mat-card>
+<ng-container *ngFor="let run of runs">
+    <mat-card class="card">
+        <mat-card-title>
+            {{ run.title }}
+        </mat-card-title>
+
+        <mat-card-subtitle>
+            {{ run.paceFrom }}-{{ run.paceTo }}/mile for {{ run.distance }} miles
+        </mat-card-subtitle>
+
+        <mat-card-content>
+            {{ run.description }}
+            {{ run.capacity }} places
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-button (click)="onBook(run.id)">Book</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <running-clubs-run-card [run]="run"></running-clubs-run-card>
+</ng-container>
 
 <running-groups-calendar-list></running-groups-calendar-list>

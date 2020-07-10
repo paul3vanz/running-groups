@@ -13,7 +13,9 @@ export class CalendarPageComponent implements OnInit {
 
   constructor(private apiService: APIService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.onLoadRuns();
+  }
 
   onLoadTopographies() {
     this.apiService.ListTopographies().then(({ items }) => {
@@ -29,5 +31,17 @@ export class CalendarPageComponent implements OnInit {
     this.apiService.ListRuns().then(({ items }) => {
       this.runs = items;
     });
+  }
+
+  onBook(runId: string): void {
+    this.apiService
+      .CreateRun({
+        leaderId: '',
+        locationId: '',
+        organisationId: '',
+        title: 'test',
+        paceFrom: '',
+      })
+      .then(console.log);
   }
 }

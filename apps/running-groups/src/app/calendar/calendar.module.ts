@@ -11,9 +11,10 @@ import { CalendarListComponent } from './components/calendar-list/calendar-list.
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { RunCardComponent } from '../core/components/run-card/run-card.component';
 
 @NgModule({
-  declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent ],
+  declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent, RunCardComponent ],
   imports: [
     CommonModule,
     MatButtonModule,
