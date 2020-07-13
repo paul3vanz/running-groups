@@ -26,6 +26,10 @@ mutation CreateMessage(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     content
     conversationId
@@ -37,6 +41,10 @@ mutation CreateMessage(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     sender
   }
@@ -53,6 +61,10 @@ mutation CreateUser($username: String!) {
     }
     username
     registered
+    firstName
+    lastName
+    avatarUrl
+    membershipNumber
   }
 }
 mutation CreateUserConversations($conversationId: ID!, $userId: ID!) {
@@ -72,6 +84,10 @@ mutation CreateUserConversations($conversationId: ID!, $userId: ID!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
   }
@@ -86,6 +102,10 @@ mutation CreateOrganisation($input: CreateOrganisationInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
   }
 }
@@ -99,6 +119,10 @@ mutation UpdateOrganisation($input: UpdateOrganisationInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
   }
 }
@@ -112,6 +136,10 @@ mutation DeleteOrganisation($input: DeleteOrganisationInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
   }
 }
@@ -127,6 +155,10 @@ mutation CreateLocation($input: CreateLocationInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
     organisationId
@@ -144,6 +176,10 @@ mutation UpdateLocation($input: UpdateLocationInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
     organisationId
@@ -161,6 +197,10 @@ mutation DeleteLocation($input: DeleteLocationInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
     organisationId
@@ -197,6 +237,7 @@ mutation CreateRun($input: CreateRunInput!) {
       id
       title
     }
+    topographyId
     cost
     capacity
     location {
@@ -214,9 +255,20 @@ mutation CreateRun($input: CreateRunInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     leaderId
     organisationId
+    sessions {
+      id
+      runId
+      date
+      time
+      description
+    }
   }
 }
 mutation UpdateRun($input: UpdateRunInput!) {
@@ -232,6 +284,7 @@ mutation UpdateRun($input: UpdateRunInput!) {
       id
       title
     }
+    topographyId
     cost
     capacity
     location {
@@ -249,9 +302,20 @@ mutation UpdateRun($input: UpdateRunInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     leaderId
     organisationId
+    sessions {
+      id
+      runId
+      date
+      time
+      description
+    }
   }
 }
 mutation DeleteRun($input: DeleteRunInput!) {
@@ -267,6 +331,7 @@ mutation DeleteRun($input: DeleteRunInput!) {
       id
       title
     }
+    topographyId
     cost
     capacity
     location {
@@ -284,9 +349,20 @@ mutation DeleteRun($input: DeleteRunInput!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     leaderId
     organisationId
+    sessions {
+      id
+      runId
+      date
+      time
+      description
+    }
   }
 }
 mutation CreateSession($input: CreateSessionInput!) {
@@ -300,6 +376,7 @@ mutation CreateSession($input: CreateSessionInput!) {
       paceFrom
       paceTo
       distance
+      topographyId
       cost
       capacity
       locationId
@@ -323,6 +400,7 @@ mutation UpdateSession($input: UpdateSessionInput!) {
       paceFrom
       paceTo
       distance
+      topographyId
       cost
       capacity
       locationId
@@ -346,6 +424,7 @@ mutation DeleteSession($input: DeleteSessionInput!) {
       paceFrom
       paceTo
       distance
+      topographyId
       cost
       capacity
       locationId

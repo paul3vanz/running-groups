@@ -1,0 +1,47 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .heading {
+    margin-bottom: 0;
+  }
+
+  .button {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+  }
+
+  .icon {
+    font-size: 2.2rem;
+  }
+}
+
+.days {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  text-align: center;
+
+  .name {
+    margin-bottom: 0.25rem;
+  }
+
+  .value {
+    border: 0;
+    color: #f89829;
+    font-weight: bold;
+    font-size: 1.4rem;
+    border-radius: 50%;
+    width: 2.6rem;
+    height: 2.6rem;
+    cursor: pointer;
+
+    &.active {
+      color: #fff;
+      background-color: #f89829;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '@running-groups/api';
 
+import * as moment from 'moment-mini';
+
 @Component({
   templateUrl: './calendar-page.component.html',
   styleUrls: [ './calendar-page.component.scss' ],
@@ -10,6 +12,8 @@ export class CalendarPageComponent implements OnInit {
   topographies: any[];
   locations: any[];
   runs: any[];
+
+  selectedDate = '2020-07-13';
 
   constructor(private apiService: APIService) {}
 
@@ -43,5 +47,19 @@ export class CalendarPageComponent implements OnInit {
         paceFrom: '',
       })
       .then(console.log);
+  }
+
+  shiftDate(amount: number) {
+    this.selectedDate = moment(this.selectedDate).add(amount, 'd').toISOString();
+  }
+
+  onSelectDate(date: string) {
+    this.selectedDate = date;
+  }
+
+  get dates(): string[] {
+    const startOfWeek = moment(this.selectedDate).startOf('isoWeek');
+
+    return Array.from(Array(7)).map((value, index) => startOfWeek.clone().add(index, 'd').toISOString());
   }
 }

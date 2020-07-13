@@ -59,9 +59,10 @@ export type CreateRunInput = {
   title: string;
   description?: string | null;
   confirmation?: string | null;
-  paceFrom: string;
+  paceFrom?: string | null;
   paceTo?: string | null;
   distance?: number | null;
+  topographyId?: string | null;
   cost?: number | null;
   capacity?: number | null;
   locationId: string;
@@ -82,6 +83,7 @@ export type UpdateRunInput = {
   locationId?: string | null;
   userId?: string | null;
   leaderId?: string | null;
+  topographyId?: string | null;
 };
 
 export type DeleteRunInput = {
@@ -180,6 +182,7 @@ export type TableRunFilterInput = {
   userId?: TableIDFilterInput | null;
   leaderId?: TableIDFilterInput | null;
   organisationId?: TableIDFilterInput | null;
+  topographyId?: TableIDFilterInput | null;
 };
 
 export type TableIntFilterInput = {
@@ -221,6 +224,10 @@ export type CreateMessageMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   content: string;
   conversationId: string;
@@ -233,6 +240,10 @@ export type CreateMessageMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   sender: string | null;
 };
@@ -251,6 +262,10 @@ export type CreateUserMutation = {
   } | null;
   username: string;
   registered: boolean | null;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string | null;
+  membershipNumber: string | null;
 };
 
 export type CreateUserConversationsMutation = {
@@ -273,6 +288,10 @@ export type CreateUserConversationsMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
 };
@@ -288,6 +307,10 @@ export type CreateOrganisationMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -302,6 +325,10 @@ export type UpdateOrganisationMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -316,6 +343,10 @@ export type DeleteOrganisationMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -332,6 +363,10 @@ export type CreateLocationMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -350,6 +385,10 @@ export type UpdateLocationMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -368,6 +407,10 @@ export type DeleteLocationMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -395,16 +438,17 @@ export type CreateRunMutation = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -424,25 +468,38 @@ export type CreateRunMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type UpdateRunMutation = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -462,25 +519,38 @@ export type UpdateRunMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type DeleteRunMutation = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -500,9 +570,21 @@ export type DeleteRunMutation = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type CreateSessionMutation = {
@@ -512,11 +594,12 @@ export type CreateSessionMutation = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -536,11 +619,12 @@ export type UpdateSessionMutation = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -560,11 +644,12 @@ export type DeleteSessionMutation = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -585,6 +670,10 @@ export type AllMessageQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   content: string;
   conversationId: string;
@@ -597,6 +686,10 @@ export type AllMessageQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   sender: string | null;
 };
@@ -623,6 +716,10 @@ export type AllMessageFromQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   content: string;
   conversationId: string;
@@ -635,6 +732,10 @@ export type AllMessageFromQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   sender: string | null;
 };
@@ -653,6 +754,10 @@ export type AllUserQuery = {
   } | null;
   username: string;
   registered: boolean | null;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string | null;
+  membershipNumber: string | null;
 };
 
 export type MeQuery = {
@@ -669,6 +774,10 @@ export type MeQuery = {
   } | null;
   username: string;
   registered: boolean | null;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string | null;
+  membershipNumber: string | null;
 };
 
 export type GetOrganisationQuery = {
@@ -682,6 +791,10 @@ export type GetOrganisationQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -709,6 +822,10 @@ export type GetLocationQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -749,16 +866,17 @@ export type GetRunQuery = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -778,9 +896,21 @@ export type GetRunQuery = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type ListRunsQuery = {
@@ -789,11 +919,12 @@ export type ListRunsQuery = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -809,11 +940,12 @@ export type QueryRunsByIdPaceIndexQuery = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -829,11 +961,12 @@ export type QueryRunsByIdDistanceIndexQuery = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -850,11 +983,12 @@ export type GetSessionQuery = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -888,6 +1022,10 @@ export type SubscribeToNewMessageSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   content: string;
   conversationId: string;
@@ -900,6 +1038,10 @@ export type SubscribeToNewMessageSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   sender: string | null;
 };
@@ -924,6 +1066,10 @@ export type SubscribeToNewUCsSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
 };
@@ -942,6 +1088,10 @@ export type SubscribeToNewUsersSubscription = {
   } | null;
   username: string;
   registered: boolean | null;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string | null;
+  membershipNumber: string | null;
 };
 
 export type OnCreateOrganisationSubscription = {
@@ -955,6 +1105,10 @@ export type OnCreateOrganisationSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -969,6 +1123,10 @@ export type OnUpdateOrganisationSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -983,6 +1141,10 @@ export type OnDeleteOrganisationSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null> | null;
 };
 
@@ -999,6 +1161,10 @@ export type OnCreateLocationSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -1017,6 +1183,10 @@ export type OnUpdateLocationSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -1035,6 +1205,10 @@ export type OnDeleteLocationSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -1062,16 +1236,17 @@ export type OnCreateRunSubscription = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -1091,25 +1266,38 @@ export type OnCreateRunSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type OnUpdateRunSubscription = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -1129,25 +1317,38 @@ export type OnUpdateRunSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type OnDeleteRunSubscription = {
   __typename: "Run";
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   confirmation: string | null;
-  paceFrom: string;
+  paceFrom: string | null;
   paceTo: string | null;
-  distance: number;
+  distance: number | null;
   topography: {
     __typename: "Topography";
     id: string;
     title: string;
-  };
+  } | null;
+  topographyId: string | null;
   cost: number | null;
   capacity: number | null;
   location: {
@@ -1167,9 +1368,21 @@ export type OnDeleteRunSubscription = {
     id: string;
     username: string;
     registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
   } | null;
   leaderId: string;
   organisationId: string;
+  sessions: Array<{
+    __typename: "Session";
+    id: string;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+  } | null> | null;
 };
 
 export type OnCreateSessionSubscription = {
@@ -1179,11 +1392,12 @@ export type OnCreateSessionSubscription = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -1203,11 +1417,12 @@ export type OnUpdateSessionSubscription = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -1227,11 +1442,12 @@ export type OnDeleteSessionSubscription = {
     __typename: "Run";
     id: string;
     title: string;
-    description: string;
+    description: string | null;
     confirmation: string | null;
-    paceFrom: string;
+    paceFrom: string | null;
     paceTo: string | null;
-    distance: number;
+    distance: number | null;
+    topographyId: string | null;
     cost: number | null;
     capacity: number | null;
     locationId: string;
@@ -1292,6 +1508,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           content
           conversationId
@@ -1304,6 +1524,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           sender
         }
@@ -1337,6 +1561,10 @@ export class APIService {
           }
           username
           registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1372,6 +1600,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
         }
@@ -1402,6 +1634,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`;
@@ -1428,6 +1664,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`;
@@ -1454,6 +1694,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`;
@@ -1482,6 +1726,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -1512,6 +1760,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -1542,6 +1794,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -1625,6 +1881,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -1644,9 +1901,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1673,6 +1942,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -1692,9 +1962,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1721,6 +2003,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -1740,9 +2023,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1769,6 +2064,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -1805,6 +2101,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -1841,6 +2138,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -1875,6 +2173,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           content
           conversationId
@@ -1887,6 +2189,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           sender
         }
@@ -1954,6 +2260,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           content
           conversationId
@@ -1966,6 +2276,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           sender
         }
@@ -2001,6 +2315,10 @@ export class APIService {
           }
           username
           registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2031,6 +2349,10 @@ export class APIService {
           }
           username
           registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -2052,6 +2374,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`;
@@ -2111,6 +2437,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -2224,6 +2554,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -2243,9 +2574,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2274,6 +2617,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -2315,6 +2659,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -2355,6 +2700,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -2394,6 +2740,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -2462,6 +2809,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           content
           conversationId
@@ -2474,6 +2825,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           sender
         }
@@ -2506,6 +2861,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
         }
@@ -2532,6 +2891,10 @@ export class APIService {
           }
           username
           registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
         }
       }`
     )
@@ -2553,6 +2916,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`
@@ -2575,6 +2942,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`
@@ -2597,6 +2968,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
         }
       }`
@@ -2621,6 +2996,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -2647,6 +3026,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -2673,6 +3056,10 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           userId
           organisationId
@@ -2740,6 +3127,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -2759,9 +3147,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`
     )
@@ -2784,6 +3184,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -2803,9 +3204,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`
     )
@@ -2828,6 +3241,7 @@ export class APIService {
             id
             title
           }
+          topographyId
           cost
           capacity
           location {
@@ -2847,9 +3261,21 @@ export class APIService {
             id
             username
             registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
           }
           leaderId
           organisationId
+          sessions {
+            __typename
+            id
+            runId
+            date
+            time
+            description
+          }
         }
       }`
     )
@@ -2872,6 +3298,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -2904,6 +3331,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId
@@ -2936,6 +3364,7 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topographyId
             cost
             capacity
             locationId

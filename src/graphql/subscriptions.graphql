@@ -6,6 +6,10 @@ subscription SubscribeToNewMessage($conversationId: ID!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     content
     conversationId
@@ -17,6 +21,10 @@ subscription SubscribeToNewMessage($conversationId: ID!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     sender
   }
@@ -38,6 +46,10 @@ subscription SubscribeToNewUCs($userId: ID!) {
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
   }
@@ -54,6 +66,10 @@ subscription SubscribeToNewUsers {
     }
     username
     registered
+    firstName
+    lastName
+    avatarUrl
+    membershipNumber
   }
 }
 subscription OnCreateOrganisation(
@@ -70,6 +86,10 @@ subscription OnCreateOrganisation(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
   }
 }
@@ -87,6 +107,10 @@ subscription OnUpdateOrganisation(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
   }
 }
@@ -104,6 +128,10 @@ subscription OnDeleteOrganisation(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
   }
 }
@@ -131,6 +159,10 @@ subscription OnCreateLocation(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
     organisationId
@@ -160,6 +192,10 @@ subscription OnUpdateLocation(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
     organisationId
@@ -189,6 +225,10 @@ subscription OnDeleteLocation(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     userId
     organisationId
@@ -237,6 +277,7 @@ subscription OnCreateRun(
       id
       title
     }
+    topographyId
     cost
     capacity
     location {
@@ -254,9 +295,20 @@ subscription OnCreateRun(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     leaderId
     organisationId
+    sessions {
+      id
+      runId
+      date
+      time
+      description
+    }
   }
 }
 subscription OnUpdateRun(
@@ -284,6 +336,7 @@ subscription OnUpdateRun(
       id
       title
     }
+    topographyId
     cost
     capacity
     location {
@@ -301,9 +354,20 @@ subscription OnUpdateRun(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     leaderId
     organisationId
+    sessions {
+      id
+      runId
+      date
+      time
+      description
+    }
   }
 }
 subscription OnDeleteRun(
@@ -331,6 +395,7 @@ subscription OnDeleteRun(
       id
       title
     }
+    topographyId
     cost
     capacity
     location {
@@ -348,9 +413,20 @@ subscription OnDeleteRun(
       id
       username
       registered
+      firstName
+      lastName
+      avatarUrl
+      membershipNumber
     }
     leaderId
     organisationId
+    sessions {
+      id
+      runId
+      date
+      time
+      description
+    }
   }
 }
 subscription OnCreateSession(
@@ -376,6 +452,7 @@ subscription OnCreateSession(
       paceFrom
       paceTo
       distance
+      topographyId
       cost
       capacity
       locationId
@@ -411,6 +488,7 @@ subscription OnUpdateSession(
       paceFrom
       paceTo
       distance
+      topographyId
       cost
       capacity
       locationId
@@ -446,6 +524,7 @@ subscription OnDeleteSession(
       paceFrom
       paceTo
       distance
+      topographyId
       cost
       capacity
       locationId

@@ -14,6 +14,14 @@
     </mat-list>
 </mat-card>
 
+<running-groups-calendar
+    [dates]="dates"
+    [selectedDate]="selectedDate"
+    (previousWeek)="shiftDate(-7)"
+    (nextWeek)="shiftDate(7)"
+    (selectDate)="onSelectDate($event)"
+></running-groups-calendar>
+
 <ng-container *ngFor="let run of runs">
     <mat-card class="card">
         <mat-card-title>
@@ -34,7 +42,7 @@
         </mat-card-actions>
     </mat-card>
 
-    <running-clubs-run-card [run]="run"></running-clubs-run-card>
+    <!-- <running-clubs-run-card [run]="run"></running-clubs-run-card> -->
 </ng-container>
 
 <running-groups-calendar-list></running-groups-calendar-list>
