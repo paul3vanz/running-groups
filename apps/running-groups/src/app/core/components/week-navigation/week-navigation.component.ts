@@ -1,14 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'running-groups-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: [ './calendar.component.scss' ],
+  selector: 'running-groups-week-navigation',
+  templateUrl: './week-navigation.component.html',
+  styleUrls: [ './week-navigation.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalendarComponent implements OnInit {
-  @Input() month = 'July';
-  @Input() year = '2020';
+export class WeekNavigationComponent implements OnInit {
   @Input() dates: string[];
   @Input() selectedDate: string;
 

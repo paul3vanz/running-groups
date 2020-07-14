@@ -16,8 +16,6 @@ export class ClubsComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
   @Output() selectOrganisation = new EventEmitter<string>();
 
-  constructor() {}
-
   ngOnInit(): void {}
 
   onSearch(keywords: string): void {

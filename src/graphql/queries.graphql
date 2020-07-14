@@ -3,7 +3,25 @@ query AllMessage($after: String, $conversationId: ID!, $first: Int) {
   allMessage(after: $after, conversationId: $conversationId, first: $first) {
     author {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -18,7 +36,25 @@ query AllMessage($after: String, $conversationId: ID!, $first: Int) {
     isSent
     recipient {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -36,11 +72,43 @@ query AllMessageConnection($after: String, $conversationId: ID!, $first: Int) {
     first: $first
   ) {
     messages {
+      author {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       content
       conversationId
       createdAt
       id
       isSent
+      recipient {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       sender
     }
     nextToken
@@ -60,7 +128,25 @@ query AllMessageFrom(
   ) {
     author {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -75,7 +161,25 @@ query AllMessageFrom(
     isSent
     recipient {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -91,9 +195,60 @@ query AllUser($after: String, $first: Int) {
     cognitoId
     conversations {
       nextToken
+      userConversations {
+        associated {
+          conversationId
+          userId
+        }
+        conversation {
+          createdAt
+          id
+          name
+        }
+        conversationId
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+      }
     }
     id
     messages {
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        content
+        conversationId
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        sender
+      }
       nextToken
     }
     username
@@ -109,9 +264,60 @@ query Me {
     cognitoId
     conversations {
       nextToken
+      userConversations {
+        associated {
+          conversationId
+          userId
+        }
+        conversation {
+          createdAt
+          id
+          name
+        }
+        conversationId
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+      }
     }
     id
     messages {
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        content
+        conversationId
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        sender
+      }
       nextToken
     }
     username
@@ -129,7 +335,25 @@ query GetOrganisation($id: ID!, $name: String!) {
     description
     users {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -149,6 +373,22 @@ query ListOrganisations(
       id
       name
       description
+      users {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
     }
     nextToken
   }
@@ -162,7 +402,25 @@ query GetLocation($id: ID!) {
     lng
     user {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -186,6 +444,22 @@ query ListLocations(
       description
       lat
       lng
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       userId
       organisationId
     }
@@ -233,13 +507,47 @@ query GetRun($id: ID!, $title: String!) {
       description
       lat
       lng
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       userId
       organisationId
     }
     locationId
     leader {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -251,6 +559,51 @@ query GetRun($id: ID!, $title: String!) {
     organisationId
     sessions {
       id
+      run {
+        id
+        title
+        description
+        confirmation
+        paceFrom
+        paceTo
+        distance
+        topography {
+          id
+          title
+        }
+        topographyId
+        cost
+        capacity
+        location {
+          id
+          name
+          description
+          lat
+          lng
+          userId
+          organisationId
+        }
+        locationId
+        leader {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        leaderId
+        organisationId
+        sessions {
+          id
+          runId
+          date
+          time
+          description
+        }
+      }
       runId
       date
       time
@@ -268,12 +621,73 @@ query ListRuns($filter: TableRunFilterInput, $limit: Int, $nextToken: String) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     nextToken
   }
@@ -288,12 +702,73 @@ query QueryRunsByIdPaceIndex($id: ID!, $first: Int, $after: String) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     nextToken
   }
@@ -308,12 +783,73 @@ query QueryRunsByIdDistanceIndex($id: ID!, $first: Int, $after: String) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     nextToken
   }
@@ -329,12 +865,73 @@ query GetSession($id: ID!, $date: AWSDate!) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     runId
     date
@@ -350,6 +947,51 @@ query ListSessions(
   listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      run {
+        id
+        title
+        description
+        confirmation
+        paceFrom
+        paceTo
+        distance
+        topography {
+          id
+          title
+        }
+        topographyId
+        cost
+        capacity
+        location {
+          id
+          name
+          description
+          lat
+          lng
+          userId
+          organisationId
+        }
+        locationId
+        leader {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        leaderId
+        organisationId
+        sessions {
+          id
+          runId
+          date
+          time
+          description
+        }
+      }
       runId
       date
       time

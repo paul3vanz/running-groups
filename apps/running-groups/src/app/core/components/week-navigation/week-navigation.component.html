@@ -3,7 +3,7 @@
 
     <h2 class="heading">
         {{ selectedDate | date : 'MMMM' }}
-        {{ selectedDate | date : 'yyyy' }}
+        {{ selectedDate | date : 'YYYY' }}
     </h2>
 
     <button class="button week" (click)="onNextWeek()"><mat-icon class="icon">chevron_right</mat-icon></button>
@@ -12,11 +12,11 @@
 <div class="days">
     <div class="day" *ngFor="let date of dates">
         <div class="name">
-            {{ date | date : 'EEE' }}
+            {{ date | date : 'ddd' }}
         </div>
 
         <button class="value" [class.active]="date === selectedDate" (click)="onSelectDate(date)">
-            {{ date | date : 'd'  }}
+            {{ date | date : 'D'  }}
         </button>
     </div>
 </div>

@@ -4,6 +4,34 @@ mutation CreateConversation($createdAt: String, $id: ID!, $name: String!) {
     createdAt
     id
     messages {
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        content
+        conversationId
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        sender
+      }
       nextToken
     }
     name
@@ -23,7 +51,25 @@ mutation CreateMessage(
   ) {
     author {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -38,7 +84,25 @@ mutation CreateMessage(
     isSent
     recipient {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -54,9 +118,60 @@ mutation CreateUser($username: String!) {
     cognitoId
     conversations {
       nextToken
+      userConversations {
+        associated {
+          conversationId
+          userId
+        }
+        conversation {
+          createdAt
+          id
+          name
+        }
+        conversationId
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+      }
     }
     id
     messages {
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        content
+        conversationId
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        sender
+      }
       nextToken
     }
     username
@@ -70,18 +185,94 @@ mutation CreateUser($username: String!) {
 mutation CreateUserConversations($conversationId: ID!, $userId: ID!) {
   createUserConversations(conversationId: $conversationId, userId: $userId) {
     associated {
+      associated {
+        associated {
+          conversationId
+          userId
+        }
+        conversation {
+          createdAt
+          id
+          name
+        }
+        conversationId
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+      }
+      conversation {
+        createdAt
+        id
+        messages {
+          nextToken
+        }
+        name
+      }
       conversationId
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       userId
     }
     conversation {
       createdAt
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       name
     }
     conversationId
     user {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -99,7 +290,25 @@ mutation CreateOrganisation($input: CreateOrganisationInput!) {
     description
     users {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -116,7 +325,25 @@ mutation UpdateOrganisation($input: UpdateOrganisationInput!) {
     description
     users {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -133,7 +360,25 @@ mutation DeleteOrganisation($input: DeleteOrganisationInput!) {
     description
     users {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -152,7 +397,25 @@ mutation CreateLocation($input: CreateLocationInput!) {
     lng
     user {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -173,7 +436,25 @@ mutation UpdateLocation($input: UpdateLocationInput!) {
     lng
     user {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -194,7 +475,25 @@ mutation DeleteLocation($input: DeleteLocationInput!) {
     lng
     user {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -246,13 +545,47 @@ mutation CreateRun($input: CreateRunInput!) {
       description
       lat
       lng
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       userId
       organisationId
     }
     locationId
     leader {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -264,6 +597,51 @@ mutation CreateRun($input: CreateRunInput!) {
     organisationId
     sessions {
       id
+      run {
+        id
+        title
+        description
+        confirmation
+        paceFrom
+        paceTo
+        distance
+        topography {
+          id
+          title
+        }
+        topographyId
+        cost
+        capacity
+        location {
+          id
+          name
+          description
+          lat
+          lng
+          userId
+          organisationId
+        }
+        locationId
+        leader {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        leaderId
+        organisationId
+        sessions {
+          id
+          runId
+          date
+          time
+          description
+        }
+      }
       runId
       date
       time
@@ -293,13 +671,47 @@ mutation UpdateRun($input: UpdateRunInput!) {
       description
       lat
       lng
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       userId
       organisationId
     }
     locationId
     leader {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -311,6 +723,51 @@ mutation UpdateRun($input: UpdateRunInput!) {
     organisationId
     sessions {
       id
+      run {
+        id
+        title
+        description
+        confirmation
+        paceFrom
+        paceTo
+        distance
+        topography {
+          id
+          title
+        }
+        topographyId
+        cost
+        capacity
+        location {
+          id
+          name
+          description
+          lat
+          lng
+          userId
+          organisationId
+        }
+        locationId
+        leader {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        leaderId
+        organisationId
+        sessions {
+          id
+          runId
+          date
+          time
+          description
+        }
+      }
       runId
       date
       time
@@ -340,13 +797,47 @@ mutation DeleteRun($input: DeleteRunInput!) {
       description
       lat
       lng
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       userId
       organisationId
     }
     locationId
     leader {
       cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
       username
       registered
       firstName
@@ -358,6 +849,51 @@ mutation DeleteRun($input: DeleteRunInput!) {
     organisationId
     sessions {
       id
+      run {
+        id
+        title
+        description
+        confirmation
+        paceFrom
+        paceTo
+        distance
+        topography {
+          id
+          title
+        }
+        topographyId
+        cost
+        capacity
+        location {
+          id
+          name
+          description
+          lat
+          lng
+          userId
+          organisationId
+        }
+        locationId
+        leader {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        leaderId
+        organisationId
+        sessions {
+          id
+          runId
+          date
+          time
+          description
+        }
+      }
       runId
       date
       time
@@ -376,12 +912,73 @@ mutation CreateSession($input: CreateSessionInput!) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     runId
     date
@@ -400,12 +997,73 @@ mutation UpdateSession($input: UpdateSessionInput!) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     runId
     date
@@ -424,12 +1082,73 @@ mutation DeleteSession($input: DeleteSessionInput!) {
       paceFrom
       paceTo
       distance
+      topography {
+        id
+        title
+      }
       topographyId
       cost
       capacity
+      location {
+        id
+        name
+        description
+        lat
+        lng
+        user {
+          cognitoId
+          id
+          username
+          registered
+          firstName
+          lastName
+          avatarUrl
+          membershipNumber
+        }
+        userId
+        organisationId
+      }
       locationId
+      leader {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+        firstName
+        lastName
+        avatarUrl
+        membershipNumber
+      }
       leaderId
       organisationId
+      sessions {
+        id
+        run {
+          id
+          title
+          description
+          confirmation
+          paceFrom
+          paceTo
+          distance
+          topographyId
+          cost
+          capacity
+          locationId
+          leaderId
+          organisationId
+        }
+        runId
+        date
+        time
+        description
+      }
     }
     runId
     date

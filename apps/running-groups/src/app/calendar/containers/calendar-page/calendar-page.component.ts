@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from '@running-groups/api';
+import { APIService, RunsService } from '@running-groups/api';
 
 import * as moment from 'moment-mini';
 
@@ -13,12 +13,12 @@ export class CalendarPageComponent implements OnInit {
   locations: any[];
   runs: any[];
 
-  selectedDate = '2020-07-13';
+  selectedDate = moment().startOf('day').format('YYYY-MM-DD');
 
-  constructor(private apiService: APIService) {}
+  constructor(private apiService: APIService, private runsService: RunsService) {}
 
   ngOnInit(): void {
-    this.onLoadRuns();
+    this.onLoadSessions();
   }
 
   onLoadTopographies() {
@@ -31,8 +31,8 @@ export class CalendarPageComponent implements OnInit {
       this.locations = items;
     });
   }
-  onLoadRuns() {
-    this.apiService.ListRuns().then(({ items }) => {
+  onLoadSessions() {
+    this.runsService.listSessions().then(({ items }) => {
       this.runs = items;
     });
   }
@@ -50,7 +50,7 @@ export class CalendarPageComponent implements OnInit {
   }
 
   shiftDate(amount: number) {
-    this.selectedDate = moment(this.selectedDate).add(amount, 'd').toISOString();
+    this.selectedDate = moment(this.selectedDate).add(amount, 'd').format('YYYY-MM-DD');
   }
 
   onSelectDate(date: string) {
@@ -60,6 +60,6 @@ export class CalendarPageComponent implements OnInit {
   get dates(): string[] {
     const startOfWeek = moment(this.selectedDate).startOf('isoWeek');
 
-    return Array.from(Array(7)).map((value, index) => startOfWeek.clone().add(index, 'd').toISOString());
+    return Array.from(Array(7)).map((value, index) => startOfWeek.clone().add(index, 'd').format('YYYY-MM-DD'));
   }
 }

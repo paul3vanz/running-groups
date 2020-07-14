@@ -1,0 +1,54 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  &.last {
+    text-align: center;
+  }
+}
+
+.date-time {
+  color: #f89829;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin-bottom: 0;
+
+  .time {
+    margin-left: 0.5rem;
+    color: #222;
+  }
+}
+
+.icon-list {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0;
+
+  .icon-list-item {
+    display: flex;
+    align-items: center;
+
+    .text {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.content {
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.description {
+  margin-bottom: 0;
+  color: #999;
+}
+
+.book-button {
+  margin-bottom: 1rem;
+}

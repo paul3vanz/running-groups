@@ -42,6 +42,7 @@
         "@aws-amplify/ui-angular": "^0.2.10",
         "@nrwl/angular": "9.5.1",
         "aws-amplify": "^3.0.19",
+        "graphql-tag": "^2.10.4",
         "moment-mini": "^2.24.0",
         "rxjs": "~6.5.4",
         "zone.js": "^0.10.2"

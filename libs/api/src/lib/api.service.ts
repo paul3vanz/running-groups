@@ -211,6 +211,37 @@ export type CreateConversationMutation = {
   id: string;
   messages: {
     __typename: "MessageConnection";
+    messages: Array<{
+      __typename: "Message";
+      author: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      content: string;
+      conversationId: string;
+      createdAt: string | null;
+      id: string;
+      isSent: boolean | null;
+      recipient: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      sender: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   name: string;
@@ -221,7 +252,29 @@ export type CreateMessageMutation = {
   author: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -237,7 +290,29 @@ export type CreateMessageMutation = {
   recipient: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -254,10 +329,68 @@ export type CreateUserMutation = {
   conversations: {
     __typename: "UserConverstationsConnection";
     nextToken: string | null;
+    userConversations: Array<{
+      __typename: "UserConversations";
+      associated: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+      conversation: {
+        __typename: "Conversation";
+        createdAt: string | null;
+        id: string;
+        name: string;
+      } | null;
+      conversationId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+    } | null> | null;
   } | null;
   id: string;
   messages: {
     __typename: "MessageConnection";
+    messages: Array<{
+      __typename: "Message";
+      author: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      content: string;
+      conversationId: string;
+      createdAt: string | null;
+      id: string;
+      isSent: boolean | null;
+      recipient: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      sender: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   username: string;
@@ -272,20 +405,111 @@ export type CreateUserConversationsMutation = {
   __typename: "UserConversations";
   associated: Array<{
     __typename: "UserConversations";
+    associated: Array<{
+      __typename: "UserConversations";
+      associated: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+      conversation: {
+        __typename: "Conversation";
+        createdAt: string | null;
+        id: string;
+        name: string;
+      } | null;
+      conversationId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+    } | null> | null;
+    conversation: {
+      __typename: "Conversation";
+      createdAt: string | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      name: string;
+    } | null;
     conversationId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
   } | null> | null;
   conversation: {
     __typename: "Conversation";
     createdAt: string | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     name: string;
   } | null;
   conversationId: string;
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -304,7 +528,29 @@ export type CreateOrganisationMutation = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -322,7 +568,29 @@ export type UpdateOrganisationMutation = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -340,7 +608,29 @@ export type DeleteOrganisationMutation = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -360,7 +650,29 @@ export type CreateLocationMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -382,7 +694,29 @@ export type UpdateLocationMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -404,7 +738,29 @@ export type DeleteLocationMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -458,6 +814,25 @@ export type CreateRunMutation = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -465,7 +840,29 @@ export type CreateRunMutation = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -478,6 +875,56 @@ export type CreateRunMutation = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -509,6 +956,25 @@ export type UpdateRunMutation = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -516,7 +982,29 @@ export type UpdateRunMutation = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -529,6 +1017,56 @@ export type UpdateRunMutation = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -560,6 +1098,25 @@ export type DeleteRunMutation = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -567,7 +1124,29 @@ export type DeleteRunMutation = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -580,6 +1159,56 @@ export type DeleteRunMutation = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -599,12 +1228,81 @@ export type CreateSessionMutation = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -624,12 +1322,81 @@ export type UpdateSessionMutation = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -649,12 +1416,81 @@ export type DeleteSessionMutation = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -667,7 +1503,29 @@ export type AllMessageQuery = {
   author: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -683,7 +1541,29 @@ export type AllMessageQuery = {
   recipient: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -698,11 +1578,49 @@ export type AllMessageConnectionQuery = {
   __typename: "MessageConnection";
   messages: Array<{
     __typename: "Message";
+    author: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     content: string;
     conversationId: string;
     createdAt: string | null;
     id: string;
     isSent: boolean | null;
+    recipient: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     sender: string | null;
   } | null> | null;
   nextToken: string | null;
@@ -713,7 +1631,29 @@ export type AllMessageFromQuery = {
   author: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -729,7 +1669,29 @@ export type AllMessageFromQuery = {
   recipient: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -746,10 +1708,68 @@ export type AllUserQuery = {
   conversations: {
     __typename: "UserConverstationsConnection";
     nextToken: string | null;
+    userConversations: Array<{
+      __typename: "UserConversations";
+      associated: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+      conversation: {
+        __typename: "Conversation";
+        createdAt: string | null;
+        id: string;
+        name: string;
+      } | null;
+      conversationId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+    } | null> | null;
   } | null;
   id: string;
   messages: {
     __typename: "MessageConnection";
+    messages: Array<{
+      __typename: "Message";
+      author: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      content: string;
+      conversationId: string;
+      createdAt: string | null;
+      id: string;
+      isSent: boolean | null;
+      recipient: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      sender: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   username: string;
@@ -766,10 +1786,68 @@ export type MeQuery = {
   conversations: {
     __typename: "UserConverstationsConnection";
     nextToken: string | null;
+    userConversations: Array<{
+      __typename: "UserConversations";
+      associated: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+      conversation: {
+        __typename: "Conversation";
+        createdAt: string | null;
+        id: string;
+        name: string;
+      } | null;
+      conversationId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+    } | null> | null;
   } | null;
   id: string;
   messages: {
     __typename: "MessageConnection";
+    messages: Array<{
+      __typename: "Message";
+      author: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      content: string;
+      conversationId: string;
+      createdAt: string | null;
+      id: string;
+      isSent: boolean | null;
+      recipient: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      sender: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   username: string;
@@ -788,7 +1866,29 @@ export type GetOrganisationQuery = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -805,6 +1905,25 @@ export type ListOrganisationsQuery = {
     id: string;
     name: string;
     description: string;
+    users: Array<{
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -819,7 +1938,29 @@ export type GetLocationQuery = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -840,6 +1981,25 @@ export type ListLocationsQuery = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null> | null;
@@ -886,6 +2046,25 @@ export type GetRunQuery = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -893,7 +2072,29 @@ export type GetRunQuery = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -906,6 +2107,56 @@ export type GetRunQuery = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -924,12 +2175,81 @@ export type ListRunsQuery = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -945,12 +2265,81 @@ export type QueryRunsByIdPaceIndexQuery = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -966,12 +2355,81 @@ export type QueryRunsByIdDistanceIndexQuery = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -988,12 +2446,81 @@ export type GetSessionQuery = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -1006,6 +2533,56 @@ export type ListSessionsQuery = {
   items: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -1019,7 +2596,29 @@ export type SubscribeToNewMessageSubscription = {
   author: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1035,7 +2634,29 @@ export type SubscribeToNewMessageSubscription = {
   recipient: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1050,20 +2671,111 @@ export type SubscribeToNewUCsSubscription = {
   __typename: "UserConversations";
   associated: Array<{
     __typename: "UserConversations";
+    associated: Array<{
+      __typename: "UserConversations";
+      associated: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+      conversation: {
+        __typename: "Conversation";
+        createdAt: string | null;
+        id: string;
+        name: string;
+      } | null;
+      conversationId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+    } | null> | null;
+    conversation: {
+      __typename: "Conversation";
+      createdAt: string | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      name: string;
+    } | null;
     conversationId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
   } | null> | null;
   conversation: {
     __typename: "Conversation";
     createdAt: string | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     name: string;
   } | null;
   conversationId: string;
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1080,10 +2792,68 @@ export type SubscribeToNewUsersSubscription = {
   conversations: {
     __typename: "UserConverstationsConnection";
     nextToken: string | null;
+    userConversations: Array<{
+      __typename: "UserConversations";
+      associated: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+      conversation: {
+        __typename: "Conversation";
+        createdAt: string | null;
+        id: string;
+        name: string;
+      } | null;
+      conversationId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+    } | null> | null;
   } | null;
   id: string;
   messages: {
     __typename: "MessageConnection";
+    messages: Array<{
+      __typename: "Message";
+      author: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      content: string;
+      conversationId: string;
+      createdAt: string | null;
+      id: string;
+      isSent: boolean | null;
+      recipient: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      sender: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   username: string;
@@ -1102,7 +2872,29 @@ export type OnCreateOrganisationSubscription = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1120,7 +2912,29 @@ export type OnUpdateOrganisationSubscription = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1138,7 +2952,29 @@ export type OnDeleteOrganisationSubscription = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1158,7 +2994,29 @@ export type OnCreateLocationSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1180,7 +3038,29 @@ export type OnUpdateLocationSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1202,7 +3082,29 @@ export type OnDeleteLocationSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1256,6 +3158,25 @@ export type OnCreateRunSubscription = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -1263,7 +3184,29 @@ export type OnCreateRunSubscription = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1276,6 +3219,56 @@ export type OnCreateRunSubscription = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -1307,6 +3300,25 @@ export type OnUpdateRunSubscription = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -1314,7 +3326,29 @@ export type OnUpdateRunSubscription = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1327,6 +3361,56 @@ export type OnUpdateRunSubscription = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -1358,6 +3442,25 @@ export type OnDeleteRunSubscription = {
     description: string;
     lat: number | null;
     lng: number | null;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     userId: string;
     organisationId: string;
   } | null;
@@ -1365,7 +3468,29 @@ export type OnDeleteRunSubscription = {
   leader: {
     __typename: "User";
     cognitoId: string;
+    conversations: {
+      __typename: "UserConverstationsConnection";
+      nextToken: string | null;
+      userConversations: Array<{
+        __typename: "UserConversations";
+        conversationId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
     id: string;
+    messages: {
+      __typename: "MessageConnection";
+      messages: Array<{
+        __typename: "Message";
+        content: string;
+        conversationId: string;
+        createdAt: string | null;
+        id: string;
+        isSent: boolean | null;
+        sender: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     username: string;
     registered: boolean | null;
     firstName: string;
@@ -1378,6 +3503,56 @@ export type OnDeleteRunSubscription = {
   sessions: Array<{
     __typename: "Session";
     id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
     runId: string;
     date: string;
     time: string;
@@ -1397,12 +3572,81 @@ export type OnCreateSessionSubscription = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -1422,12 +3666,81 @@ export type OnUpdateSessionSubscription = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -1447,12 +3760,81 @@ export type OnDeleteSessionSubscription = {
     paceFrom: string | null;
     paceTo: string | null;
     distance: number | null;
+    topography: {
+      __typename: "Topography";
+      id: string;
+      title: string;
+    } | null;
     topographyId: string | null;
     cost: number | null;
     capacity: number | null;
+    location: {
+      __typename: "Location";
+      id: string;
+      name: string;
+      description: string;
+      lat: number | null;
+      lng: number | null;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        id: string;
+        username: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      userId: string;
+      organisationId: string;
+    } | null;
     locationId: string;
+    leader: {
+      __typename: "User";
+      cognitoId: string;
+      conversations: {
+        __typename: "UserConverstationsConnection";
+        nextToken: string | null;
+      } | null;
+      id: string;
+      messages: {
+        __typename: "MessageConnection";
+        nextToken: string | null;
+      } | null;
+      username: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+    } | null;
     leaderId: string;
     organisationId: string;
+    sessions: Array<{
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+    } | null> | null;
   } | null;
   runId: string;
   date: string;
@@ -1476,6 +3858,37 @@ export class APIService {
           id
           messages {
             __typename
+            messages {
+              __typename
+              author {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              content
+              conversationId
+              createdAt
+              id
+              isSent
+              recipient {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              sender
+            }
             nextToken
           }
           name
@@ -1505,7 +3918,29 @@ export class APIService {
           author {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1521,7 +3956,29 @@ export class APIService {
           recipient {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1553,10 +4010,68 @@ export class APIService {
           conversations {
             __typename
             nextToken
+            userConversations {
+              __typename
+              associated {
+                __typename
+                conversationId
+                userId
+              }
+              conversation {
+                __typename
+                createdAt
+                id
+                name
+              }
+              conversationId
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+            }
           }
           id
           messages {
             __typename
+            messages {
+              __typename
+              author {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              content
+              conversationId
+              createdAt
+              id
+              isSent
+              recipient {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              sender
+            }
             nextToken
           }
           username
@@ -1584,20 +4099,111 @@ export class APIService {
           __typename
           associated {
             __typename
+            associated {
+              __typename
+              associated {
+                __typename
+                conversationId
+                userId
+              }
+              conversation {
+                __typename
+                createdAt
+                id
+                name
+              }
+              conversationId
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+            }
+            conversation {
+              __typename
+              createdAt
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              name
+            }
             conversationId
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
           }
           conversation {
             __typename
             createdAt
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             name
           }
           conversationId
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1631,7 +4237,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1661,7 +4289,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1691,7 +4341,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1723,7 +4395,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1757,7 +4451,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1791,7 +4507,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1891,6 +4629,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -1898,7 +4655,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1911,6 +4690,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -1952,6 +4781,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -1959,7 +4807,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -1972,6 +4842,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -2013,6 +4933,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -2020,7 +4959,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2033,6 +4994,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -2064,12 +5075,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date
@@ -2101,12 +5181,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date
@@ -2138,12 +5287,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date
@@ -2170,7 +5388,29 @@ export class APIService {
           author {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2186,7 +5426,29 @@ export class APIService {
           recipient {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2221,11 +5483,49 @@ export class APIService {
           __typename
           messages {
             __typename
+            author {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             content
             conversationId
             createdAt
             id
             isSent
+            recipient {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             sender
           }
           nextToken
@@ -2257,7 +5557,29 @@ export class APIService {
           author {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2273,7 +5595,29 @@ export class APIService {
           recipient {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2307,10 +5651,68 @@ export class APIService {
           conversations {
             __typename
             nextToken
+            userConversations {
+              __typename
+              associated {
+                __typename
+                conversationId
+                userId
+              }
+              conversation {
+                __typename
+                createdAt
+                id
+                name
+              }
+              conversationId
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+            }
           }
           id
           messages {
             __typename
+            messages {
+              __typename
+              author {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              content
+              conversationId
+              createdAt
+              id
+              isSent
+              recipient {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              sender
+            }
             nextToken
           }
           username
@@ -2341,10 +5743,68 @@ export class APIService {
           conversations {
             __typename
             nextToken
+            userConversations {
+              __typename
+              associated {
+                __typename
+                conversationId
+                userId
+              }
+              conversation {
+                __typename
+                createdAt
+                id
+                name
+              }
+              conversationId
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+            }
           }
           id
           messages {
             __typename
+            messages {
+              __typename
+              author {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              content
+              conversationId
+              createdAt
+              id
+              isSent
+              recipient {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              sender
+            }
             nextToken
           }
           username
@@ -2371,7 +5831,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2403,6 +5885,25 @@ export class APIService {
             id
             name
             description
+            users {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
           }
           nextToken
         }
@@ -2434,7 +5935,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2469,6 +5992,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -2564,6 +6106,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -2571,7 +6132,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2584,6 +6167,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -2617,12 +6250,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           nextToken
         }
@@ -2659,12 +6361,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           nextToken
         }
@@ -2700,12 +6471,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           nextToken
         }
@@ -2740,12 +6580,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date
@@ -2773,6 +6682,56 @@ export class APIService {
           items {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -2806,7 +6765,29 @@ export class APIService {
           author {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2822,7 +6803,29 @@ export class APIService {
           recipient {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2845,20 +6848,111 @@ export class APIService {
           __typename
           associated {
             __typename
+            associated {
+              __typename
+              associated {
+                __typename
+                conversationId
+                userId
+              }
+              conversation {
+                __typename
+                createdAt
+                id
+                name
+              }
+              conversationId
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+            }
+            conversation {
+              __typename
+              createdAt
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              name
+            }
             conversationId
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
           }
           conversation {
             __typename
             createdAt
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             name
           }
           conversationId
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2883,10 +6977,68 @@ export class APIService {
           conversations {
             __typename
             nextToken
+            userConversations {
+              __typename
+              associated {
+                __typename
+                conversationId
+                userId
+              }
+              conversation {
+                __typename
+                createdAt
+                id
+                name
+              }
+              conversationId
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+            }
           }
           id
           messages {
             __typename
+            messages {
+              __typename
+              author {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              content
+              conversationId
+              createdAt
+              id
+              isSent
+              recipient {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              sender
+            }
             nextToken
           }
           username
@@ -2913,7 +7065,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2939,7 +7113,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2965,7 +7161,29 @@ export class APIService {
           users {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -2993,7 +7211,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -3023,7 +7263,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -3053,7 +7315,29 @@ export class APIService {
           user {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -3137,6 +7421,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -3144,7 +7447,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -3157,6 +7482,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -3194,6 +7569,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -3201,7 +7595,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -3214,6 +7630,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -3251,6 +7717,25 @@ export class APIService {
             description
             lat
             lng
+            user {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             userId
             organisationId
           }
@@ -3258,7 +7743,29 @@ export class APIService {
           leader {
             __typename
             cognitoId
+            conversations {
+              __typename
+              nextToken
+              userConversations {
+                __typename
+                conversationId
+                userId
+              }
+            }
             id
+            messages {
+              __typename
+              messages {
+                __typename
+                content
+                conversationId
+                createdAt
+                id
+                isSent
+                sender
+              }
+              nextToken
+            }
             username
             registered
             firstName
@@ -3271,6 +7778,56 @@ export class APIService {
           sessions {
             __typename
             id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
             runId
             date
             time
@@ -3298,12 +7855,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date
@@ -3331,12 +7957,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date
@@ -3364,12 +8059,81 @@ export class APIService {
             paceFrom
             paceTo
             distance
+            topography {
+              __typename
+              id
+              title
+            }
             topographyId
             cost
             capacity
+            location {
+              __typename
+              id
+              name
+              description
+              lat
+              lng
+              user {
+                __typename
+                cognitoId
+                id
+                username
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              userId
+              organisationId
+            }
             locationId
+            leader {
+              __typename
+              cognitoId
+              conversations {
+                __typename
+                nextToken
+              }
+              id
+              messages {
+                __typename
+                nextToken
+              }
+              username
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+            }
             leaderId
             organisationId
+            sessions {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+            }
           }
           runId
           date

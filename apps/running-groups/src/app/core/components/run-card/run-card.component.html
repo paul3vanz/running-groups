@@ -1,6 +1,45 @@
 <mat-card class="card">
-    <pre>{{ run | json }}</pre>
-    <mat-list role="list">
-        <mat-list-item role="listitem"></mat-list-item>
-    </mat-list>
+    <div class="column">
+        <h2 class="date-time">
+            <span class="date">{{ session.date | date : 'dddd Do MMMM' }}</span>
+            <span class="time">{{ session.time | time }}</span>
+        </h2>
+
+        <div class="content">
+            <p class="leader" *ngIf="session.run.leader.id">Led by <strong>{{ session.run.leader.firstName }} {{ session.run.leader.lastName }}</strong></p>
+
+            <p class="title" *ngIf="session.run.title">{{ session.run.title }}</p>
+
+            <p class="description" *ngIf="session.run.description">{{ session.run.description }}</p>
+        </div>
+
+        <ul class="icon-list">
+            <li *ngIf="session.run.paceFrom" class="icon-list-item">
+                <mat-icon class="icon">speed</mat-icon>
+
+                <span class="text">{{ [ session.run.paceFrom, session.run.paceTo ] | pace }}</span>
+            </li>
+
+            <li *ngIf="session.run?.location?.name" class="icon-list-item">
+                <mat-icon>location_on</mat-icon>
+
+                <span class="text">{{ session.run.location.name }}</span>
+            </li>
+
+            <li *ngIf="session.run.distance || session.run?.topography?.title" class="icon-list-item">
+                <mat-icon>terrain</mat-icon>
+
+                <span class="text">
+                    <span *ngIf="session.run?.distance">{{ session.run.distance }} miles</span>
+
+                    <span *ngIf="session.run?.topography?.title"> ({{ session.run.topography.title | lowercase }})</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="column last">
+        <button class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.run.id)">Book</button>
+        <p><strong>{{ session.run.capacity }}/{{ session.run.capacity }}</strong> places left</p>
+    </div>
 </mat-card>

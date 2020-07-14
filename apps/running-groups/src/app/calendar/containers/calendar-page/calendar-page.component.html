@@ -14,35 +14,16 @@
     </mat-list>
 </mat-card>
 
-<running-groups-calendar
+<running-groups-week-navigation
     [dates]="dates"
     [selectedDate]="selectedDate"
     (previousWeek)="shiftDate(-7)"
     (nextWeek)="shiftDate(7)"
     (selectDate)="onSelectDate($event)"
-></running-groups-calendar>
+></running-groups-week-navigation>
 
 <ng-container *ngFor="let run of runs">
-    <mat-card class="card">
-        <mat-card-title>
-            {{ run.title }}
-        </mat-card-title>
-
-        <mat-card-subtitle>
-            {{ run.paceFrom }}-{{ run.paceTo }}/mile for {{ run.distance }} miles
-        </mat-card-subtitle>
-
-        <mat-card-content>
-            {{ run.description }}
-            {{ run.capacity }} places
-        </mat-card-content>
-
-        <mat-card-actions>
-            <button mat-button (click)="onBook(run.id)">Book</button>
-        </mat-card-actions>
-    </mat-card>
-
-    <!-- <running-clubs-run-card [run]="run"></running-clubs-run-card> -->
+    <running-groups-run-card class="card" [session]="run"></running-groups-run-card>
 </ng-container>
 
 <running-groups-calendar-list></running-groups-calendar-list>
