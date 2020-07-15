@@ -31,7 +31,7 @@
 
   .value {
     border: 0;
-    color: #f89829;
+    color: var(--color-primary);
     font-weight: bold;
     font-size: 1.4rem;
     border-radius: 50%;
@@ -41,7 +41,7 @@
 
     &.active {
       color: #fff;
-      background-color: #f89829;
+      background-color: var(--color-primary);
     }
   }
 }
