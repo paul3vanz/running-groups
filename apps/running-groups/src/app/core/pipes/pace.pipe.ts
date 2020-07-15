@@ -8,7 +8,7 @@ import * as moment from 'moment-mini';
 export class PacePipe implements PipeTransform {
   transform(paces: string[]): string {
     const paceFrom = paces[0] ? this.formatPace(paces[0]) : null;
-    const paceTo = '00:09:00' ? this.formatPace('00:09:00') : null;
+    const paceTo = paces[1] ? this.formatPace(paces[1]) : null;
 
     const formattedPace = paceTo ? `${paceFrom}-${paceTo}` : paceFrom;
 
@@ -18,8 +18,6 @@ export class PacePipe implements PipeTransform {
   formatPace(pace: string): string {
     const paceAsMoment = moment(pace, 'HH:mm:ss');
 
-    console.log(paceAsMoment.minutes());
-
-    return paceAsMoment.minutes() > 0 ? paceAsMoment.format('m:ss') : paceAsMoment.format('m');
+    return paceAsMoment.seconds() > 0 ? paceAsMoment.format('m:ss') : paceAsMoment.format('m');
   }
 }
