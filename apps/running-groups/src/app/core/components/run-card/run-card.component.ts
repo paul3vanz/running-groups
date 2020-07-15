@@ -20,6 +20,6 @@ export class RunCardComponent implements OnInit {
   }
 
   get hasDistanceOrTopography() {
-      return this.session.run?.topography?.title
+      return this.session.run.distance || this.session.run.topography?.title;
   }
 }
