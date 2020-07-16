@@ -15,12 +15,12 @@
                 Groups booked
             </mat-card-title>
         <mat-card-content>
-            <ul *ngIf="sessionBookings?.length">
-                <li *ngFor="let sessionBooking of sessionBookings">
+            <ul *ngIf="sessionBookings?.items?.length">
+                <li *ngFor="let sessionBooking of sessionBookings.items">
                     {{ sessionBooking.sessionId }}
                 </li>
             </ul>
-            <p *ngIf="!sessionBookings?.length">No groups booked</p>
+            <p *ngIf="!sessionBookings?.items?.length">No groups booked</p>
             <p><a href="#" routerLink="/calendar">Find a group</a></p>
         </mat-card-content>
     </mat-card>

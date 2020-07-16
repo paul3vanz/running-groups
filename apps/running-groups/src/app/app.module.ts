@@ -16,11 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import Amplify from '@aws-amplify/core';
 
-import awsconfig from '../../../../aws-exports';
 import { RouteService } from './services/route.service';
-import { Auth } from 'aws-amplify';
-
-// Auth.currentCredentials().then((d) => console.log('data: ', d)).catch((e) => console.log('error: ', e));
 
 Amplify.configure({
   aws_project_region: 'us-east-1',

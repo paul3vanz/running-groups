@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { Injectable } from '@angular/core';
-import { from, throwError, Observable, EMPTY } from 'rxjs';
+import { from, throwError, Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from './models/user.model';
 
@@ -8,13 +8,8 @@ import { User } from './models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  userInfo: {
-    id: string;
-    email: string;
-    emailVerified: boolean;
-    phoneNumber: string;
-    phoneNumberVerified: boolean;
-  };
+  isLoading$ = new BehaviorSubject<boolean>(false);
+  userInfo$ = new BehaviorSubject<User>(null);
 
   signIn(username: string, password: string): Observable<void> {
     return from(Auth.signIn(username, password)).pipe(catchError((error) => throwError(error)));
@@ -25,32 +20,35 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    console.log('getUser');
+    console.log('getUser auth service');
+    this.isLoading$.next(true);
 
     return from(Auth.currentUserInfo()).pipe(
       map((user) => {
+        this.isLoading$.next(false);
+
         if (!user) {
           return null;
         }
 
         const attributes = user.attributes;
 
-        const userInfo = {
+        this.userInfo$.next({
           id: attributes.sub,
           email: attributes.email,
           emailVerified: attributes.email_verified,
           phoneNumber: attributes.phone_number,
           phoneNumberVerified: attributes.phone_number_verified,
-        };
+        });
 
-        this.userInfo = userInfo;
-
-        console.log(this.userInfo);
-
-        return userInfo;
+        return this.userInfo$.getValue();
       })
     );
   }
 
-  constructor() {}
+  constructor() {
+    this.isLoading$.subscribe((isLoading) => {
+      console.log('isLoading auth', isLoading);
+    });
+  }
 }

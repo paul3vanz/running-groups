@@ -19,7 +19,7 @@
         <a mat-tab-link routerLink="/calendar">Calendar</a>
     </nav> -->
 
-    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
 </header>
 
 <router-outlet></router-outlet>

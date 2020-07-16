@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { RunCardComponent } from '../core/components/run-card/run-card.component';
 import { WeekNavigationComponent } from '../core/components/week-navigation/week-navigation.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PipesModule } from '../core/pipes/pipes.module';
 import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
 
@@ -25,6 +26,7 @@ import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
     MatCardModule,
     MatIconModule,
     MatListModule,
+    MatProgressSpinnerModule,
     PipesModule,
     RouterModule.forChild([
       {

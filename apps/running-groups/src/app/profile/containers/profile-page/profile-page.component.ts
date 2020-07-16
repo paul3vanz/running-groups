@@ -14,11 +14,14 @@ export class ProfilePageComponent implements OnInit {
   constructor(private authService: AuthService, private runsService: RunsService) {}
 
   ngOnInit(): void {
-    this.user$ = this.authService.getUser();
+    this.user$ = this.authService.userInfo$;
+
+    console.log(this.authService.userInfo$.getValue(), this.authService.userInfo$.getValue().id);
+
     this.sessionBookings$ = from(
       this.runsService.listSessionBookings({
         userId: {
-          eq: this.authService.userInfo.id,
+          eq: this.authService.userInfo$.getValue().id,
         },
       })
     );

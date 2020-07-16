@@ -4,6 +4,7 @@ import { APIService, RunsService } from '@running-groups/api';
 import * as moment from 'moment-mini';
 import { Auth } from 'aws-amplify';
 import { AuthService } from '@running-groups/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -15,11 +16,15 @@ export class CalendarPageComponent implements OnInit {
   locations: any[];
   runs: any[];
 
+  isLoading$: Observable<boolean>;
+
   selectedDate = moment().startOf('day').format('YYYY-MM-DD');
 
   constructor(private apiService: APIService, private authService: AuthService, private runsService: RunsService) {}
 
   ngOnInit(): void {
+    this.isLoading$ = this.authService.isLoading$;
+
     this.onLoadSessions();
 
     this.apiService.OnCreateSessionListener.subscribe(console.log);
@@ -44,7 +49,7 @@ export class CalendarPageComponent implements OnInit {
   }
 
   async onBookSession(sessionId: string): Promise<void> {
-    this.runsService.bookSession(sessionId, this.authService.userInfo.id);
+    this.runsService.bookSession(sessionId, this.authService.userInfo$.getValue().id);
   }
 
   shiftDate(amount: number) {

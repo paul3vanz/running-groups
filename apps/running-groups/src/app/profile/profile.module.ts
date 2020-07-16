@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { PipesModule } from '../core/pipes/pipes.module';
 import { ProfilePageComponent } from './containers/profile-page/profile-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
 
 @NgModule({
   declarations: [ ProfilePageComponent, ProfileComponent ],
@@ -28,6 +29,7 @@ import { ProfileComponent } from './components/profile/profile.component';
         data: {
           title: 'Profile',
         },
+        canActivate: [ AuthenticatedGuard ],
       },
     ]),
     AmplifyUIAngularModule,
