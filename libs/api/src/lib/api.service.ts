@@ -13,7 +13,7 @@ export type CreateOrganisationInput = {
 
 export type UpdateOrganisationInput = {
   id: string;
-  name: string;
+  name?: string | null;
   description?: string | null;
 };
 
@@ -48,7 +48,7 @@ export type CreateTopographyInput = {
 
 export type UpdateTopographyInput = {
   id: string;
-  title: string;
+  title?: string | null;
 };
 
 export type DeleteTopographyInput = {
@@ -72,7 +72,7 @@ export type CreateRunInput = {
 
 export type UpdateRunInput = {
   id: string;
-  title: string;
+  title?: string | null;
   description?: string | null;
   confirmation?: string | null;
   paceFrom?: string | null;
@@ -100,13 +100,28 @@ export type CreateSessionInput = {
 export type UpdateSessionInput = {
   id: string;
   runId?: string | null;
-  date: string;
+  date?: string | null;
   time?: string | null;
   description?: string | null;
 };
 
 export type DeleteSessionInput = {
   id: string;
+};
+
+export type CreateSessionBookingInput = {
+  sessionId: string;
+  userId: string;
+};
+
+export type UpdateSessionBookingInput = {
+  sessionId: string;
+  userId: string;
+};
+
+export type DeleteSessionBookingInput = {
+  sessionId: string;
+  userId: string;
 };
 
 export type TableOrganisationFilterInput = {
@@ -203,6 +218,11 @@ export type TableSessionFilterInput = {
   date?: TableStringFilterInput | null;
   time?: TableStringFilterInput | null;
   description?: TableStringFilterInput | null;
+};
+
+export type TableSessionBookingFilterInput = {
+  sessionId?: TableIDFilterInput | null;
+  userId?: TableIDFilterInput | null;
 };
 
 export type CreateConversationMutation = {
@@ -644,7 +664,7 @@ export type CreateLocationMutation = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -688,7 +708,7 @@ export type UpdateLocationMutation = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -732,7 +752,7 @@ export type DeleteLocationMutation = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -811,7 +831,7 @@ export type CreateRunMutation = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -896,7 +916,7 @@ export type CreateRunMutation = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -953,7 +973,7 @@ export type UpdateRunMutation = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -1038,7 +1058,7 @@ export type UpdateRunMutation = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -1095,7 +1115,7 @@ export type DeleteRunMutation = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -1180,7 +1200,7 @@ export type DeleteRunMutation = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -1240,7 +1260,7 @@ export type CreateSessionMutation = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -1334,7 +1354,7 @@ export type UpdateSessionMutation = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -1428,7 +1448,7 @@ export type DeleteSessionMutation = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -1496,6 +1516,24 @@ export type DeleteSessionMutation = {
   date: string;
   time: string;
   description: string | null;
+};
+
+export type CreateSessionBookingMutation = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
+};
+
+export type UpdateSessionBookingMutation = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
+};
+
+export type DeleteSessionBookingMutation = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
 };
 
 export type AllMessageQuery = {
@@ -1932,7 +1970,7 @@ export type GetLocationQuery = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -1978,7 +2016,7 @@ export type ListLocationsQuery = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -2043,7 +2081,7 @@ export type GetRunQuery = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -2128,7 +2166,7 @@ export type GetRunQuery = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -2187,7 +2225,7 @@ export type ListRunsQuery = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -2277,7 +2315,7 @@ export type QueryRunsByIdPaceIndexQuery = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -2367,7 +2405,7 @@ export type QueryRunsByIdDistanceIndexQuery = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -2458,7 +2496,7 @@ export type GetSessionQuery = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -2554,7 +2592,7 @@ export type ListSessionsQuery = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -2587,6 +2625,22 @@ export type ListSessionsQuery = {
     date: string;
     time: string;
     description: string | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetSessionBookingQuery = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
+};
+
+export type ListSessionBookingsQuery = {
+  __typename: "SessionBookingConnection";
+  items: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
   } | null> | null;
   nextToken: string | null;
 };
@@ -2988,7 +3042,7 @@ export type OnCreateLocationSubscription = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -3032,7 +3086,7 @@ export type OnUpdateLocationSubscription = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -3076,7 +3130,7 @@ export type OnDeleteLocationSubscription = {
   __typename: "Location";
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   lat: number | null;
   lng: number | null;
   user: {
@@ -3155,7 +3209,7 @@ export type OnCreateRunSubscription = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -3240,7 +3294,7 @@ export type OnCreateRunSubscription = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -3297,7 +3351,7 @@ export type OnUpdateRunSubscription = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -3382,7 +3436,7 @@ export type OnUpdateRunSubscription = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -3439,7 +3493,7 @@ export type OnDeleteRunSubscription = {
     __typename: "Location";
     id: string;
     name: string;
-    description: string;
+    description: string | null;
     lat: number | null;
     lng: number | null;
     user: {
@@ -3524,7 +3578,7 @@ export type OnDeleteRunSubscription = {
         __typename: "Location";
         id: string;
         name: string;
-        description: string;
+        description: string | null;
         lat: number | null;
         lng: number | null;
         userId: string;
@@ -3584,7 +3638,7 @@ export type OnCreateSessionSubscription = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -3678,7 +3732,7 @@ export type OnUpdateSessionSubscription = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -3772,7 +3826,7 @@ export type OnDeleteSessionSubscription = {
       __typename: "Location";
       id: string;
       name: string;
-      description: string;
+      description: string | null;
       lat: number | null;
       lng: number | null;
       user: {
@@ -3840,6 +3894,24 @@ export type OnDeleteSessionSubscription = {
   date: string;
   time: string;
   description: string | null;
+};
+
+export type OnCreateSessionBookingSubscription = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
+};
+
+export type OnUpdateSessionBookingSubscription = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
+};
+
+export type OnDeleteSessionBookingSubscription = {
+  __typename: "SessionBooking";
+  sessionId: string;
+  userId: string;
 };
 
 @Injectable({
@@ -5377,6 +5449,60 @@ export class APIService {
     )) as any;
     return <DeleteSessionMutation>response.data.deleteSession;
   }
+  async CreateSessionBooking(
+    input: CreateSessionBookingInput
+  ): Promise<CreateSessionBookingMutation> {
+    const statement = `mutation CreateSessionBooking($input: CreateSessionBookingInput!) {
+        createSessionBooking(input: $input) {
+          __typename
+          sessionId
+          userId
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateSessionBookingMutation>response.data.createSessionBooking;
+  }
+  async UpdateSessionBooking(
+    input: UpdateSessionBookingInput
+  ): Promise<UpdateSessionBookingMutation> {
+    const statement = `mutation UpdateSessionBooking($input: UpdateSessionBookingInput!) {
+        updateSessionBooking(input: $input) {
+          __typename
+          sessionId
+          userId
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateSessionBookingMutation>response.data.updateSessionBooking;
+  }
+  async DeleteSessionBooking(
+    input: DeleteSessionBookingInput
+  ): Promise<DeleteSessionBookingMutation> {
+    const statement = `mutation DeleteSessionBooking($input: DeleteSessionBookingInput!) {
+        deleteSessionBooking(input: $input) {
+          __typename
+          sessionId
+          userId
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteSessionBookingMutation>response.data.deleteSessionBooking;
+  }
   async AllMessage(
     conversationId: string,
     after?: string,
@@ -6754,6 +6880,57 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListSessionsQuery>response.data.listSessions;
+  }
+  async GetSessionBooking(
+    sessionId: string,
+    userId: string
+  ): Promise<GetSessionBookingQuery> {
+    const statement = `query GetSessionBooking($sessionId: ID!, $userId: ID!) {
+        getSessionBooking(sessionId: $sessionId, userId: $userId) {
+          __typename
+          sessionId
+          userId
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      sessionId,
+      userId
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetSessionBookingQuery>response.data.getSessionBooking;
+  }
+  async ListSessionBookings(
+    filter?: TableSessionBookingFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListSessionBookingsQuery> {
+    const statement = `query ListSessionBookings($filter: TableSessionBookingFilterInput, $limit: Int, $nextToken: String) {
+        listSessionBookings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            sessionId
+            userId
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListSessionBookingsQuery>response.data.listSessionBookings;
   }
   SubscribeToNewMessageListener: Observable<
     SubscribeToNewMessageSubscription
@@ -8143,4 +8320,46 @@ export class APIService {
       }`
     )
   ) as Observable<OnDeleteSessionSubscription>;
+
+  OnCreateSessionBookingListener: Observable<
+    OnCreateSessionBookingSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateSessionBooking($sessionId: ID, $userId: ID) {
+        onCreateSessionBooking(sessionId: $sessionId, userId: $userId) {
+          __typename
+          sessionId
+          userId
+        }
+      }`
+    )
+  ) as Observable<OnCreateSessionBookingSubscription>;
+
+  OnUpdateSessionBookingListener: Observable<
+    OnUpdateSessionBookingSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateSessionBooking($sessionId: ID, $userId: ID) {
+        onUpdateSessionBooking(sessionId: $sessionId, userId: $userId) {
+          __typename
+          sessionId
+          userId
+        }
+      }`
+    )
+  ) as Observable<OnUpdateSessionBookingSubscription>;
+
+  OnDeleteSessionBookingListener: Observable<
+    OnDeleteSessionBookingSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteSessionBooking($sessionId: ID, $userId: ID) {
+        onDeleteSessionBooking(sessionId: $sessionId, userId: $userId) {
+          __typename
+          sessionId
+          userId
+        }
+      }`
+    )
+  ) as Observable<OnDeleteSessionBookingSubscription>;
 }

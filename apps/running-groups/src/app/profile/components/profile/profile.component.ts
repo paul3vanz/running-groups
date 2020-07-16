@@ -9,8 +9,11 @@ import { User } from '@running-groups/auth';
 })
 export class ProfileComponent implements OnInit {
   @Input() user: User;
+  @Input() sessionBookings: any;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.sessionBookings);
+  }
 }

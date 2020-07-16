@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { APIService, RunsService } from '@running-groups/api';
 
 import * as moment from 'moment-mini';
+import { Auth } from 'aws-amplify';
+import { AuthService } from '@running-groups/auth';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -15,10 +17,14 @@ export class CalendarPageComponent implements OnInit {
 
   selectedDate = moment().startOf('day').format('YYYY-MM-DD');
 
-  constructor(private apiService: APIService, private runsService: RunsService) {}
+  constructor(private apiService: APIService, private authService: AuthService, private runsService: RunsService) {}
 
   ngOnInit(): void {
     this.onLoadSessions();
+
+    this.apiService.OnCreateSessionListener.subscribe(console.log);
+    this.apiService.OnUpdateSessionListener.subscribe(console.log);
+    this.apiService.OnDeleteSessionListener.subscribe(console.log);
   }
 
   onLoadTopographies() {
@@ -37,14 +43,8 @@ export class CalendarPageComponent implements OnInit {
     });
   }
 
-  onBookSession(sessionId: string): void {
-    this.apiService
-      .CreateSession({
-        runId: '3ade40b2-fb10-4433-ad62-192138efc138',
-        date: '2020-07-14',
-        time: '08:15:00',
-      })
-      .then(console.log);
+  async onBookSession(sessionId: string): Promise<void> {
+    this.runsService.bookSession(sessionId, this.authService.userInfo.id);
   }
 
   shiftDate(amount: number) {

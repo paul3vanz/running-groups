@@ -8,6 +8,14 @@ import { User } from './models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
+  userInfo: {
+    id: string;
+    email: string;
+    emailVerified: boolean;
+    phoneNumber: string;
+    phoneNumberVerified: boolean;
+  };
+
   signIn(username: string, password: string): Observable<void> {
     return from(Auth.signIn(username, password)).pipe(catchError((error) => throwError(error)));
   }
@@ -17,7 +25,7 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    // Auth.currentAuthenticatedUser().then(console.log);
+    console.log('getUser');
 
     return from(Auth.currentUserInfo()).pipe(
       map((user) => {
@@ -27,13 +35,19 @@ export class AuthService {
 
         const attributes = user.attributes;
 
-        return {
+        const userInfo = {
           id: attributes.sub,
           email: attributes.email,
           emailVerified: attributes.email_verified,
           phoneNumber: attributes.phone_number,
           phoneNumberVerified: attributes.phone_number_verified,
         };
+
+        this.userInfo = userInfo;
+
+        console.log(this.userInfo);
+
+        return userInfo;
       })
     );
   }

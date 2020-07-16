@@ -15,6 +15,7 @@ import { RunCardComponent } from '../core/components/run-card/run-card.component
 import { WeekNavigationComponent } from '../core/components/week-navigation/week-navigation.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PipesModule } from '../core/pipes/pipes.module';
+import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
 
 @NgModule({
   declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent, RunCardComponent, WeekNavigationComponent ],
@@ -29,6 +30,7 @@ import { PipesModule } from '../core/pipes/pipes.module';
       {
         path: '',
         component: CalendarPageComponent,
+        canActivate: [ AuthenticatedGuard ],
       },
     ]),
     AmplifyUIAngularModule,
