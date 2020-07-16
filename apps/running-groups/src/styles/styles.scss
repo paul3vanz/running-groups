@@ -1,3 +1,15 @@
+/* Styles that should be applied globally go here. Remember to add to styles in agular-cli.json */
+
+// Generic
+// @import '~normalize.css/normalize.css';
+@import 'generic/theming';
+
+// // Elements
+// @import 'elements/star';
+// @import 'elements/body';
+
+// Objects
+
 :root {
   --color-primary: #f89829;
 }

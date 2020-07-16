@@ -23,7 +23,7 @@
 ></running-groups-week-navigation>
 
 <ng-container *ngFor="let run of runs">
-    <running-groups-run-card class="card" [session]="run"></running-groups-run-card>
+    <running-groups-run-card class="card" [session]="run" (bookSession)="onBookSession($event)"></running-groups-run-card>
 </ng-container>
 
 <running-groups-calendar-list></running-groups-calendar-list>

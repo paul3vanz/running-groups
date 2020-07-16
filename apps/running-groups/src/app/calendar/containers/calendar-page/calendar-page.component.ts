@@ -37,14 +37,12 @@ export class CalendarPageComponent implements OnInit {
     });
   }
 
-  onBook(runId: string): void {
+  onBookSession(sessionId: string): void {
     this.apiService
-      .CreateRun({
-        leaderId: '',
-        locationId: '',
-        organisationId: '',
-        title: 'test',
-        paceFrom: '',
+      .CreateSession({
+        runId: '3ade40b2-fb10-4433-ad62-192138efc138',
+        date: '2020-07-14',
+        time: '08:15:00',
       })
       .then(console.log);
   }
