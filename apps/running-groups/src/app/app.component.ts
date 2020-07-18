@@ -12,7 +12,7 @@ import { AuthService } from '@running-groups/auth';
 })
 export class AppComponent {
   isLoading$: Observable<boolean>;
-  pageTitle: string;
+  heading: string;
 
   constructor(
     private authService: AuthService,
@@ -21,7 +21,7 @@ export class AppComponent {
     private routeService: RouteService
   ) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      this.pageTitle = this.routeService.getDeepestRoute(this.activatedRoute).snapshot.data['title'];
+      this.heading = this.routeService.getDeepestRoute(this.activatedRoute).snapshot.data['title'];
     });
 
     this.isLoading$ = this.authService.isLoading$;

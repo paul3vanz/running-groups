@@ -11,23 +11,16 @@ import { CalendarListComponent } from './components/calendar-list/calendar-list.
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { RunCardComponent } from '../core/components/run-card/run-card.component';
-import { WeekNavigationComponent } from '../core/components/week-navigation/week-navigation.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PipesModule } from '../core/pipes/pipes.module';
 import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
+import { ComponentsModule } from '../core/components/components.module';
 
 @NgModule({
-  declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent, RunCardComponent, WeekNavigationComponent ],
+  declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent ],
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    PipesModule,
     RouterModule.forChild([
       {
         path: '',
@@ -35,7 +28,16 @@ import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
         canActivate: [ AuthenticatedGuard ],
       },
     ]),
+
     AmplifyUIAngularModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+
+    ComponentsModule,
+    PipesModule,
   ],
 })
 export class CalendarModule {}

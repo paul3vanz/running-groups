@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  background-color: #f89829;
+  color: #fff;
+}
+
+:host::before {
+  content: '';
+  width: 100%;
+  background-color: #f89829;
+  height: 100px;
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  transform: skew(0deg, -3deg);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+h1 {
+  margin-bottom: 0;
+}

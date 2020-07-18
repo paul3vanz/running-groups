@@ -12,12 +12,16 @@ import { PipesModule } from '../core/pipes/pipes.module';
 import { ProfilePageComponent } from './containers/profile-page/profile-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
+import { MatButtonModule } from '@angular/material/button';
+import { ComponentsModule } from '../core/components/components.module';
 
 @NgModule({
   declarations: [ ProfilePageComponent, ProfileComponent ],
   imports: [
     FormsModule,
     CommonModule,
+    ComponentsModule,
+    MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,

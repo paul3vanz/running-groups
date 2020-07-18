@@ -10,6 +10,7 @@ import { GetSessionQuery } from '@running-groups/api';
 export class RunCardComponent implements OnInit {
   @Input() session: GetSessionQuery;
   @Output() bookSession = new EventEmitter<string>();
+  @Output() cancelSession = new EventEmitter<string>();
 
   constructor() {}
 
@@ -19,7 +20,15 @@ export class RunCardComponent implements OnInit {
     this.bookSession.emit(sessionId);
   }
 
+  onCancelSession(sessionId: string) {
+    this.bookSession.emit(sessionId);
+  }
+
   get hasDistanceOrTopography() {
-      return this.session.run.distance || this.session.run.topography?.title;
+    return this.session.run.distance || this.session.run.topography?.title;
+  }
+
+  get remainingSpaces() {
+    return this.session.run.capacity - this.session.bookings?.length;
   }
 }

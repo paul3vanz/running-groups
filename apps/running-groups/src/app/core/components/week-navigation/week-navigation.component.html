@@ -1,22 +1,24 @@
-<div class="navigation">
-    <button class="button previous" (click)="onPreviousWeek()"><mat-icon class="icon">chevron_left</mat-icon></button>
+<mat-card>
+    <div class="navigation">
+        <button class="button previous" (click)="onPreviousWeek()"><mat-icon class="icon">chevron_left</mat-icon></button>
 
-    <h2 class="heading">
-        {{ selectedDate | date : 'MMMM' }}
-        {{ selectedDate | date : 'YYYY' }}
-    </h2>
+        <h2 class="heading">
+            {{ selectedDate | date : 'MMMM' }}
+            {{ selectedDate | date : 'YYYY' }}
+        </h2>
 
-    <button class="button week" (click)="onNextWeek()"><mat-icon class="icon">chevron_right</mat-icon></button>
-</div>
-
-<div class="days">
-    <div class="day" *ngFor="let date of dates">
-        <div class="name">
-            {{ date | date : 'ddd' }}
-        </div>
-
-        <button class="value" [class.active]="date === selectedDate" (click)="onSelectDate(date)">
-            {{ date | date : 'D'  }}
-        </button>
+        <button class="button week" (click)="onNextWeek()"><mat-icon class="icon">chevron_right</mat-icon></button>
     </div>
-</div>
+
+    <div class="days">
+        <div class="day" *ngFor="let date of dates">
+            <div class="name">
+                {{ date | date : 'ddd' }}
+            </div>
+
+            <button class="value" [class.active]="date === selectedDate" (click)="onSelectDate(date)">
+                {{ date | date : 'D'  }}
+            </button>
+        </div>
+    </div>
+</mat-card>

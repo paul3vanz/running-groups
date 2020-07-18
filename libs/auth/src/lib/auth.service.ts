@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    console.log('getUser auth service');
     this.isLoading$.next(true);
 
     return from(Auth.currentUserInfo()).pipe(
@@ -44,11 +43,5 @@ export class AuthService {
         return this.userInfo$.getValue();
       })
     );
-  }
-
-  constructor() {
-    this.isLoading$.subscribe((isLoading) => {
-      console.log('isLoading auth', isLoading);
-    });
   }
 }

@@ -236,8 +236,6 @@ export type CreateConversationMutation = {
       author: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -252,8 +250,6 @@ export type CreateConversationMutation = {
       recipient: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -272,35 +268,33 @@ export type CreateMessageMutation = {
   author: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   content: string;
   conversationId: string;
@@ -310,35 +304,33 @@ export type CreateMessageMutation = {
   recipient: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   sender: string | null;
 };
@@ -346,79 +338,59 @@ export type CreateMessageMutation = {
 export type CreateUserMutation = {
   __typename: "User";
   cognitoId: string;
-  conversations: {
-    __typename: "UserConverstationsConnection";
-    nextToken: string | null;
-    userConversations: Array<{
-      __typename: "UserConversations";
-      associated: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-      conversation: {
-        __typename: "Conversation";
-        createdAt: string | null;
-        id: string;
-        name: string;
-      } | null;
-      conversationId: string;
-      user: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      userId: string;
-    } | null> | null;
-  } | null;
-  id: string;
-  messages: {
-    __typename: "MessageConnection";
-    messages: Array<{
-      __typename: "Message";
-      author: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      content: string;
-      conversationId: string;
-      createdAt: string | null;
-      id: string;
-      isSent: boolean | null;
-      recipient: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      sender: string | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  username: string;
   registered: boolean | null;
   firstName: string;
   lastName: string;
   avatarUrl: string | null;
   membershipNumber: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type CreateUserConversationsMutation = {
@@ -442,8 +414,6 @@ export type CreateUserConversationsMutation = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -466,21 +436,16 @@ export type CreateUserConversationsMutation = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
   } | null> | null;
@@ -507,35 +472,33 @@ export type CreateUserConversationsMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
 };
@@ -548,35 +511,33 @@ export type CreateOrganisationMutation = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -588,35 +549,33 @@ export type UpdateOrganisationMutation = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -628,35 +587,33 @@ export type DeleteOrganisationMutation = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -670,35 +627,33 @@ export type CreateLocationMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -714,35 +669,33 @@ export type UpdateLocationMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -758,35 +711,33 @@ export type DeleteLocationMutation = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -837,21 +788,16 @@ export type CreateRunMutation = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -860,35 +806,33 @@ export type CreateRunMutation = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -926,8 +870,6 @@ export type CreateRunMutation = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -949,6 +891,28 @@ export type CreateRunMutation = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -979,21 +943,16 @@ export type UpdateRunMutation = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -1002,35 +961,33 @@ export type UpdateRunMutation = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -1068,8 +1025,6 @@ export type UpdateRunMutation = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -1091,6 +1046,28 @@ export type UpdateRunMutation = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -1121,21 +1098,16 @@ export type DeleteRunMutation = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -1144,35 +1116,33 @@ export type DeleteRunMutation = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -1210,8 +1180,6 @@ export type DeleteRunMutation = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -1233,6 +1201,28 @@ export type DeleteRunMutation = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -1266,8 +1256,6 @@ export type CreateSessionMutation = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -1281,21 +1269,16 @@ export type CreateSessionMutation = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -1322,12 +1305,65 @@ export type CreateSessionMutation = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type UpdateSessionMutation = {
@@ -1360,8 +1396,6 @@ export type UpdateSessionMutation = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -1375,21 +1409,16 @@ export type UpdateSessionMutation = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -1416,12 +1445,65 @@ export type UpdateSessionMutation = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type DeleteSessionMutation = {
@@ -1454,8 +1536,6 @@ export type DeleteSessionMutation = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -1469,21 +1549,16 @@ export type DeleteSessionMutation = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -1510,30 +1585,410 @@ export type DeleteSessionMutation = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type CreateSessionBookingMutation = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 export type UpdateSessionBookingMutation = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 export type DeleteSessionBookingMutation = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 export type AllMessageQuery = {
@@ -1541,35 +1996,33 @@ export type AllMessageQuery = {
   author: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   content: string;
   conversationId: string;
@@ -1579,35 +2032,33 @@ export type AllMessageQuery = {
   recipient: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   sender: string | null;
 };
@@ -1619,21 +2070,16 @@ export type AllMessageConnectionQuery = {
     author: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     content: string;
     conversationId: string;
@@ -1643,21 +2089,16 @@ export type AllMessageConnectionQuery = {
     recipient: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     sender: string | null;
   } | null> | null;
@@ -1669,35 +2110,33 @@ export type AllMessageFromQuery = {
   author: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   content: string;
   conversationId: string;
@@ -1707,35 +2146,33 @@ export type AllMessageFromQuery = {
   recipient: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   sender: string | null;
 };
@@ -1743,157 +2180,117 @@ export type AllMessageFromQuery = {
 export type AllUserQuery = {
   __typename: "User";
   cognitoId: string;
-  conversations: {
-    __typename: "UserConverstationsConnection";
-    nextToken: string | null;
-    userConversations: Array<{
-      __typename: "UserConversations";
-      associated: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-      conversation: {
-        __typename: "Conversation";
-        createdAt: string | null;
-        id: string;
-        name: string;
-      } | null;
-      conversationId: string;
-      user: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      userId: string;
-    } | null> | null;
-  } | null;
-  id: string;
-  messages: {
-    __typename: "MessageConnection";
-    messages: Array<{
-      __typename: "Message";
-      author: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      content: string;
-      conversationId: string;
-      createdAt: string | null;
-      id: string;
-      isSent: boolean | null;
-      recipient: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      sender: string | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  username: string;
   registered: boolean | null;
   firstName: string;
   lastName: string;
   avatarUrl: string | null;
   membershipNumber: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type MeQuery = {
   __typename: "User";
   cognitoId: string;
-  conversations: {
-    __typename: "UserConverstationsConnection";
-    nextToken: string | null;
-    userConversations: Array<{
-      __typename: "UserConversations";
-      associated: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-      conversation: {
-        __typename: "Conversation";
-        createdAt: string | null;
-        id: string;
-        name: string;
-      } | null;
-      conversationId: string;
-      user: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      userId: string;
-    } | null> | null;
-  } | null;
-  id: string;
-  messages: {
-    __typename: "MessageConnection";
-    messages: Array<{
-      __typename: "Message";
-      author: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      content: string;
-      conversationId: string;
-      createdAt: string | null;
-      id: string;
-      isSent: boolean | null;
-      recipient: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      sender: string | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  username: string;
   registered: boolean | null;
   firstName: string;
   lastName: string;
   avatarUrl: string | null;
   membershipNumber: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type GetOrganisationQuery = {
@@ -1904,35 +2301,33 @@ export type GetOrganisationQuery = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -1946,21 +2341,16 @@ export type ListOrganisationsQuery = {
     users: Array<{
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null> | null;
   nextToken: string | null;
@@ -1976,35 +2366,33 @@ export type GetLocationQuery = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -2022,21 +2410,16 @@ export type ListLocationsQuery = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -2087,21 +2470,16 @@ export type GetRunQuery = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -2110,35 +2488,33 @@ export type GetRunQuery = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -2176,8 +2552,6 @@ export type GetRunQuery = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2199,6 +2573,28 @@ export type GetRunQuery = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -2231,8 +2627,6 @@ export type ListRunsQuery = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2246,21 +2640,16 @@ export type ListRunsQuery = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -2287,6 +2676,11 @@ export type ListRunsQuery = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null> | null;
   nextToken: string | null;
@@ -2321,8 +2715,6 @@ export type QueryRunsByIdPaceIndexQuery = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2336,21 +2728,16 @@ export type QueryRunsByIdPaceIndexQuery = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -2377,6 +2764,11 @@ export type QueryRunsByIdPaceIndexQuery = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null> | null;
   nextToken: string | null;
@@ -2411,8 +2803,6 @@ export type QueryRunsByIdDistanceIndexQuery = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2426,21 +2816,16 @@ export type QueryRunsByIdDistanceIndexQuery = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -2467,6 +2852,11 @@ export type QueryRunsByIdDistanceIndexQuery = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null> | null;
   nextToken: string | null;
@@ -2502,8 +2892,6 @@ export type GetSessionQuery = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2517,21 +2905,16 @@ export type GetSessionQuery = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -2558,12 +2941,65 @@ export type GetSessionQuery = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type ListSessionsQuery = {
@@ -2602,8 +3038,6 @@ export type ListSessionsQuery = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2625,6 +3059,28 @@ export type ListSessionsQuery = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -2633,6 +3089,115 @@ export type GetSessionBookingQuery = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 export type ListSessionBookingsQuery = {
@@ -2641,6 +3206,49 @@ export type ListSessionBookingsQuery = {
     __typename: "SessionBooking";
     sessionId: string;
     userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -2650,35 +3258,33 @@ export type SubscribeToNewMessageSubscription = {
   author: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   content: string;
   conversationId: string;
@@ -2688,35 +3294,33 @@ export type SubscribeToNewMessageSubscription = {
   recipient: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   sender: string | null;
 };
@@ -2742,8 +3346,6 @@ export type SubscribeToNewUCsSubscription = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -2766,21 +3368,16 @@ export type SubscribeToNewUCsSubscription = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
   } | null> | null;
@@ -2807,35 +3404,33 @@ export type SubscribeToNewUCsSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
 };
@@ -2843,79 +3438,59 @@ export type SubscribeToNewUCsSubscription = {
 export type SubscribeToNewUsersSubscription = {
   __typename: "User";
   cognitoId: string;
-  conversations: {
-    __typename: "UserConverstationsConnection";
-    nextToken: string | null;
-    userConversations: Array<{
-      __typename: "UserConversations";
-      associated: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-      conversation: {
-        __typename: "Conversation";
-        createdAt: string | null;
-        id: string;
-        name: string;
-      } | null;
-      conversationId: string;
-      user: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      userId: string;
-    } | null> | null;
-  } | null;
-  id: string;
-  messages: {
-    __typename: "MessageConnection";
-    messages: Array<{
-      __typename: "Message";
-      author: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      content: string;
-      conversationId: string;
-      createdAt: string | null;
-      id: string;
-      isSent: boolean | null;
-      recipient: {
-        __typename: "User";
-        cognitoId: string;
-        id: string;
-        username: string;
-        registered: boolean | null;
-        firstName: string;
-        lastName: string;
-        avatarUrl: string | null;
-        membershipNumber: string | null;
-      } | null;
-      sender: string | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  username: string;
   registered: boolean | null;
   firstName: string;
   lastName: string;
   avatarUrl: string | null;
   membershipNumber: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type OnCreateOrganisationSubscription = {
@@ -2926,35 +3501,33 @@ export type OnCreateOrganisationSubscription = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -2966,35 +3539,33 @@ export type OnUpdateOrganisationSubscription = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -3006,35 +3577,33 @@ export type OnDeleteOrganisationSubscription = {
   users: Array<{
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -3048,35 +3617,33 @@ export type OnCreateLocationSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -3092,35 +3659,33 @@ export type OnUpdateLocationSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -3136,35 +3701,33 @@ export type OnDeleteLocationSubscription = {
   user: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   userId: string;
   organisationId: string;
@@ -3215,21 +3778,16 @@ export type OnCreateRunSubscription = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -3238,35 +3796,33 @@ export type OnCreateRunSubscription = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -3304,8 +3860,6 @@ export type OnCreateRunSubscription = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -3327,6 +3881,28 @@ export type OnCreateRunSubscription = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -3357,21 +3933,16 @@ export type OnUpdateRunSubscription = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -3380,35 +3951,33 @@ export type OnUpdateRunSubscription = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -3446,8 +4015,6 @@ export type OnUpdateRunSubscription = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -3469,6 +4036,28 @@ export type OnUpdateRunSubscription = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -3499,21 +4088,16 @@ export type OnDeleteRunSubscription = {
     user: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     userId: string;
     organisationId: string;
@@ -3522,35 +4106,33 @@ export type OnDeleteRunSubscription = {
   leader: {
     __typename: "User";
     cognitoId: string;
-    conversations: {
-      __typename: "UserConverstationsConnection";
-      nextToken: string | null;
-      userConversations: Array<{
-        __typename: "UserConversations";
-        conversationId: string;
-        userId: string;
-      } | null> | null;
-    } | null;
-    id: string;
-    messages: {
-      __typename: "MessageConnection";
-      messages: Array<{
-        __typename: "Message";
-        content: string;
-        conversationId: string;
-        createdAt: string | null;
-        id: string;
-        isSent: boolean | null;
-        sender: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    username: string;
     registered: boolean | null;
     firstName: string;
     lastName: string;
     avatarUrl: string | null;
     membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   leaderId: string;
   organisationId: string;
@@ -3588,8 +4170,6 @@ export type OnDeleteRunSubscription = {
       leader: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -3611,6 +4191,28 @@ export type OnDeleteRunSubscription = {
     date: string;
     time: string;
     description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -3644,8 +4246,6 @@ export type OnCreateSessionSubscription = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -3659,21 +4259,16 @@ export type OnCreateSessionSubscription = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -3700,12 +4295,65 @@ export type OnCreateSessionSubscription = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type OnUpdateSessionSubscription = {
@@ -3738,8 +4386,6 @@ export type OnUpdateSessionSubscription = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -3753,21 +4399,16 @@ export type OnUpdateSessionSubscription = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -3794,12 +4435,65 @@ export type OnUpdateSessionSubscription = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type OnDeleteSessionSubscription = {
@@ -3832,8 +4526,6 @@ export type OnDeleteSessionSubscription = {
       user: {
         __typename: "User";
         cognitoId: string;
-        id: string;
-        username: string;
         registered: boolean | null;
         firstName: string;
         lastName: string;
@@ -3847,21 +4539,16 @@ export type OnDeleteSessionSubscription = {
     leader: {
       __typename: "User";
       cognitoId: string;
-      conversations: {
-        __typename: "UserConverstationsConnection";
-        nextToken: string | null;
-      } | null;
-      id: string;
-      messages: {
-        __typename: "MessageConnection";
-        nextToken: string | null;
-      } | null;
-      username: string;
       registered: boolean | null;
       firstName: string;
       lastName: string;
       avatarUrl: string | null;
       membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null;
     leaderId: string;
     organisationId: string;
@@ -3888,30 +4575,410 @@ export type OnDeleteSessionSubscription = {
       date: string;
       time: string;
       description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
     } | null> | null;
   } | null;
   runId: string;
   date: string;
   time: string;
   description: string | null;
+  bookings: Array<{
+    __typename: "SessionBooking";
+    sessionId: string;
+    userId: string;
+    user: {
+      __typename: "User";
+      cognitoId: string;
+      registered: boolean | null;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      membershipNumber: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+    session: {
+      __typename: "Session";
+      id: string;
+      run: {
+        __typename: "Run";
+        id: string;
+        title: string;
+        description: string | null;
+        confirmation: string | null;
+        paceFrom: string | null;
+        paceTo: string | null;
+        distance: number | null;
+        topographyId: string | null;
+        cost: number | null;
+        capacity: number | null;
+        locationId: string;
+        leaderId: string;
+        organisationId: string;
+      } | null;
+      runId: string;
+      date: string;
+      time: string;
+      description: string | null;
+      bookings: Array<{
+        __typename: "SessionBooking";
+        sessionId: string;
+        userId: string;
+      } | null> | null;
+    } | null;
+  } | null> | null;
 };
 
 export type OnCreateSessionBookingSubscription = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 export type OnUpdateSessionBookingSubscription = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 export type OnDeleteSessionBookingSubscription = {
   __typename: "SessionBooking";
   sessionId: string;
   userId: string;
+  user: {
+    __typename: "User";
+    cognitoId: string;
+    registered: boolean | null;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string | null;
+    membershipNumber: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  session: {
+    __typename: "Session";
+    id: string;
+    run: {
+      __typename: "Run";
+      id: string;
+      title: string;
+      description: string | null;
+      confirmation: string | null;
+      paceFrom: string | null;
+      paceTo: string | null;
+      distance: number | null;
+      topography: {
+        __typename: "Topography";
+        id: string;
+        title: string;
+      } | null;
+      topographyId: string | null;
+      cost: number | null;
+      capacity: number | null;
+      location: {
+        __typename: "Location";
+        id: string;
+        name: string;
+        description: string | null;
+        lat: number | null;
+        lng: number | null;
+        userId: string;
+        organisationId: string;
+      } | null;
+      locationId: string;
+      leader: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      leaderId: string;
+      organisationId: string;
+      sessions: Array<{
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null> | null;
+    } | null;
+    runId: string;
+    date: string;
+    time: string;
+    description: string | null;
+    bookings: Array<{
+      __typename: "SessionBooking";
+      sessionId: string;
+      userId: string;
+      user: {
+        __typename: "User";
+        cognitoId: string;
+        registered: boolean | null;
+        firstName: string;
+        lastName: string;
+        avatarUrl: string | null;
+        membershipNumber: string | null;
+      } | null;
+      session: {
+        __typename: "Session";
+        id: string;
+        runId: string;
+        date: string;
+        time: string;
+        description: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 
 @Injectable({
@@ -3935,8 +5002,6 @@ export class APIService {
               author {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -3951,8 +5016,6 @@ export class APIService {
               recipient {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -3990,35 +5053,33 @@ export class APIService {
           author {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           content
           conversationId
@@ -4028,35 +5089,33 @@ export class APIService {
           recipient {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           sender
         }
@@ -4079,79 +5138,59 @@ export class APIService {
         createUser(username: $username) {
           __typename
           cognitoId
-          conversations {
-            __typename
-            nextToken
-            userConversations {
-              __typename
-              associated {
-                __typename
-                conversationId
-                userId
-              }
-              conversation {
-                __typename
-                createdAt
-                id
-                name
-              }
-              conversationId
-              user {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              userId
-            }
-          }
-          id
-          messages {
-            __typename
-            messages {
-              __typename
-              author {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              content
-              conversationId
-              createdAt
-              id
-              isSent
-              recipient {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              sender
-            }
-            nextToken
-          }
-          username
           registered
           firstName
           lastName
           avatarUrl
           membershipNumber
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4188,8 +5227,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -4212,21 +5249,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
           }
@@ -4253,35 +5285,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
         }
@@ -4309,35 +5339,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -4361,35 +5389,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -4413,35 +5439,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -4467,35 +5491,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -4523,35 +5545,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -4579,35 +5599,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -4704,21 +5722,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -4727,35 +5740,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -4793,8 +5804,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -4816,6 +5825,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -4856,21 +5887,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -4879,35 +5905,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -4945,8 +5969,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -4968,6 +5990,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -5008,21 +6052,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -5031,35 +6070,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -5097,8 +6134,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -5120,6 +6155,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -5165,8 +6222,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -5180,21 +6235,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -5221,12 +6271,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5271,8 +6374,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -5286,21 +6387,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -5327,12 +6423,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5377,8 +6526,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -5392,21 +6539,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -5433,12 +6575,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5457,6 +6652,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5475,6 +6779,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5493,6 +6906,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5514,35 +7036,33 @@ export class APIService {
           author {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           content
           conversationId
@@ -5552,35 +7072,33 @@ export class APIService {
           recipient {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           sender
         }
@@ -5612,21 +7130,16 @@ export class APIService {
             author {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             content
             conversationId
@@ -5636,21 +7149,16 @@ export class APIService {
             recipient {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             sender
           }
@@ -5683,35 +7191,33 @@ export class APIService {
           author {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           content
           conversationId
@@ -5721,35 +7227,33 @@ export class APIService {
           recipient {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           sender
         }
@@ -5774,79 +7278,59 @@ export class APIService {
         allUser(after: $after, first: $first) {
           __typename
           cognitoId
-          conversations {
-            __typename
-            nextToken
-            userConversations {
-              __typename
-              associated {
-                __typename
-                conversationId
-                userId
-              }
-              conversation {
-                __typename
-                createdAt
-                id
-                name
-              }
-              conversationId
-              user {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              userId
-            }
-          }
-          id
-          messages {
-            __typename
-            messages {
-              __typename
-              author {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              content
-              conversationId
-              createdAt
-              id
-              isSent
-              recipient {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              sender
-            }
-            nextToken
-          }
-          username
           registered
           firstName
           lastName
           avatarUrl
           membershipNumber
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -5866,79 +7350,59 @@ export class APIService {
         me {
           __typename
           cognitoId
-          conversations {
-            __typename
-            nextToken
-            userConversations {
-              __typename
-              associated {
-                __typename
-                conversationId
-                userId
-              }
-              conversation {
-                __typename
-                createdAt
-                id
-                name
-              }
-              conversationId
-              user {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              userId
-            }
-          }
-          id
-          messages {
-            __typename
-            messages {
-              __typename
-              author {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              content
-              conversationId
-              createdAt
-              id
-              isSent
-              recipient {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              sender
-            }
-            nextToken
-          }
-          username
           registered
           firstName
           lastName
           avatarUrl
           membershipNumber
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -5957,35 +7421,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -6014,21 +7476,16 @@ export class APIService {
             users {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           nextToken
@@ -6061,35 +7518,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -6121,21 +7576,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -6235,21 +7685,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -6258,35 +7703,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -6324,8 +7767,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -6347,6 +7788,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`;
@@ -6394,8 +7857,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -6409,21 +7870,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -6450,6 +7906,11 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           nextToken
@@ -6505,8 +7966,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -6520,21 +7979,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -6561,6 +8015,11 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           nextToken
@@ -6615,8 +8074,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -6630,21 +8087,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -6671,6 +8123,11 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           nextToken
@@ -6724,8 +8181,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -6739,21 +8194,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -6780,12 +8230,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6839,8 +8342,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -6862,6 +8363,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           nextToken
         }
@@ -6890,6 +8413,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6913,6 +8545,49 @@ export class APIService {
             __typename
             sessionId
             userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
           }
           nextToken
         }
@@ -6942,35 +8617,33 @@ export class APIService {
           author {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           content
           conversationId
@@ -6980,35 +8653,33 @@ export class APIService {
           recipient {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           sender
         }
@@ -7042,8 +8713,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -7066,21 +8735,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
           }
@@ -7107,35 +8771,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
         }
@@ -7151,79 +8813,59 @@ export class APIService {
         subscribeToNewUsers {
           __typename
           cognitoId
-          conversations {
-            __typename
-            nextToken
-            userConversations {
-              __typename
-              associated {
-                __typename
-                conversationId
-                userId
-              }
-              conversation {
-                __typename
-                createdAt
-                id
-                name
-              }
-              conversationId
-              user {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              userId
-            }
-          }
-          id
-          messages {
-            __typename
-            messages {
-              __typename
-              author {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              content
-              conversationId
-              createdAt
-              id
-              isSent
-              recipient {
-                __typename
-                cognitoId
-                id
-                username
-                registered
-                firstName
-                lastName
-                avatarUrl
-                membershipNumber
-              }
-              sender
-            }
-            nextToken
-          }
-          username
           registered
           firstName
           lastName
           avatarUrl
           membershipNumber
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`
     )
@@ -7242,35 +8884,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`
@@ -7290,35 +8930,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`
@@ -7338,35 +8976,33 @@ export class APIService {
           users {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`
@@ -7388,35 +9024,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -7440,35 +9074,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -7492,35 +9124,33 @@ export class APIService {
           user {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           userId
           organisationId
@@ -7601,21 +9231,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -7624,35 +9249,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -7690,8 +9313,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -7713,6 +9334,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`
@@ -7749,21 +9392,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -7772,35 +9410,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -7838,8 +9474,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -7861,6 +9495,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`
@@ -7897,21 +9553,16 @@ export class APIService {
             user {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             userId
             organisationId
@@ -7920,35 +9571,33 @@ export class APIService {
           leader {
             __typename
             cognitoId
-            conversations {
-              __typename
-              nextToken
-              userConversations {
-                __typename
-                conversationId
-                userId
-              }
-            }
-            id
-            messages {
-              __typename
-              messages {
-                __typename
-                content
-                conversationId
-                createdAt
-                id
-                isSent
-                sender
-              }
-              nextToken
-            }
-            username
             registered
             firstName
             lastName
             avatarUrl
             membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
           leaderId
           organisationId
@@ -7986,8 +9635,6 @@ export class APIService {
               leader {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -8009,6 +9656,28 @@ export class APIService {
             date
             time
             description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
           }
         }
       }`
@@ -8050,8 +9719,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -8065,21 +9732,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -8106,12 +9768,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`
     )
@@ -8152,8 +9867,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -8167,21 +9880,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -8208,12 +9916,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`
     )
@@ -8254,8 +10015,6 @@ export class APIService {
               user {
                 __typename
                 cognitoId
-                id
-                username
                 registered
                 firstName
                 lastName
@@ -8269,21 +10028,16 @@ export class APIService {
             leader {
               __typename
               cognitoId
-              conversations {
-                __typename
-                nextToken
-              }
-              id
-              messages {
-                __typename
-                nextToken
-              }
-              username
               registered
               firstName
               lastName
               avatarUrl
               membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
             leaderId
             organisationId
@@ -8310,12 +10064,65 @@ export class APIService {
               date
               time
               description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
             }
           }
           runId
           date
           time
           description
+          bookings {
+            __typename
+            sessionId
+            userId
+            user {
+              __typename
+              cognitoId
+              registered
+              firstName
+              lastName
+              avatarUrl
+              membershipNumber
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+            session {
+              __typename
+              id
+              run {
+                __typename
+                id
+                title
+                description
+                confirmation
+                paceFrom
+                paceTo
+                distance
+                topographyId
+                cost
+                capacity
+                locationId
+                leaderId
+                organisationId
+              }
+              runId
+              date
+              time
+              description
+              bookings {
+                __typename
+                sessionId
+                userId
+              }
+            }
+          }
         }
       }`
     )
@@ -8330,6 +10137,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`
     )
@@ -8344,6 +10260,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`
     )
@@ -8358,6 +10383,115 @@ export class APIService {
           __typename
           sessionId
           userId
+          user {
+            __typename
+            cognitoId
+            registered
+            firstName
+            lastName
+            avatarUrl
+            membershipNumber
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
+          session {
+            __typename
+            id
+            run {
+              __typename
+              id
+              title
+              description
+              confirmation
+              paceFrom
+              paceTo
+              distance
+              topography {
+                __typename
+                id
+                title
+              }
+              topographyId
+              cost
+              capacity
+              location {
+                __typename
+                id
+                name
+                description
+                lat
+                lng
+                userId
+                organisationId
+              }
+              locationId
+              leader {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              leaderId
+              organisationId
+              sessions {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+            runId
+            date
+            time
+            description
+            bookings {
+              __typename
+              sessionId
+              userId
+              user {
+                __typename
+                cognitoId
+                registered
+                firstName
+                lastName
+                avatarUrl
+                membershipNumber
+              }
+              session {
+                __typename
+                id
+                runId
+                date
+                time
+                description
+              }
+            }
+          }
         }
       }`
     )

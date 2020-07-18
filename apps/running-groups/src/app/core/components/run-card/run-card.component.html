@@ -7,7 +7,7 @@
         </h2>
 
         <div class="content">
-            <p class="leader" *ngIf="session.run.leader.id">Led by <strong>{{ session.run.leader.firstName }} {{ session.run.leader.lastName }}</strong></p>
+            <p class="leader" *ngIf="session.run.leader.cognitoId">Led by <strong>{{ session.run.leader.firstName }} {{ session.run.leader.lastName }}</strong></p>
 
             <p class="title" *ngIf="session.run.title">{{ session.run.title }}</p>
 
@@ -21,12 +21,6 @@
                 <span class="text">{{ [ session.run.paceFrom, session.run.paceTo ] | pace }}</span>
             </li>
 
-            <li *ngIf="session.run?.location?.name" class="icon-list-item">
-                <mat-icon>location_on</mat-icon>
-
-                <span class="text">{{ session.run.location.name }}</span>
-            </li>
-
             <li *ngIf="hasDistanceOrTopography" class="icon-list-item">
                 <mat-icon>terrain</mat-icon>
 
@@ -38,11 +32,24 @@
                     <span *ngIf="session.run.topography?.title && !session.run.distance">{{ session.run.topography.title }}</span>
                 </span>
             </li>
+
+            <li *ngIf="session.run?.location?.name" class="icon-list-item">
+                <mat-icon>location_on</mat-icon>
+
+                <span class="text">{{ session.run.location.name }}</span>
+            </li>
         </ul>
     </div>
 
     <div class="column last">
-        <button class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Book</button>
-        <p><strong>{{ session.run.capacity }}</strong> spaces</p>
+        <ng-container *ngIf="remainingSpaces">
+            <button class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Book</button>
+
+            <p><strong>{{ remainingSpaces }}</strong> spaces</p>
+        </ng-container>
+
+        <ng-container *ngIf="!remainingSpaces">
+            <button disabled class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Full</button>
+        </ng-container>
     </div>
 </mat-card>
