@@ -1,15 +1,27 @@
-:host {
-  display: block;
-  padding-top: 1rem;
-}
-
 .bookings-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  a {
-    color: #f89829;
-    font-weight: bold;
+  .heading {
+    margin-bottom: 0;
   }
+}
+
+.no-bookings {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+
+  .icon {
+    font-size: 80px;
+    width: 80px;
+    color: #ddd;
+  }
+}
+
+.link {
+  color: #f89829;
+  font-weight: 500;
+  text-decoration: none;
 }

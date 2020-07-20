@@ -14,9 +14,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
 import { MatButtonModule } from '@angular/material/button';
 import { ComponentsModule } from '../core/components/components.module';
+import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 @NgModule({
-  declarations: [ ProfilePageComponent, ProfileComponent ],
+  declarations: [ ProfilePageComponent, ProfileComponent, ProfileSummaryComponent, AvatarComponent ],
   imports: [
     FormsModule,
     CommonModule,

@@ -7,7 +7,7 @@
         </h2>
 
         <div class="content">
-            <p class="leader" *ngIf="session.run.leader.cognitoId">Led by <strong>{{ session.run.leader.firstName }} {{ session.run.leader.lastName }}</strong></p>
+            <p class="leader" *ngIf="session.run.leader?.cognitoId">Led by <strong>{{ session.run.leader.firstName }} {{ session.run.leader.lastName }}</strong></p>
 
             <p class="title" *ngIf="session.run.title">{{ session.run.title }}</p>
 
@@ -42,14 +42,23 @@
     </div>
 
     <div class="column last">
-        <ng-container *ngIf="remainingSpaces">
-            <button class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Book</button>
-
-            <p><strong>{{ remainingSpaces }}</strong> spaces</p>
+        <ng-container *ngIf="isBooked">
+            <button class="cancel-button" mat-stroked-button color="warn" (click)="onCancelSession(session.id)">
+                <mat-icon class="icon">delete</mat-icon>
+                <span>Cancel</span>
+            </button>
         </ng-container>
 
-        <ng-container *ngIf="!remainingSpaces">
-            <button disabled class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Full</button>
+        <ng-container *ngIf="!isBooked">
+            <ng-container *ngIf="remainingSpaces">
+                <button class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Book</button>
+
+                <p><strong>{{ remainingSpaces }}</strong> spaces</p>
+            </ng-container>
+
+            <ng-container *ngIf="!remainingSpaces">
+                <button disabled class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Full</button>
+            </ng-container>
         </ng-container>
     </div>
 </mat-card>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, User } from '@running-groups/auth';
 import { Observable, from } from 'rxjs';
-import { RunsService } from '@running-groups/api';
+import { RunsService, APIService } from '@running-groups/api';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -11,7 +11,7 @@ export class ProfilePageComponent implements OnInit {
   user$: Observable<User>;
   sessionBookings$: Observable<any>;
 
-  constructor(private authService: AuthService, private runsService: RunsService) {}
+  constructor(private apiService: APIService, private authService: AuthService, private runsService: RunsService) {}
 
   ngOnInit(): void {
     this.user$ = this.authService.userInfo$;
@@ -25,5 +25,17 @@ export class ProfilePageComponent implements OnInit {
         },
       })
     );
+
+    this.apiService.OnDeleteSessionBookingListener.subscribe((subscription) => {
+      alert(JSON.stringify(subscription));
+    });
+  }
+
+  onCancelSession(sessionId: string) {
+    const confirmCancel = confirm(`Are you sure you want to cancel your place on this session ${sessionId}`);
+
+    if (confirmCancel) {
+      this.runsService.cancelSession(sessionId, this.authService.userInfo$.getValue().id);
+    }
   }
 }

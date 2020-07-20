@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { GetSessionQuery } from '@running-groups/api';
+import { AuthService } from '@running-groups/auth';
 
 @Component({
   selector: 'running-groups-run-card',
@@ -12,7 +13,7 @@ export class RunCardComponent implements OnInit {
   @Output() bookSession = new EventEmitter<string>();
   @Output() cancelSession = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -21,7 +22,7 @@ export class RunCardComponent implements OnInit {
   }
 
   onCancelSession(sessionId: string) {
-    this.bookSession.emit(sessionId);
+    this.cancelSession.emit(sessionId);
   }
 
   get hasDistanceOrTopography() {
@@ -30,5 +31,9 @@ export class RunCardComponent implements OnInit {
 
   get remainingSpaces() {
     return this.session.run.capacity - this.session.bookings?.length;
+  }
+
+  get isBooked() {
+      return this.session.bookings.some((booking) => booking.userId === this.authService.userInfo$.getValue().id);
   }
 }

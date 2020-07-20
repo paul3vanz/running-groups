@@ -1,41 +1,21 @@
-<div class="wrapper" *ngIf="user">
-    <mat-card>
-        <mat-card-title>
-            Your name
-        </mat-card-title>
-        <mat-card-subtitle>
-            <span>{{ user?.email }}</span>
-        </mat-card-subtitle>
-    </mat-card>
+<running-groups-profile-summary class="summary"></running-groups-profile-summary>
+
+<div *ngIf="!sessionBookings?.items?.length" class="wrapper no-bookings">
+    <mat-icon class="icon">calendar_today</mat-icon>
+
+    <h3 class="text">No groups booked</h3>
+
+    <a class="link" href="javascript:void(0)" routerLink="/calendar">Find a group</a>
 </div>
 
-<div class="wrapper bookings-heading">
-    <h2>Your bookings</h2>
+<div *ngIf="sessionBookings?.items?.length" class="wrapper bookings">
+    <div class="bookings-heading">
+        <h2 class="heading">Your bookings</h2>
 
-    <a href="javascript:void(0)" routerLink="/calendar">Find a group</a>
-</div>
+        <a class="link" href="javascript:void(0)" routerLink="/calendar">Find a group</a>
+    </div>
 
-<p *ngIf="!sessionBookings?.items?.length">No groups booked</p>
-
-<ng-container *ngIf="sessionBookings?.items?.length"></ng-container>
-
-<ng-container *ngFor="let session of sessionBookingRuns">
-    <running-groups-run-card class="card" [session]="session" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
-</ng-container>
-
-<div class="wrapper">
-    <mat-card>
-            <mat-card-title>
-                Groups booked
-            </mat-card-title>
-        <mat-card-content>
-            <ul *ngIf="sessionBookings?.items?.length">
-                <li *ngFor="let sessionBooking of sessionBookings.items">
-                    {{ sessionBooking.sessionId }}
-                </li>
-            </ul>
-            <p *ngIf="!sessionBookings?.items?.length">No groups booked</p>
-            <p><a href="#" routerLink="/calendar">Find a group</a></p>
-        </mat-card-content>
-    </mat-card>
+    <ng-container *ngFor="let session of sessionBookingRuns">
+        <running-groups-run-card class="card" [session]="session" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
+    </ng-container>
 </div>

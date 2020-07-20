@@ -6,12 +6,16 @@ import {
   CreateSessionBookingMutation,
   TableSessionBookingFilterInput,
   ListSessionBookingsQuery,
+  DeleteSessionBookingMutation,
 } from './api.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RunsService {
+  isLoading$ = new BehaviorSubject<boolean>(false);
+
   constructor(private apiService: APIService) {}
 
   listSessions(filter?: TableSessionFilterInput, limit?: number, nextToken?: string): Promise<ListSessionsQuery> {
@@ -24,6 +28,13 @@ export class RunsService {
 
   bookSession(sessionId: string, userId): Promise<CreateSessionBookingMutation> {
     return this.apiService.CreateSessionBooking({
+      sessionId,
+      userId,
+    });
+  }
+
+  cancelSession(sessionId: string, userId): Promise<DeleteSessionBookingMutation> {
+    return this.apiService.DeleteSessionBooking({
       sessionId,
       userId,
     });

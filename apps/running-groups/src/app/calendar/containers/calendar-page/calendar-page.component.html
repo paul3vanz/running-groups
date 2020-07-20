@@ -10,16 +10,21 @@
     </mat-list>
 </mat-card>
 
-<running-groups-week-navigation
-    [dates]="dates"
-    [selectedDate]="selectedDate"
-    (previousWeek)="shiftDate(-7)"
-    (nextWeek)="shiftDate(7)"
-    (selectDate)="onSelectDate($event)"
-></running-groups-week-navigation>
+<div class="wrapper">
+    <running-groups-week-navigation
+        class="week-navigation"
+        [dates]="dates"
+        [selectedDate]="selectedDate"
+        (previousWeek)="shiftDate(-7)"
+        (nextWeek)="shiftDate(7)"
+        (selectDate)="onSelectDate($event)"
+    ></running-groups-week-navigation>
+</div>
 
-<ng-container *ngFor="let run of runs">
-    <running-groups-run-card class="card" [session]="run" (bookSession)="onBookSession($event)"></running-groups-run-card>
-</ng-container>
+<div class="wrapper">
+    <ng-container *ngFor="let run of runs">
+        <running-groups-run-card class="card" [session]="run" (bookSession)="onBookSession($event)"></running-groups-run-card>
+    </ng-container>
+</div>
 
 <running-groups-calendar-list></running-groups-calendar-list>

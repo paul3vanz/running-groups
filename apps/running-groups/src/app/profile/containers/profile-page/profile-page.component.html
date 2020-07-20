@@ -1,1 +1,1 @@
-<running-groups-profile [user]="user$ | async" [sessionBookings]="sessionBookings$ | async"></running-groups-profile>
+<running-groups-profile [user]="user$ | async" [sessionBookings]="sessionBookings$ | async" (cancelSession)="onCancelSession($event)"></running-groups-profile>

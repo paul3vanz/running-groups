@@ -1,5 +1,6 @@
 :host {
-  margin: 0 1rem 1rem;
+  display: block;
+  margin-top: 1rem;
 }
 
 .card {
@@ -56,4 +57,10 @@
 .book-button {
   margin-bottom: 1rem;
   color: #fff;
+}
+
+.cancel-button {
+  .icon {
+    margin-right: 0.25rem;
+  }
 }

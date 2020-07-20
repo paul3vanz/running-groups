@@ -25,7 +25,11 @@ body {
 }
 
 .wrapper {
-  padding: 0 1rem 1rem;
+  padding: 1rem 1rem 0;
+
+  :first-child {
+    margin-top: 0;
+  }
 }
 
 .icon-link {

@@ -20,15 +20,17 @@ export class ProfileComponent implements OnInit {
   }
 
   get sessionBookingRuns(): any {
-    return this.sessionBookings && this.sessionBookings.length
-      ? this.sessionBookings.items.map((sessionBooking) => {
-          console.log(sessionBooking.session);
-          return sessionBooking.session;
-        })
-      : null;
+    if (!this.sessionBookings || !this.sessionBookings.items) {
+      return null;
+    }
+
+    return this.sessionBookings.items.map((sessionBooking) => {
+      console.log(sessionBooking.session);
+      return sessionBooking.session;
+    });
   }
 
   onCancelSession(sessionId: string): void {
-    this.cancelSession.emit();
+    this.cancelSession.emit(sessionId);
   }
 }

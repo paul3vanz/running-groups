@@ -1,19 +1,12 @@
 :host {
   display: block;
-  background-color: #f89829;
+  background-color: #222;
   color: #fff;
-}
-
-:host::before {
-  content: '';
-  width: 100%;
-  background-color: #f89829;
-  height: 100px;
-  display: block;
-  position: absolute;
-  z-index: -1;
+  //   padding-bottom: 80px;
+  //   margin-bottom: -80px;
+  position: sticky;
   top: 0;
-  transform: skew(0deg, -3deg);
+  z-index: 2;
 }
 
 header {
@@ -21,6 +14,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+  position: sticky;
+  top: 0;
 }
 
 h1 {
