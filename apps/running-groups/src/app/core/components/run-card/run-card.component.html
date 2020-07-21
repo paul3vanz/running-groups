@@ -42,23 +42,17 @@
     </div>
 
     <div class="column last">
-        <ng-container *ngIf="isBooked">
-            <button class="cancel-button" mat-stroked-button color="warn" (click)="onCancelSession(session.id)">
-                <mat-icon class="icon">delete</mat-icon>
-                <span>Cancel</span>
-            </button>
-        </ng-container>
+        <button *ngIf="isBooked" class="cancel-button" mat-stroked-button color="warn" (click)="onCancelSession(session.id)">
+            <mat-icon class="icon">delete</mat-icon>
+            <span>Cancel</span>
+        </button>
 
         <ng-container *ngIf="!isBooked">
-            <ng-container *ngIf="remainingSpaces">
-                <button class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Book</button>
+            <button *ngIf="remainingSpaces" class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Book</button>
 
-                <p><strong>{{ remainingSpaces }}</strong> spaces</p>
-            </ng-container>
-
-            <ng-container *ngIf="!remainingSpaces">
-                <button disabled class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Full</button>
-            </ng-container>
+            <button *ngIf="!remainingSpaces" disabled class="book-button" mat-flat-button color="primary" (click)="onBookSession(session.id)">Full</button>
         </ng-container>
+
+        <p *ngIf="isBooked || (!isBooked && remainingSpaces)" class="spaces"><strong>{{ remainingSpaces }}</strong> spaces</p>
     </div>
 </mat-card>

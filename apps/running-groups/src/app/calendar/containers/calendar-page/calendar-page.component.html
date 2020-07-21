@@ -23,7 +23,7 @@
 
 <div class="wrapper">
     <ng-container *ngFor="let run of runs">
-        <running-groups-run-card class="card" [session]="run" (bookSession)="onBookSession($event)"></running-groups-run-card>
+        <running-groups-run-card class="card" [session]="run" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
     </ng-container>
 </div>
 

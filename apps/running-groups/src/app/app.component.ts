@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { RouteService } from './services/route.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '@running-groups/auth';
+import { APIService } from '@running-groups/api';
 
 @Component({
   selector: 'running-groups-root',
@@ -15,6 +16,7 @@ export class AppComponent {
   heading: string;
 
   constructor(
+    private apiService: APIService,
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -25,5 +27,23 @@ export class AppComponent {
     });
 
     this.isLoading$ = this.authService.isLoading$;
+
+    this.apiService.OnDeleteSessionBookingListener.subscribe({
+      next: (subscription) => {
+        debugger;
+        console.log(subscription);
+        console.log('subscribed');
+        alert(JSON.stringify(subscription));
+      },
+    });
+
+    this.apiService.OnCreateSessionBookingListener.subscribe({
+      next: (subscription) => {
+        debugger;
+        console.log(subscription);
+        console.log('subscribed');
+        alert(JSON.stringify(subscription));
+      },
+    });
   }
 }

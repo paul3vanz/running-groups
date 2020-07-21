@@ -37,11 +37,13 @@ export class CalendarPageComponent implements OnInit {
       this.topographies = items;
     });
   }
+
   onLoadLocations() {
     this.apiService.ListLocations().then(({ items }) => {
       this.locations = items;
     });
   }
+
   onLoadSessions() {
     this.runsService.listSessions().then(({ items }) => {
       this.runs = items;
@@ -49,7 +51,11 @@ export class CalendarPageComponent implements OnInit {
   }
 
   async onBookSession(sessionId: string): Promise<void> {
-    this.runsService.bookSession(sessionId, this.authService.userInfo$.getValue().id);
+    this.runsService.bookSession(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+      const index = this.runs.findIndex((run) => run.id === sessionBooking.sessionId);
+
+      this.runs[index] = sessionBooking.session;
+    });
   }
 
   shiftDate(amount: number) {
@@ -64,5 +70,17 @@ export class CalendarPageComponent implements OnInit {
     const startOfWeek = moment(this.selectedDate).startOf('isoWeek');
 
     return Array.from(Array(7)).map((value, index) => startOfWeek.clone().add(index, 'd').format('YYYY-MM-DD'));
+  }
+
+  onCancelSession(sessionId: string) {
+    const confirmCancel = confirm(`Are you sure you want to cancel your place on this session?`);
+
+    if (confirmCancel) {
+      this.runsService.cancelSession(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+        const index = this.runs.findIndex((run) => run.id === sessionBooking.sessionId);
+
+        this.runs[index] = sessionBooking.session;
+      });
+    }
   }
 }

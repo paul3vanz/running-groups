@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, User } from '@running-groups/auth';
-import { Observable, from } from 'rxjs';
-import { RunsService, APIService } from '@running-groups/api';
+import { Observable, from, BehaviorSubject } from 'rxjs';
+import { RunsService, APIService, ListSessionBookingsQuery } from '@running-groups/api';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -9,7 +9,7 @@ import { RunsService, APIService } from '@running-groups/api';
 })
 export class ProfilePageComponent implements OnInit {
   user$: Observable<User>;
-  sessionBookings$: Observable<any>;
+  sessionBookings: ListSessionBookingsQuery;
 
   constructor(private apiService: APIService, private authService: AuthService, private runsService: RunsService) {}
 
@@ -18,24 +18,31 @@ export class ProfilePageComponent implements OnInit {
 
     console.log(this.authService.userInfo$.getValue(), this.authService.userInfo$.getValue().id);
 
-    this.sessionBookings$ = from(
-      this.runsService.listSessionBookings({
+    this.runsService
+      .listSessionBookings({
         userId: {
           eq: this.authService.userInfo$.getValue().id,
         },
       })
-    );
-
-    this.apiService.OnDeleteSessionBookingListener.subscribe((subscription) => {
-      alert(JSON.stringify(subscription));
-    });
+      .then((sessionBookings) => {
+        this.sessionBookings = sessionBookings;
+      });
   }
 
   onCancelSession(sessionId: string) {
-    const confirmCancel = confirm(`Are you sure you want to cancel your place on this session ${sessionId}`);
+    const confirmCancel = confirm(`Are you sure you want to cancel your place on this session?`);
 
     if (confirmCancel) {
-      this.runsService.cancelSession(sessionId, this.authService.userInfo$.getValue().id);
+      this.runsService.cancelSession(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+        this.sessionBookings = {
+          ...this.sessionBookings,
+          items: this.sessionBookings.items.filter((sessionBookingItem) => {
+            console.log(sessionBookingItem.sessionId, sessionBooking.sessionId, sessionBookingItem.userId, sessionBooking.userId);
+
+            return !(sessionBookingItem.sessionId === sessionBooking.sessionId && sessionBookingItem.userId === sessionBooking.userId);
+          }),
+        };
+      });
     }
   }
 }

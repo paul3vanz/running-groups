@@ -15,9 +15,7 @@ export class ProfileComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.sessionBookings);
-  }
+  ngOnInit(): void {}
 
   get sessionBookingRuns(): any {
     if (!this.sessionBookings || !this.sessionBookings.items) {
@@ -25,7 +23,6 @@ export class ProfileComponent implements OnInit {
     }
 
     return this.sessionBookings.items.map((sessionBooking) => {
-      console.log(sessionBooking.session);
       return sessionBooking.session;
     });
   }
