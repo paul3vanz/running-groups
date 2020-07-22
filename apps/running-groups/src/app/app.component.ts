@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 import { RouteService } from './services/route.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '@running-groups/auth';
-import { APIService } from '@running-groups/api';
+import { APIService, RunsService } from '@running-groups/api';
 
 @Component({
   selector: 'running-groups-root',
@@ -16,7 +16,7 @@ export class AppComponent {
   heading: string;
 
   constructor(
-    private apiService: APIService,
+    private runsService: RunsService,
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -28,22 +28,20 @@ export class AppComponent {
 
     this.isLoading$ = this.authService.isLoading$;
 
-    this.apiService.OnDeleteSessionBookingListener.subscribe({
-      next: (subscription) => {
-        debugger;
-        console.log(subscription);
-        console.log('subscribed');
-        alert(JSON.stringify(subscription));
-      },
-    });
-
-    this.apiService.OnCreateSessionBookingListener.subscribe({
-      next: (subscription) => {
-        debugger;
-        console.log(subscription);
-        console.log('subscribed');
-        alert(JSON.stringify(subscription));
-      },
-    });
+    setTimeout(() => {
+      this.runsService.OnCreateSessionBookingListener().subscribe({
+        next: (subscription) => {
+          console.log(subscription);
+          console.log('subscribed');
+          alert(JSON.stringify(subscription));
+        },
+        complete: () => {
+          console.log('complete');
+        },
+        error: () => {
+          console.log('error');
+        },
+      });
+    }, 5000);
   }
 }

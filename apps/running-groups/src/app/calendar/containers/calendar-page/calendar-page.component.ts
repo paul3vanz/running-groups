@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService, RunsService } from '@running-groups/api';
+import { RunsService } from '@running-groups/api';
 
 import * as moment from 'moment-mini';
-import { Auth } from 'aws-amplify';
 import { AuthService } from '@running-groups/auth';
 import { Observable } from 'rxjs';
 
@@ -12,46 +11,28 @@ import { Observable } from 'rxjs';
 })
 export class CalendarPageComponent implements OnInit {
   organisations: any[];
-  topographies: any[];
-  locations: any[];
   runs: any[];
 
   isLoading$: Observable<boolean>;
 
   selectedDate = moment().startOf('day').format('YYYY-MM-DD');
 
-  constructor(private apiService: APIService, private authService: AuthService, private runsService: RunsService) {}
+  constructor(private authService: AuthService, private runsService: RunsService) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.authService.isLoading$;
 
     this.onLoadSessions();
-
-    this.apiService.OnCreateSessionListener.subscribe(console.log);
-    this.apiService.OnUpdateSessionListener.subscribe(console.log);
-    this.apiService.OnDeleteSessionListener.subscribe(console.log);
-  }
-
-  onLoadTopographies() {
-    this.apiService.ListTopographies().then(({ items }) => {
-      this.topographies = items;
-    });
-  }
-
-  onLoadLocations() {
-    this.apiService.ListLocations().then(({ items }) => {
-      this.locations = items;
-    });
   }
 
   onLoadSessions() {
     this.runsService.listSessions().then(({ items }) => {
-      this.runs = items;
+      this.runs = items.sort((a, b) => (moment(a.date).isBefore(moment(b.date)) ? -1 : 1));
     });
   }
 
   async onBookSession(sessionId: string): Promise<void> {
-    this.runsService.bookSession(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+    this.runsService.createSessionBooking(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
       const index = this.runs.findIndex((run) => run.id === sessionBooking.sessionId);
 
       this.runs[index] = sessionBooking.session;
@@ -60,10 +41,14 @@ export class CalendarPageComponent implements OnInit {
 
   shiftDate(amount: number) {
     this.selectedDate = moment(this.selectedDate).add(amount, 'd').format('YYYY-MM-DD');
+
+    this.onLoadSessions();
   }
 
   onSelectDate(date: string) {
     this.selectedDate = date;
+
+    this.onLoadSessions();
   }
 
   get dates(): string[] {
@@ -76,7 +61,7 @@ export class CalendarPageComponent implements OnInit {
     const confirmCancel = confirm(`Are you sure you want to cancel your place on this session?`);
 
     if (confirmCancel) {
-      this.runsService.cancelSession(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+      this.runsService.deleteSessionBooking(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
         const index = this.runs.findIndex((run) => run.id === sessionBooking.sessionId);
 
         this.runs[index] = sessionBooking.session;

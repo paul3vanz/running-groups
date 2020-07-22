@@ -7,8 +7,12 @@ import {
   TableSessionBookingFilterInput,
   ListSessionBookingsQuery,
   DeleteSessionBookingMutation,
+  OnCreateSessionBookingSubscription,
 } from './api.service';
-import { BehaviorSubject } from 'rxjs';
+import API, { graphqlOperation } from '@aws-amplify/api';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable as ZenObservable } from 'zen-observable-ts';
+import { CREATE_SESSION_BOOKING_SUBSCRIPTION } from './subscriptions/create-session-booking.subscription';
 
 @Injectable({
   providedIn: 'root',
@@ -26,17 +30,21 @@ export class RunsService {
     return this.apiService.ListSessionBookings(filter, limit, nextToken);
   }
 
-  bookSession(sessionId: string, userId): Promise<CreateSessionBookingMutation> {
+  createSessionBooking(sessionId: string, userId): Promise<CreateSessionBookingMutation> {
     return this.apiService.CreateSessionBooking({
       sessionId,
       userId,
     });
   }
 
-  cancelSession(sessionId: string, userId): Promise<DeleteSessionBookingMutation> {
+  deleteSessionBooking(sessionId: string, userId): Promise<DeleteSessionBookingMutation> {
     return this.apiService.DeleteSessionBooking({
       sessionId,
       userId,
     });
+  }
+
+  OnCreateSessionBookingListener(): ZenObservable<OnCreateSessionBookingSubscription> {
+    return API.graphql(graphqlOperation(CREATE_SESSION_BOOKING_SUBSCRIPTION)) as ZenObservable<OnCreateSessionBookingSubscription>;
   }
 }

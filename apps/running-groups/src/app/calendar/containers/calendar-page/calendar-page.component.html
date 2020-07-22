@@ -1,18 +1,5 @@
-<mat-card class="card" *ngIf="topographies && topographies.length">
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let topography of topographies">{{ topography.title }}</mat-list-item>
-    </mat-list>
-</mat-card>
-
-<mat-card class="card" *ngIf="locations && locations.length">
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let location of locations">{{ location.name }}</mat-list-item>
-    </mat-list>
-</mat-card>
-
-<div class="wrapper">
+<div class="wrapper week-navigation">
     <running-groups-week-navigation
-        class="week-navigation"
         [dates]="dates"
         [selectedDate]="selectedDate"
         (previousWeek)="shiftDate(-7)"
@@ -21,9 +8,17 @@
     ></running-groups-week-navigation>
 </div>
 
-<div class="wrapper">
+<div class="wrapper count-and-filter">
+    <p class="count">{{ runs.length }} runs found</p>
+    <button class="filter" mat-stroked-button>
+        <mat-icon>filter_list</mat-icon>
+        Filter
+    </button>
+</div>
+
+<div class="wrapper runs">
     <ng-container *ngFor="let run of runs">
-        <running-groups-run-card class="card" [session]="run" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
+        <running-groups-run-card [attr.data-session-date]="run.date" class="card" [session]="run" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
     </ng-container>
 </div>
 

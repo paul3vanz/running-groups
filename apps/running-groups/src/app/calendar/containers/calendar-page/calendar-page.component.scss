@@ -3,6 +3,22 @@
   flex-direction: column;
 }
 
+.week-navigation {
+  position: sticky;
+  top: 35px;
+  z-index: 10;
+}
+
+.count-and-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  * {
+    margin-bottom: 0;
+  }
+}
+
 .card {
   margin-bottom: 1rem;
 }

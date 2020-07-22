@@ -33,7 +33,7 @@ export class ProfilePageComponent implements OnInit {
     const confirmCancel = confirm(`Are you sure you want to cancel your place on this session?`);
 
     if (confirmCancel) {
-      this.runsService.cancelSession(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+      this.runsService.deleteSessionBooking(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
         this.sessionBookings = {
           ...this.sessionBookings,
           items: this.sessionBookings.items.filter((sessionBookingItem) => {
