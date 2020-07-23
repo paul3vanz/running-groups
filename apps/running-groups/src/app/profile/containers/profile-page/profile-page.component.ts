@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService, User } from '@running-groups/auth';
 import { Observable, from, BehaviorSubject } from 'rxjs';
 import { RunsService, APIService, ListSessionBookingsQuery } from '@running-groups/api';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCancelSessionBookingDialogComponent } from '../../../core/components/confirm-cancel-session-booking-dialog/confirm-cancel-session-booking-dialog.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   templateUrl: './profile-page.component.html',
@@ -11,7 +14,12 @@ export class ProfilePageComponent implements OnInit {
   user$: Observable<User>;
   sessionBookings: ListSessionBookingsQuery;
 
-  constructor(private apiService: APIService, private authService: AuthService, private runsService: RunsService) {}
+  constructor(
+    private apiService: APIService,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private runsService: RunsService
+  ) {}
 
   ngOnInit(): void {
     this.user$ = this.authService.userInfo$;
@@ -30,9 +38,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   onCancelSession(sessionId: string) {
-    const confirmCancel = confirm(`Are you sure you want to cancel your place on this session?`);
+    const dialogRef = this.dialog.open(ConfirmCancelSessionBookingDialogComponent);
 
-    if (confirmCancel) {
+    dialogRef.afterClosed().pipe(filter(Boolean)).subscribe((result) => {
       this.runsService.deleteSessionBooking(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
         this.sessionBookings = {
           ...this.sessionBookings,
@@ -43,6 +51,6 @@ export class ProfilePageComponent implements OnInit {
           }),
         };
       });
-    }
+    });
   }
 }

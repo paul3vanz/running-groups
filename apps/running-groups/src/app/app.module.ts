@@ -1,5 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 
 import { ApiModule } from '@running-groups/api';
@@ -26,7 +27,7 @@ Amplify.configure({
 
 @NgModule({
   declarations: [ AppComponent ],
-  imports: [ BrowserAnimationsModule, BrowserModule, ApiModule, AuthModule, AppRoutingModule, SharedUiModule ],
+  imports: [ BrowserAnimationsModule, BrowserModule, MatSnackBarModule, ApiModule, AuthModule, AppRoutingModule, SharedUiModule ],
   providers: [ RouteService ],
   bootstrap: [ AppComponent ],
 })

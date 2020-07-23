@@ -5,6 +5,7 @@ import { RouteService } from './services/route.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '@running-groups/auth';
 import { APIService, RunsService } from '@running-groups/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'running-groups-root',
@@ -16,11 +17,12 @@ export class AppComponent {
   heading: string;
 
   constructor(
-    private runsService: RunsService,
+    private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private routeService: RouteService
+    private routeService: RouteService,
+    private runsService: RunsService,
+    private snackBar: MatSnackBar
   ) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.heading = this.routeService.getDeepestRoute(this.activatedRoute).snapshot.data['title'];
@@ -28,20 +30,14 @@ export class AppComponent {
 
     this.isLoading$ = this.authService.isLoading$;
 
-    setTimeout(() => {
-      this.runsService.OnCreateSessionBookingListener().subscribe({
-        next: (subscription) => {
-          console.log(subscription);
-          console.log('subscribed');
-          alert(JSON.stringify(subscription));
-        },
-        complete: () => {
-          console.log('complete');
-        },
-        error: () => {
-          console.log('error');
-        },
-      });
-    }, 5000);
+    this.runsService.OnCreateSessionBookingListener().subscribe({
+      next: (subscription: any) => {
+        const user = subscription.value.data.onCreateSessionBooking.user;
+
+        snackBar.open(`Session booked by ${user.firstName} ${user.lastName}`, 'Dismiss', {
+          duration: 4000,
+        });
+      },
+    });
   }
 }

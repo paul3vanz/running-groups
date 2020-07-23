@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ComponentsModule } from '../core/components/components.module';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [ ProfilePageComponent, ProfileComponent, ProfileSummaryComponent, AvatarComponent ],
@@ -25,6 +26,7 @@ import { AvatarComponent } from './components/avatar/avatar.component';
     ComponentsModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

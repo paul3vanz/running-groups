@@ -6,10 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { PipesModule } from '../pipes/pipes.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfirmCancelSessionBookingDialogComponent } from './confirm-cancel-session-booking-dialog/confirm-cancel-session-booking-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FilterOptionsDialogComponent } from './filter-options-dialog/filter-options-dialog.component';
 
 @NgModule({
-  declarations: [ RunCardComponent, WeekNavigationComponent ],
-  imports: [ CommonModule, MatCardModule, MatIconModule, MatButtonModule, PipesModule ],
+  declarations: [ RunCardComponent, WeekNavigationComponent, ConfirmCancelSessionBookingDialogComponent, FilterOptionsDialogComponent ],
+  entryComponents: [ ConfirmCancelSessionBookingDialogComponent, FilterOptionsDialogComponent ],
+  imports: [ CommonModule, MatCardModule, MatDialogModule, MatIconModule, MatButtonModule, PipesModule ],
   exports: [ RunCardComponent, WeekNavigationComponent ],
 })
 export class ComponentsModule {}

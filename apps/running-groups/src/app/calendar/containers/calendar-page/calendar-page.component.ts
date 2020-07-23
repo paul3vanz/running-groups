@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RunsService } from '@running-groups/api';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 import * as moment from 'moment-mini';
+
 import { AuthService } from '@running-groups/auth';
-import { Observable } from 'rxjs';
+import { RunsService } from '@running-groups/api';
+import { ConfirmCancelSessionBookingDialogComponent } from '../../../core/components/confirm-cancel-session-booking-dialog/confirm-cancel-session-booking-dialog.component';
+import { take, filter } from 'rxjs/operators';
+import { FilterOptionsDialogComponent } from '../../../core/components/filter-options-dialog/filter-options-dialog.component';
 
 @Component({
   templateUrl: './calendar-page.component.html',
@@ -17,7 +22,7 @@ export class CalendarPageComponent implements OnInit {
 
   selectedDate = moment().startOf('day').format('YYYY-MM-DD');
 
-  constructor(private authService: AuthService, private runsService: RunsService) {}
+  constructor(private authService: AuthService, public dialog: MatDialog, private runsService: RunsService) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.authService.isLoading$;
@@ -58,14 +63,18 @@ export class CalendarPageComponent implements OnInit {
   }
 
   onCancelSession(sessionId: string) {
-    const confirmCancel = confirm(`Are you sure you want to cancel your place on this session?`);
+    const dialogRef = this.dialog.open(ConfirmCancelSessionBookingDialogComponent);
 
-    if (confirmCancel) {
+    dialogRef.afterClosed().pipe(filter(Boolean)).subscribe((result) => {
       this.runsService.deleteSessionBooking(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
         const index = this.runs.findIndex((run) => run.id === sessionBooking.sessionId);
 
         this.runs[index] = sessionBooking.session;
       });
-    }
+    });
+  }
+
+  onFilterClick() {
+    const dialogRef = this.dialog.open(FilterOptionsDialogComponent);
   }
 }

@@ -16,9 +16,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PipesModule } from '../core/pipes/pipes.module';
 import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
 import { ComponentsModule } from '../core/components/components.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmCancelSessionBookingDialogComponent } from '../core/components/confirm-cancel-session-booking-dialog/confirm-cancel-session-booking-dialog.component';
 
 @NgModule({
   declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent ],
+  entryComponents: [ ConfirmCancelSessionBookingDialogComponent ],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -32,6 +35,7 @@ import { ComponentsModule } from '../core/components/components.module';
     AmplifyUIAngularModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,

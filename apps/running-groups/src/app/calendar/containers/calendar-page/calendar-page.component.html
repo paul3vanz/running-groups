@@ -8,9 +8,9 @@
     ></running-groups-week-navigation>
 </div>
 
-<div class="wrapper count-and-filter">
-    <p class="count">{{ runs.length }} runs found</p>
-    <button class="filter" mat-stroked-button>
+<div *ngIf="runs?.length" class="wrapper count-and-filter">
+    <p class="count">{{ runs?.length }} runs found</p>
+    <button class="filter" mat-stroked-button (click)="onFilterClick()">
         <mat-icon>filter_list</mat-icon>
         Filter
     </button>
