@@ -41,3 +41,17 @@ body {
     margin-right: 0.5rem;
   }
 }
+
+.link {
+  color: #f89829;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.mat-progress-spinner {
+  margin: 3rem auto;
+
+  svg {
+    transform: scale(0.5) !important;
+  }
+}

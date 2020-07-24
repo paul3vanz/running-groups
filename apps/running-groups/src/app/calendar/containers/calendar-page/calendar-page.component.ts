@@ -15,23 +15,24 @@ import { FilterOptionsDialogComponent } from '../../../core/components/filter-op
   styleUrls: [ './calendar-page.component.scss' ],
 })
 export class CalendarPageComponent implements OnInit {
+  isLoading = false;
+  hasFilters = false;
   organisations: any[];
   runs: any[];
-
-  isLoading$: Observable<boolean>;
 
   selectedDate = moment().startOf('day').format('YYYY-MM-DD');
 
   constructor(private authService: AuthService, public dialog: MatDialog, private runsService: RunsService) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.authService.isLoading$;
-
     this.onLoadSessions();
   }
 
   onLoadSessions() {
+    this.isLoading = true;
+
     this.runsService.listSessions().then(({ items }) => {
+      this.isLoading = false;
       this.runs = items.sort((a, b) => (moment(a.date).isBefore(moment(b.date)) ? -1 : 1));
     });
   }

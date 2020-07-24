@@ -1,4 +1,4 @@
-<div class="wrapper week-navigation">
+<!-- <div class="wrapper week-navigation">
     <running-groups-week-navigation
         [dates]="dates"
         [selectedDate]="selectedDate"
@@ -6,20 +6,24 @@
         (nextWeek)="shiftDate(7)"
         (selectDate)="onSelectDate($event)"
     ></running-groups-week-navigation>
-</div>
+</div> -->
 
-<div *ngIf="runs?.length" class="wrapper count-and-filter">
-    <p class="count">{{ runs?.length }} runs found</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<div *ngIf="!isLoading" class="wrapper count-and-filter">
+    <p class="count">
+        {{ runs?.length || 'No' }}
+        <ng-container *ngIf="hasFilters">matching</ng-container>
+        runs found
+    </p>
     <button class="filter" mat-stroked-button (click)="onFilterClick()">
         <mat-icon>filter_list</mat-icon>
         Filter
     </button>
 </div>
 
-<div class="wrapper runs">
+<div *ngIf="!isLoading" class="wrapper runs">
     <ng-container *ngFor="let run of runs">
         <running-groups-run-card [attr.data-session-date]="run.date" class="card" [session]="run" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
     </ng-container>
 </div>
-
-<running-groups-calendar-list></running-groups-calendar-list>

@@ -9,6 +9,18 @@
   z-index: 10;
 }
 
+.no-sessions {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+
+  .icon {
+    font-size: 80px;
+    width: 80px;
+    color: #ddd;
+  }
+}
+
 .count-and-filter {
   display: flex;
   justify-content: space-between;

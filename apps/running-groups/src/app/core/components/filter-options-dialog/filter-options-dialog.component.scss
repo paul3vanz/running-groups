@@ -1,0 +1,20 @@
+.filter-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .mat-slide-toggle {
+    margin-right: 2rem;
+    position: relative;
+    top: -7px;
+  }
+
+  .mat-form-field {
+    width: 100px;
+  }
+
+  * {
+    flex: 1;
+    margin-right: 1rem;
+  }
+}

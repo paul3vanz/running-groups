@@ -1,8 +1,52 @@
 <h1 mat-dialog-title>Filter available sessions</h1>
 
-<div mat-dialog-content>Coming soon...</div>
+<div class="filter-group">
+    <mat-slide-toggle>Pace</mat-slide-toggle>
+
+    <mat-form-field appearance="outline">
+        <mat-label>From</mat-label>
+
+        <mat-select [(value)]="filters.paceFrom">
+            <mat-option></mat-option>
+
+            <ng-container *ngFor="let pace of paceValues">
+                <mat-option>{{ pace }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>To</mat-label>
+
+        <mat-select [(value)]="filters.paceTo">
+            <mat-option></mat-option>
+
+            <ng-container *ngFor="let pace of paceValues">
+                <mat-option>{{ pace }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="filter-group">
+    <mat-slide-toggle>Distance</mat-slide-toggle>
+
+    <mat-form-field appearance="outline">
+        <mat-label>From</mat-label>
+        <input matInput [(value)]="filters.distanceFrom">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>To</mat-label>
+        <input matInput [(value)]="filters.distanceTo">
+    </mat-form-field>
+</div>
+
+<!-- <pre>
+    {{ filters | json }}
+</pre> -->
 
 <div mat-dialog-actions>
     <button mat-stroked-button [mat-dialog-close]="true" color="primary">Save</button>
     <button mat-stroked-button mat-dialog-close>Cancel</button>
-  </div>
+</div>
