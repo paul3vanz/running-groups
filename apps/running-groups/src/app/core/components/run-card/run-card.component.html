@@ -18,7 +18,7 @@
             <li *ngIf="session.run.paceFrom" class="icon-list-item">
                 <mat-icon class="icon">speed</mat-icon>
 
-                <span class="text">{{ [ session.run.paceFrom, session.run.paceTo ] | pace }}</span>
+                <span class="text">{{ [ session.run.paceFrom, session.run.paceTo ] | pace }} min/mile</span>
             </li>
 
             <li *ngIf="hasDistanceOrTopography" class="icon-list-item">

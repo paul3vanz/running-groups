@@ -6,18 +6,23 @@ import * as moment from 'moment-mini';
   name: 'pace',
 })
 export class PacePipe implements PipeTransform {
-  transform(paces: string[]): string {
-    const paceFrom = paces[0] ? this.formatPace(paces[0]) : null;
-    const paceTo = paces[1] ? this.formatPace(paces[1]) : null;
+  transform(pace: string[] | string, alwaysShowSeconds: false): string {
+    let formattedPace: string;
 
-    const formattedPace = paceTo ? `${paceFrom}-${paceTo}` : paceFrom;
+    if (typeof pace === 'string') {
+      formattedPace = this.formatPace(pace, alwaysShowSeconds);
+    } else {
+      const paceFrom = pace[0] ? this.formatPace(pace[0], alwaysShowSeconds) : null;
+      const paceTo = pace[1] ? this.formatPace(pace[1], alwaysShowSeconds) : null;
 
-    return `${formattedPace} min/mile`;
+      formattedPace = paceTo ? `${paceFrom}-${paceTo}` : paceFrom;
+    }
+    return formattedPace;
   }
 
-  formatPace(pace: string): string {
+  formatPace(pace: string, alwaysShowSeconds: boolean): string {
     const paceAsMoment = moment(pace, 'HH:mm:ss');
 
-    return paceAsMoment.seconds() > 0 ? paceAsMoment.format('m:ss') : paceAsMoment.format('m');
+    return paceAsMoment.seconds() > 0 || alwaysShowSeconds ? paceAsMoment.format('m:ss') : paceAsMoment.format('m');
   }
 }

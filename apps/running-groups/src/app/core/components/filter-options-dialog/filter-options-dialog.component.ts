@@ -14,10 +14,10 @@ export class FilterOptionsDialogComponent implements OnInit {
   paceTo: string;
   paceValues: string[];
   filters: RunFilters = {
-    paceFrom: null,
+    paceFrom: '07:45',
     paceTo: null,
     distanceFrom: 4,
-    distanceTo: null,
+    distanceTo: 8,
   };
 
   constructor() {
@@ -30,15 +30,27 @@ export class FilterOptionsDialogComponent implements OnInit {
     const minutes = [];
 
     for (let minute = 7; minute <= 13; minute++) {
-      minutes.push(moment({ minute }).format('m:ss'));
-      minutes.push(
-        moment({
-          minute,
-          seconds: 15,
-        }).format('m:ss')
+      [ 0, 15, 30, 45 ].forEach((seconds) =>
+        minutes.push(
+          moment({
+            minute,
+            seconds,
+          }).format('HH:mm:ss')
+        )
       );
     }
 
     return minutes;
+  }
+
+  validateFormValues() {
+    console.log(this.filters);
+    if (this.filters.distanceTo > this.filters.distanceFrom) {
+      this.filters.distanceTo = this.filters.distanceFrom;
+    }
+  }
+
+  paceToMoment(pace) {
+    moment(pace, 'HH:mm:ss');
   }
 }

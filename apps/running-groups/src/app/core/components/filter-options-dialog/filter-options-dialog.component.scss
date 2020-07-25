@@ -1,20 +1,27 @@
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
 .filter-group {
   display: flex;
   flex-direction: row;
   align-items: center;
 
-  .mat-slide-toggle {
-    margin-right: 2rem;
+  legend {
+    font-weight: 500;
     position: relative;
     top: -7px;
+    white-space: nowrap;
   }
 
   .mat-form-field {
-    width: 100px;
+    width: 80px;
   }
 
   * {
     flex: 1;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
   }
 }

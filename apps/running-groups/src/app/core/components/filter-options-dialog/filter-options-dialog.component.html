@@ -1,52 +1,50 @@
 <h1 mat-dialog-title>Filter available sessions</h1>
 
-<div class="filter-group">
-    <mat-slide-toggle>Pace</mat-slide-toggle>
+<fieldset>
+    <div class="filter-group">
+        <legend>Pace (min/mile)</legend>
 
-    <mat-form-field appearance="outline">
-        <mat-label>From</mat-label>
+        <mat-form-field appearance="outline">
+            <mat-label>From</mat-label>
 
-        <mat-select [(value)]="filters.paceFrom">
-            <mat-option></mat-option>
+            <mat-select [(ngModel)]="filters.paceFrom" (change)="validateFormValues()">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let pace of paceValues" [value]="pace">{{ pace | pace : true }}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-            <ng-container *ngFor="let pace of paceValues">
-                <mat-option>{{ pace }}</mat-option>
-            </ng-container>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>To</mat-label>
 
-    <mat-form-field appearance="outline">
-        <mat-label>To</mat-label>
+            <mat-select [(ngModel)]="filters.paceTo" (change)="validateFormValues()">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let pace of paceValues" [value]="pace">{{ pace | pace : true }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</fieldset>
 
-        <mat-select [(value)]="filters.paceTo">
-            <mat-option></mat-option>
+<fieldset>
+    <div class="filter-group">
+        <legend>Distance (miles)</legend>
 
-            <ng-container *ngFor="let pace of paceValues">
-                <mat-option>{{ pace }}</mat-option>
-            </ng-container>
-        </mat-select>
-    </mat-form-field>
-</div>
+        <mat-form-field appearance="outline">
+            <mat-label>From</mat-label>
+            <input matInput [(ngModel)]="filters.distanceFrom" (change)="validateFormValues()">
+        </mat-form-field>
 
-<div class="filter-group">
-    <mat-slide-toggle>Distance</mat-slide-toggle>
-
-    <mat-form-field appearance="outline">
-        <mat-label>From</mat-label>
-        <input matInput [(value)]="filters.distanceFrom">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-        <mat-label>To</mat-label>
-        <input matInput [(value)]="filters.distanceTo">
-    </mat-form-field>
-</div>
+        <mat-form-field appearance="outline">
+            <mat-label>To</mat-label>
+            <input matInput [(ngModel)]="filters.distanceTo" (change)="validateFormValues()">
+        </mat-form-field>
+    </div>
+</fieldset>
 
 <!-- <pre>
     {{ filters | json }}
 </pre> -->
 
 <div mat-dialog-actions>
-    <button mat-stroked-button [mat-dialog-close]="true" color="primary">Save</button>
+    <button mat-stroked-button [mat-dialog-close]="filters" color="primary">Save</button>
     <button mat-stroked-button mat-dialog-close>Cancel</button>
 </div>

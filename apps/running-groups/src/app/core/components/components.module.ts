@@ -15,12 +15,14 @@ import { FilterOptionsDialogComponent } from './filter-options-dialog/filter-opt
 import { PipesModule } from '../pipes/pipes.module';
 import { RunCardComponent } from './run-card/run-card.component';
 import { WeekNavigationComponent } from './week-navigation/week-navigation.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ RunCardComponent, WeekNavigationComponent, ConfirmCancelSessionBookingDialogComponent, FilterOptionsDialogComponent ],
   entryComponents: [ ConfirmCancelSessionBookingDialogComponent, FilterOptionsDialogComponent ],
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
     MatCheckboxModule,
     MatDialogModule,
