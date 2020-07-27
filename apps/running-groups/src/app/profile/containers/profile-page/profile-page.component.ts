@@ -14,34 +14,29 @@ export class ProfilePageComponent implements OnInit {
   user$: Observable<User>;
   sessionBookings: ListSessionBookingsQuery;
 
-  constructor(
-    private apiService: APIService,
-    private authService: AuthService,
-    public dialog: MatDialog,
-    private runsService: RunsService
-  ) {}
+  constructor(private authService: AuthService, public dialog: MatDialog, private runsService: RunsService) {
+    this.runsService
+      .listSessionBookings$({
+        userId: {
+          eq: this.authService.userInfo$.getValue().id,
+        },
+      })
+      .subscribe((sessionBookings) => {
+        this.sessionBookings = sessionBookings;
+      });
+  }
 
   ngOnInit(): void {
     this.user$ = this.authService.userInfo$;
 
     console.log(this.authService.userInfo$.getValue(), this.authService.userInfo$.getValue().id);
-
-    this.runsService
-      .listSessionBookings({
-        userId: {
-          eq: this.authService.userInfo$.getValue().id,
-        },
-      })
-      .then((sessionBookings) => {
-        this.sessionBookings = sessionBookings;
-      });
   }
 
   onCancelSession(sessionId: string) {
     const dialogRef = this.dialog.open(ConfirmCancelSessionBookingDialogComponent);
 
     dialogRef.afterClosed().pipe(filter(Boolean)).subscribe((result) => {
-      this.runsService.deleteSessionBooking(sessionId, this.authService.userInfo$.getValue().id).then((sessionBooking) => {
+      this.runsService.deleteSessionBooking(sessionId, this.authService.userInfo$.getValue().id).subscribe((sessionBooking) => {
         this.sessionBookings = {
           ...this.sessionBookings,
           items: this.sessionBookings.items.filter((sessionBookingItem) => {

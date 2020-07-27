@@ -10,41 +10,94 @@ import {
   OnCreateSessionBookingSubscription,
 } from './api.service';
 import API, { graphqlOperation } from '@aws-amplify/api';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, from } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 import { Observable as ZenObservable } from 'zen-observable-ts';
 import { CREATE_SESSION_BOOKING_SUBSCRIPTION } from './subscriptions/create-session-booking.subscription';
+import { RunFiltersService } from './run-filters.service';
+import * as moment from 'moment-mini';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RunsService {
-  isLoading$ = new BehaviorSubject<boolean>(false);
+  private sessions$ = new BehaviorSubject<ListSessionsQuery>(undefined);
+  private loading$ = new BehaviorSubject<boolean>(false);
+  private updating$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private apiService: APIService) {}
-
-  listSessions(filter?: TableSessionFilterInput, limit?: number, nextToken?: string): Promise<ListSessionsQuery> {
-    return this.apiService.ListSessions(filter, limit, nextToken);
+  getLoading$(): Observable<boolean> {
+    return this.loading$.asObservable();
   }
 
-  listSessionBookings(filter?: TableSessionBookingFilterInput, limit?: number, nextToken?: string): Promise<ListSessionBookingsQuery> {
-    return this.apiService.ListSessionBookings(filter, limit, nextToken);
+  setLoading(loading: boolean) {
+    this.loading$.next(loading);
   }
 
-  createSessionBooking(sessionId: string, userId): Promise<CreateSessionBookingMutation> {
-    return this.apiService.CreateSessionBooking({
-      sessionId,
-      userId,
-    });
+  getUpdating$(): Observable<boolean> {
+    return this.updating$.asObservable();
   }
 
-  deleteSessionBooking(sessionId: string, userId): Promise<DeleteSessionBookingMutation> {
-    return this.apiService.DeleteSessionBooking({
-      sessionId,
-      userId,
-    });
+  setUpdating(updating: boolean) {
+    this.updating$.next(updating);
+  }
+
+  getSessions$(): Observable<ListSessionsQuery> {
+    return this.sessions$.asObservable();
+  }
+
+  setSessions(sessions: ListSessionsQuery) {
+    this.sessions$.next(sessions);
+  }
+
+  listSessions$(filter?: TableSessionFilterInput, limit?: number, nextToken?: string): Observable<ListSessionsQuery> {
+    this.setLoading(true);
+
+    return from(this.apiService.ListSessions(filter, limit, nextToken)).pipe(
+      tap(() => this.setLoading(false)),
+      map((sessions) => {
+        return {
+          ...sessions,
+          items: sessions.items.sort((a, b) => (moment(a.date).isBefore(moment(b.date)) ? -1 : 1)),
+        };
+      })
+    );
+  }
+
+  listSessionBookings$(filter?: TableSessionBookingFilterInput, limit?: number, nextToken?: string): Observable<ListSessionBookingsQuery> {
+    this.setLoading(true);
+
+    return from(this.apiService.ListSessionBookings(filter, limit, nextToken)).pipe(tap(() => this.setLoading(false)));
+  }
+
+  createSessionBooking(sessionId: string, userId): Observable<CreateSessionBookingMutation> {
+    this.setUpdating(true);
+
+    return from(
+      this.apiService.CreateSessionBooking({
+        sessionId,
+        userId,
+      })
+    ).pipe(tap(() => this.setUpdating(false)));
+  }
+
+  deleteSessionBooking(sessionId: string, userId): Observable<DeleteSessionBookingMutation> {
+    this.setUpdating(true);
+
+    return from(
+      this.apiService.DeleteSessionBooking({
+        sessionId,
+        userId,
+      })
+    ).pipe(tap(() => this.setUpdating(false)));
   }
 
   OnCreateSessionBookingListener(): ZenObservable<OnCreateSessionBookingSubscription> {
     return API.graphql(graphqlOperation(CREATE_SESSION_BOOKING_SUBSCRIPTION)) as ZenObservable<OnCreateSessionBookingSubscription>;
+  }
+
+  mapRunFiltersToService() {}
+
+  constructor(private apiService: APIService, private runFiltersService: RunFiltersService) {
+    this.getUpdating$().subscribe(console.log);
   }
 }
