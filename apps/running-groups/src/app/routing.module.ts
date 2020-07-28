@@ -22,6 +22,13 @@ const routes = [
     },
   },
   {
+    path: 'leader',
+    loadChildren: () => import('./leader/leader.module').then((m) => m.LeaderModule),
+    data: {
+      title: 'Leader',
+    },
+  },
+  {
     path: 'clubs',
     loadChildren: () => import('./clubs/clubs.module').then((m) => m.ClubsModule),
     data: {

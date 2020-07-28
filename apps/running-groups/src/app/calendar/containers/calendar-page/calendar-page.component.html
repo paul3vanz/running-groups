@@ -1,4 +1,4 @@
-<!-- <div class="wrapper week-navigation">
+<div class="wrapper week-navigation">
     <running-groups-week-navigation
         [dates]="dates"
         [selectedDate]="selectedDate"
@@ -6,7 +6,7 @@
         (nextWeek)="shiftDate(7)"
         (selectDate)="onSelectDate($event)"
     ></running-groups-week-navigation>
-</div> -->
+</div>
 
 <mat-spinner *ngIf="loading$ | async"></mat-spinner>
 

@@ -52,23 +52,23 @@ export class CalendarPageComponent {
     });
   }
 
-  //   shiftDate(amount: number) {
-  //     this.selectedDate = moment(this.selectedDate).add(amount, 'd').format('YYYY-MM-DD');
+    shiftDate(amount: number) {
+      this.selectedDate = moment(this.selectedDate).add(amount, 'd').format('YYYY-MM-DD');
 
-  //     this.onLoadSessions();
-  //   }
+      // this.onLoadSessions();
+    }
 
-  //   onSelectDate(date: string) {
-  //     this.selectedDate = date;
+    onSelectDate(date: string) {
+      this.selectedDate = date;
 
-  //     this.onLoadSessions();
-  //   }
+      // this.onLoadSessions();
+    }
 
-  //   get dates(): string[] {
-  //     const startOfWeek = moment(this.selectedDate).startOf('isoWeek');
+    get dates(): string[] {
+      const startOfWeek = moment(this.selectedDate).startOf('isoWeek');
 
-  //     return Array.from(Array(7)).map((value, index) => startOfWeek.clone().add(index, 'd').format('YYYY-MM-DD'));
-  //   }
+      return Array.from(Array(7)).map((value, index) => startOfWeek.clone().add(index, 'd').format('YYYY-MM-DD'));
+    }
 
   onFilterClick() {
     const dialogRef = this.dialog.open(FilterOptionsDialogComponent);

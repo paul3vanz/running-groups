@@ -1,5 +1,11 @@
 <running-groups-profile-summary class="summary"></running-groups-profile-summary>
 
+<div class="wrapper">
+    <h2>Leader</h2>
+
+    <mat-card><a class="link" href="javascript:void(0)" routerLink="/leader">Leader</a></mat-card>
+</div>
+
 <div *ngIf="!sessionBookings?.items?.length" class="wrapper no-bookings">
     <mat-icon class="icon">calendar_today</mat-icon>
 
@@ -15,7 +21,9 @@
         <a class="link" href="javascript:void(0)" routerLink="/calendar">Find a group</a>
     </div>
 
-    <ng-container *ngFor="let session of sessionBookingRuns">
-        <running-groups-run-card class="card" [session]="session" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
-    </ng-container>
+    <mat-card class="sessions-wrapper">
+        <ng-container *ngFor="let session of sessionBookingRuns">
+            <running-groups-run-card class="card" [session]="session" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
+        </ng-container>
+    </mat-card>
 </div>
