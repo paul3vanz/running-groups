@@ -1,30 +1,37 @@
 import { Auth } from 'aws-amplify';
 import { Injectable } from '@angular/core';
-import { from, throwError, Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import {
+  from,
+  throwError,
+  Observable,
+  EMPTY,
+  Subject,
+  BehaviorSubject,
+} from 'rxjs';
+import { map, catchError, finalize } from 'rxjs/operators';
 import { User } from './models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isLoading$ = new BehaviorSubject<boolean>(false);
-  userInfo$ = new BehaviorSubject<User>(null);
+  private _loading$ = new BehaviorSubject<boolean>(false);
+  private _user$ = new BehaviorSubject<User>(null);
 
-  signIn(username: string, password: string): Observable<void> {
-    return from(Auth.signIn(username, password)).pipe(catchError((error) => throwError(error)));
+  get loading$(): Observable<boolean> {
+    return this._loading$.asObservable();
   }
 
-  signOut(): Observable<void> {
-    return from(Auth.signOut()).pipe(catchError((error) => throwError(error)));
+  get user$(): Observable<User> {
+    return this._user$.asObservable();
   }
 
-  getUser(): Observable<User> {
-    this.isLoading$.next(true);
+  getUser$(): Observable<User> {
+    this._loading$.next(true);
 
     return from(Auth.currentUserInfo()).pipe(
       map((user) => {
-        this.isLoading$.next(false);
+        this._loading$.next(false);
 
         if (!user) {
           return null;
@@ -32,7 +39,7 @@ export class AuthService {
 
         const attributes = user.attributes;
 
-        this.userInfo$.next({
+        this._user$.next({
           id: attributes.sub,
           email: attributes.email,
           emailVerified: attributes.email_verified,
@@ -40,8 +47,26 @@ export class AuthService {
           phoneNumberVerified: attributes.phone_number_verified,
         });
 
-        return this.userInfo$.getValue();
+        return this._user$.getValue();
       })
+    );
+  }
+
+  signIn$(username: string, password: string): Observable<void> {
+    this._loading$.next(true);
+
+    return from(Auth.signIn(username, password)).pipe(
+      catchError((error) => throwError(error)),
+      finalize(() => this._loading$.next(false))
+    );
+  }
+
+  signOut$(): Observable<void> {
+    this._loading$.next(true);
+
+    return from(Auth.signOut()).pipe(
+      catchError((error) => throwError(error)),
+      finalize(() => this._loading$.next(false))
     );
   }
 }

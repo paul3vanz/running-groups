@@ -6,18 +6,31 @@ import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './auth-page.component.html',
-  styleUrls: [ './auth-page.component.scss' ],
+  styleUrls: ['./auth-page.component.scss'],
 })
 export class AuthPageComponent implements OnInit {
+
+  signUpFormFields = [
+    {
+      type: 'email',
+      label: 'Email address',
+      required: true,
+    },
+    {
+      type: 'password',
+      label: 'Password',
+      required: true,
+    },
+  ];
+
   constructor(private authService: AuthService, private router: Router) {
-    this.authService
-      .getUser()
+    this.authService.user$
       .pipe(
         take(1),
         map((user) => {
           console.log('logged in', user);
           if (user) {
-            this.router.navigate([ '/profile' ]);
+            this.router.navigate(['/profile']);
           }
 
           return EMPTY;
@@ -26,5 +39,7 @@ export class AuthPageComponent implements OnInit {
       .subscribe();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.user$.subscribe(console.log);
+  }
 }

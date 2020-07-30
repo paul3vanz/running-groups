@@ -1,0 +1,53 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.week-navigation {
+  position: sticky;
+  top: 35px;
+  z-index: 10;
+
+
+}
+
+.no-sessions {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+
+  .icon {
+    font-size: 80px;
+    width: 80px;
+    color: #ddd;
+  }
+}
+
+.count-and-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  * {
+    margin-bottom: 0;
+  }
+}
+
+.subtitle {
+  margin-bottom: 0;
+}
+
+button {
+  margin-bottom: 1rem;
+}
+
+.spinner {
+  margin: 3rem auto;
+}
+
+.sessions-wrapper {
+  .card:not(:last-child) {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+}

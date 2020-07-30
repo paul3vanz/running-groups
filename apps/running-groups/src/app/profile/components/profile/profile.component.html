@@ -1,29 +1,51 @@
-<running-groups-profile-summary class="summary"></running-groups-profile-summary>
+<running-groups-profile-summary
+  class="summary"
+  (updateProfile)="onUpdateProfile()"
+></running-groups-profile-summary>
 
 <div class="wrapper">
-    <h2>Leader</h2>
+  <h2>Leader</h2>
 
-    <mat-card><a class="link" href="javascript:void(0)" routerLink="/leader">Leader</a></mat-card>
+  <mat-card>
+    <a class="link" href="javascript:void(0)" routerLink="/leader">
+      Leader
+    </a>
+  </mat-card>
 </div>
 
 <div *ngIf="!sessionBookings?.items?.length" class="wrapper no-bookings">
-    <mat-icon class="icon">calendar_today</mat-icon>
+  <mat-icon class="icon">calendar_today</mat-icon>
 
-    <h3 class="text">No groups booked</h3>
+  <h3 class="text">No groups booked</h3>
 
-    <a class="link" href="javascript:void(0)" routerLink="/calendar">Find a group</a>
+  <a class="link" href="javascript:void(0)" routerLink="/calendar">
+    Find a group
+  </a>
 </div>
 
 <div *ngIf="sessionBookings?.items?.length" class="wrapper bookings">
-    <div class="bookings-heading">
-        <h2 class="heading">Your bookings</h2>
+  <div class="bookings-heading">
+    <h2 class="heading">Your bookings</h2>
 
-        <a class="link" href="javascript:void(0)" routerLink="/calendar">Find a group</a>
-    </div>
+    <a class="link" href="javascript:void(0)" routerLink="/calendar">
+      Find a group
+    </a>
+  </div>
 
-    <mat-card class="sessions-wrapper">
-        <ng-container *ngFor="let session of sessionBookingRuns">
-            <running-groups-run-card class="card" [session]="session" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
-        </ng-container>
-    </mat-card>
+  <mat-card class="sessions-wrapper">
+    <ng-container *ngFor="let session of sessionBookingRuns">
+      <running-groups-run-card
+        class="card"
+        [session]="session"
+        [user]="user"
+        (cancelSession)="onCancelSession($event)"
+      ></running-groups-run-card>
+    </ng-container>
+  </mat-card>
+</div>
+
+<div class="wrapper">
+  <mat-card class="sign-out">
+    <a class="link" href="javascript:void(0)" (click)="signOut.emit()">Sign out</a>
+  </mat-card>
 </div>

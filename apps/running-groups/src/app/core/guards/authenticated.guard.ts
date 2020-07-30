@@ -9,7 +9,7 @@ import { take, map, delay } from 'rxjs/operators';
 })
 export class AuthenticatedGuard implements CanActivate, CanActivateChild {
   canActivate(): Observable<boolean> {
-    return this.authService.getUser().pipe(
+    return this.authService.getUser$().pipe(
       take(1),
       map((user) => {
         if (!user || !user.id) {

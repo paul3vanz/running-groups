@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'running-groups-create-group',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-group.component.scss']
 })
 export class CreateGroupComponent implements OnInit {
+  @Input() formGroup: FormGroup;
+
+  @Output() save = new EventEmitter<FormGroup>();
+  @Output() cancel = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onCancel() {
+    this.cancel.emit();
+  }
+
+  onSave() {
+    this.save.emit(this.formGroup.value);
   }
 
 }

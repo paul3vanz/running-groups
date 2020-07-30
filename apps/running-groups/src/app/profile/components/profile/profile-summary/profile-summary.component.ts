@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'running-groups-profile-summary',
@@ -6,8 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: [ './profile-summary.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileSummaryComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class ProfileSummaryComponent {
+  @Output() updateProfile = new EventEmitter();
 }

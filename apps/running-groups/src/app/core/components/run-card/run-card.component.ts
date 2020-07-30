@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { GetSessionQuery } from '@running-groups/api';
-import { AuthService } from '@running-groups/auth';
+import { AuthService, User } from '@running-groups/auth';
 
 @Component({
   selector: 'running-groups-run-card',
@@ -9,6 +9,7 @@ import { AuthService } from '@running-groups/auth';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunCardComponent implements OnInit {
+  @Input() user: User;
   @Input() session: GetSessionQuery;
   @Output() bookSession = new EventEmitter<string>();
   @Output() cancelSession = new EventEmitter<string>();
@@ -34,6 +35,6 @@ export class RunCardComponent implements OnInit {
   }
 
   get isBooked() {
-      return this.session.bookings.some((booking) => booking.userId === this.authService.userInfo$.getValue().id);
+      return this.session.bookings.some((booking) => booking.userId === this.user?.id);
   }
 }

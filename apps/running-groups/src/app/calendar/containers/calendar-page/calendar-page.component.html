@@ -1,29 +1,7 @@
-<div class="wrapper week-navigation">
-    <running-groups-week-navigation
-        [dates]="dates"
-        [selectedDate]="selectedDate"
-        (previousWeek)="shiftDate(-7)"
-        (nextWeek)="shiftDate(7)"
-        (selectDate)="onSelectDate($event)"
-    ></running-groups-week-navigation>
-</div>
-
-<mat-spinner *ngIf="loading$ | async"></mat-spinner>
-
-<div *ngIf="!(loading$ | async)" class="wrapper count-and-filter">
-    <p class="count">
-        {{ (sessions$ | async)?.items?.length || 'No' }}
-        <ng-container *ngIf="hasFilters">matching</ng-container>
-        runs found
-    </p>
-    <button class="filter" mat-stroked-button (click)="onFilterClick()">
-        <mat-icon>filter_list</mat-icon>
-        Filter
-    </button>
-</div>
-
-<div *ngIf="(sessions$ | async)?.items?.length" class="wrapper runs">
-    <ng-container *ngFor="let session of (sessions$ | async)?.items">
-        <running-groups-run-card [attr.data-session-date]="session.date" class="card" [session]="session" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
-    </ng-container>
-</div>
+<running-groups-calendar
+    [dates]="dates"
+    [loading]="loading$ | async"
+    [selectedDate]="selectedDate"
+    [sessions]="sessions$ | async"
+    [user]="user$ | async"
+></running-groups-calendar>

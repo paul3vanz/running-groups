@@ -18,9 +18,10 @@ import { AuthenticatedGuard } from '../core/guards/authenticated.guard';
 import { ComponentsModule } from '../core/components/components.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmCancelSessionBookingDialogComponent } from '../core/components/confirm-cancel-session-booking-dialog/confirm-cancel-session-booking-dialog.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
-  declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent ],
+  declarations: [ CalendarPageComponent, FilterDialogComponent, CalendarListComponent, CalendarComponent ],
   entryComponents: [ ConfirmCancelSessionBookingDialogComponent ],
   imports: [
     CommonModule,

@@ -1,1 +1,5 @@
-<running-groups-create-group></running-groups-create-group>
+<running-groups-create-group
+    [formGroup]="createGroupForm"
+    (save)="onSave($event)"
+    (cancel)="onCancel()"
+  ></running-groups-create-group>
