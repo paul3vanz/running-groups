@@ -4,4 +4,6 @@
     [selectedDate]="selectedDate"
     [sessions]="sessions$ | async"
     [user]="user$ | async"
+    (cancelSession)="onCancelSession($event)"
+    (bookSession)="onBookSession($event)"
 ></running-groups-calendar>

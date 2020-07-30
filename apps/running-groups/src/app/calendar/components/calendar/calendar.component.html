@@ -25,7 +25,7 @@
 <div *ngIf="sessions?.items?.length" class="wrapper sessions-wrapper">
   <mat-card class="card">
       <ng-container *ngFor="let session of sessions?.items">
-          <running-groups-run-card [attr.data-session-date]="session.date" class="card" [session]="session" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
+          <running-groups-run-card [attr.data-session-date]="session.date" class="card" [session]="session" [user]="user" (bookSession)="onBookSession($event)" (cancelSession)="onCancelSession($event)"></running-groups-run-card>
       </ng-container>
   </mat-card>
 </div>
