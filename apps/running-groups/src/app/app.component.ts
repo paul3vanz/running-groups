@@ -4,7 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { RouteService } from './services/route.service';
 import { Observable, combineLatest } from 'rxjs';
 import { AuthService } from '@running-groups/auth';
-import { RunsService } from '@running-groups/api';
+import { RunsService, OnCreateRunSubscription } from '@running-groups/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -47,10 +47,12 @@ export class AppComponent implements OnInit {
 
     this.runsService.onCreateRun().subscribe({
       next: (subscription: any) => {
-        const user = subscription.value.data.onCreateRun.user;
+        console.log(subscription.value.data.onCreateRun);
+
+        const run = subscription.value.data.onCreateRun as OnCreateRunSubscription;
 
         this.snackBar.open(
-          `Run created by ${user.firstName} ${user.lastName}`,
+          `Run created by ${run.leader.firstName} ${run.leader.lastName}: ${run.paceFrom} min/mile - ${run.distance} miles - ${run.title}`,
           'Dismiss',
           {
             duration: 4000,
@@ -61,10 +63,12 @@ export class AppComponent implements OnInit {
 
     // this.runsService.onCreateSession().subscribe({
     //   next: (subscription: any) => {
-    //     const user = subscription.value.data.onCreateSession.user;
+    //     console.log(subscription.value.data);
+
+    //     // const user = subscription.value.data.onCreateSession.user;
 
     //     this.snackBar.open(
-    //       `Session created by ${user.firstName} ${user.lastName}`,
+    //       `Session created`,
     //       'Dismiss',
     //       {
     //         duration: 4000,

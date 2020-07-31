@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CreateRunInput } from '@running-groups/api';
 
 @Component({
   selector: 'running-groups-create-group',
@@ -9,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class CreateGroupComponent implements OnInit {
   @Input() formGroup: FormGroup;
 
-  @Output() save = new EventEmitter<FormGroup>();
+  @Output() save = new EventEmitter<CreateRunInput>();
   @Output() cancel = new EventEmitter();
 
   constructor() { }
